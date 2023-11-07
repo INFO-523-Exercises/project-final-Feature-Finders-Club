@@ -10,6 +10,6 @@ This project was developed by **\[Team Name\]** For [INFO 523 - Data Mining and 
 
 -   Team member 2: Sanjay Bhargav Siddi: First-year graduate student pursuing Data Science at University of Arizona, github: @sanjaybhargavsiddi
 
--   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
+-   Team member 3: Likith Kumar Dundigalla: First-year graduate student pursuing Data Science at University of Arizona, github: @LikithKumarDundigalla
 
 -   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
