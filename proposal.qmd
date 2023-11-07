@@ -1,14 +1,30 @@
 ---
-title: "Proposal title"
+title: "Sentiment Analysis on Tech-based Stocks"
 subtitle: "Proposal"
-format: html
+format:
+  html:
+    code-tools: true
+    code-overflow: wrap
+    code-line-numbers: true
+    embed-resources: true
 editor: visual
+code-annotations: hover
+categories: 
+  - Data Mining and Discovery
+execute:
+  warning: false
 ---
 
-```{r}
-#| label: load-pkgs
-#| message: false
-library(tidyverse)
+```{r load_pkgs, message=FALSE, output=FALSE}
+# GETTING THE LIBRARIES
+if (!require(pacman))
+  install.packages(pacman)
+
+pacman::p_load(tidyverse,
+               formattable,
+               janitor,
+               dlookr,
+               here)
 ```
 
 ## Dataset
