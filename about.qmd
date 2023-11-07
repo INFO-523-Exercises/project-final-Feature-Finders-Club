@@ -4,12 +4,14 @@ format: html
 editor: visual
 ---
 
-This project was developed by **\[Team Name\]** For [INFO 523 - Data Mining and Discovery](https://datamineaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
+This project was developed by **\[Feature Finders Club\]** For [INFO 523 - Data Mining and Discovery](https://datamineaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
 
 -   Team member 1: - Eshaan Mathakari: First-year graduate student pursuing Data Science at University of Arizona, github: @eshaanmathakari
 
 -   Team member 2: Sanjay Bhargav Siddi: First-year graduate student pursuing Data Science at University of Arizona, github: @sanjaybhargavsiddi
 
--   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
+-   Team member 3: Likith Kumar Dundigalla: First-year graduate student pursuing Data Science at University of Arizona, github: @LikithKumarDundigalla
 
--   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
+-   Team member 4: Aravind shrenivas Murali: First-year graduate student pursuing Data Science at University of Arizona, github: @Aravind-shrenivas
+
+-   Team member 5: Vamsi Vadala: First-year graduate student pursuing Data Science at University of Arizona, github: @Vamsi-Vadala
