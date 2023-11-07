@@ -40,7 +40,18 @@ Make sure to load the data and use inline code for some of this information.
 
 ## Questions
 
-Question 1: 
+Question 1: Does the world of news headlines influence the intricate dance of stock prices? Can we unveil the secrets?
+The question frames the investigation into the influence of new headlines on the stock prices in captivating and
+thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
+uncovering hidden patterns or insights, which can be appealing to those interested in financial markets and data
+analysis.
+To address the question in a general sense, we would employ a combination of data analysis and predictive modeling.
+By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
+news sentiment and market movements. This analysis might involve quantifying sentiment in news headlines,
+identifying patterns, and exploring correlations. Furthermore, predictive models can be developed to forecast
+potential future stock price changes based on these insights. The goal is to gain a better understanding of how
+news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market
+behavior.
 
 Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
 
