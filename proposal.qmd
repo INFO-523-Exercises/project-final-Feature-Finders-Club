@@ -26,6 +26,15 @@ pacman::p_load(tidyverse,
                dlookr,
                here)
 ```
+## Introduction
+
+Our aim is to develop a robust stock prediction model by analyzing the correlation between news sentiment and market movements, while also exploring the interconnected dynamics of stock prices within specific sectors.
+
+## Abstract
+
+Our primary objective is to develop an advanced predictive model using the `yahoofinance` package, meticulously tailored for stock analysis, with Apple Inc. (AAPL) serving as a prominent example. This model is intricately designed to unravel the nuanced correlation between news sentiment and the dynamic landscape of stock prices. Leveraging sophisticated methodologies in natural language processing and machine learning, our goal is to discern identifiable patterns and trends within news data, providing invaluable insights into their profound impact on the pricing dynamics of stocks, illustrated by the case of `AAPL`. This predictive framework is meticulously crafted not only to forecast individual movements in example stocks with precision but also to contribute to a thorough understanding of the profound influence exerted by news sentiment on market behaviors, specifically within the technology sector.
+
+In addition, our focus extends to the exploration of the intricate network of interdependencies among stocks within the technology sector. A pivotal aspect of our objectives involves scrutinizing how fluctuations in the stock prices of one entity can act as a catalyst, triggering substantial market responses in others within the sector. Obtaining in-depth insights into how shifts in the stock prices of one company, notably Apple Inc., can propagate influence throughout the sector is crucial for informing strategic decision-making and anticipating broader market dynamics within the industry. This exploration not only augments our predictive accuracy but also furnishes strategic decision-makers with invaluable insights for informed decision-making.
 
 ## Dataset
 
@@ -38,10 +47,110 @@ A brief description of your dataset including its provenance, dimensions, etc. a
 
 Make sure to load the data and use inline code for some of this information.
 
+Variables Involved:
+
+- News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
+
+- Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
+
+Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
+
+Variables to be Created:
+
+- Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
+
+- Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
+
 ## Questions
 
-The two questions you want to answer.
+Question 1: Does the world of news headlines influence the intricate dance of stock prices? Can we unveil the secrets?
+
+Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
+
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+### Approach for Question 1
+The question frames the investigation into the influence of new headlines on the stock prices in captivating and
+thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
+uncovering hidden patterns or insights, which can be appealing to those interested in financial markets and data
+analysis.
+
+To address the question in a general sense, we would employ a combination of data analysis and predictive modeling.
+By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
+news sentiment and market movements. This analysis might involve quantifying sentiment in news headlines,
+identifying patterns, and exploring correlations. Furthermore, predictive models can be developed to forecast
+potential future stock price changes based on these insights. The goal is to gain a better understanding of how
+news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market
+behavior.
+
+
+### Approach for Question 2
+We chose this question because it is crucial in the world of finance. It affects how we manage risks, make investments in 
+different things, understand industries, create smart trading plans, and make decisions as investors. When stocks in one industry 
+move in the same way, it can mean more risk and less benefit from spreading out our investments. On the other hand, when they don't 
+move the same way, it can be a chance to lower risk and improve our investments. By figuring out these connections, we can make 
+smarter choices about where to invest our money, reduce risks, get a better grip on how industries work, and plan our trading and 
+investments more effectively.
+
+To address this question, we will pinpoint key elements, such as stock prices and financial market headlines, for examination. We will compute 
+correlation coefficients to gauge the magnitude and direction of the link between stock prices. To better understand this relationship, 
+we will visualize it using tools like scatter plots, heatmaps, or correlation matrices. We will then interpret the findings of our 
+analysis, determining whether stocks exhibit positive or negative correlations and to what degree these correlations extend.
+
+
+Plan Summary:
+
+- We will collect the stock price data and news headlines data.
+
+- Categorize the stocks into sectors.
+
+- To answer question 1, we will calculate correlation coefficients between stock prices and news sentiment .
+
+- To answer question 2, we will calculate correlation coefficients between stock prices of the selected sector.
+
+- And finally, create a sentiment index to gauge news sentiment's influence on stock prices.
+
+- We may use external data like economic indicators or sector-specific data like industry specific news or performance metrics.
+
+|               Week                | Weekly Tasks                                                                          | Persons in Charge |  Backup  |
+|:----------------:|-------------------|:----------------:|:----------------:|
+|       until November 8^th^        | Explore and finalize the dataset and the problem statements                           |     Everyone      | Everyone |
+|                \-                 | Complete the proposal and assign some high-level tasks                                |     Everyone      | Everyone |
+|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library                                              |        TBD        |   TBD    |
+|                \-                 | Data cleaning and Data pre-processing                                                 |        TBD        |   TBD    |
+|                \-                 | Question specific exploration and data categorization                                 |        TBD        |   TBD    |
+|     November 16^th^ to 22^nd^     | Performing Sentiment analysis for Q1                                                  |        TBD        |   TBD    |
+|                \-                 | Performing Sentiment analysis for Q2                                                  |        TBD        |   TBD    |
+|                \-                 | Exploring on how to integrate our analysis with real-time prices.                     |        TBD        |   TBD    |
+|     November 23^rd^ to 29^th^     | Generating remaining parts of the plots for Q1 and Q2                                 |        TBD        |   TBD    |
+|                \-                 | Improving the generated sentiment analysis  model                                     |        TBD        |   TBD    |
+|                \-                 | Start integrating quarto and our model                                                |        TBD        |   TBD    |
+| November 30^th^ to December 6^th^ | Refining the code for code review with comments                                       |        TBD        |   TBD    |
+|                \-                 | Making a few changes on the model to test it based on historical data                 |        TBD        |   TBD    |
+|                \-                 | Continue with the integration of quarto and our models                                |        TBD        |   TBD    |
+|     December 7^th^ to 13^th^      | Complete the quarto website with presentable data                                     |        TBD        |   TBD    |
+|                \-                 | Review the model and debugging                                                        |        TBD        |   TBD    |
+|                \-                 | Write-up and presentation for the project                                             |     Everyone      | Everyone |
+
+### Repo Organization
+
+The following are the folders involved in the Project repository.
+
+-   **'data/':** Used for storing any necessary data files for the project, such as input files.
+
+-   **'images/':** Used for storing image files used in the project.
+
+-   **'\_extra/':** Used to brainstorm our analysis which won't impact our project workflow.
+
+-   **'\_freeze/':** This folder is used to store the generated files during the build process. These files represent the frozen state of the website at a specific point in time.
+
+-   **'.github/':** Folder for storing github templates and workflow.
+
+
+::: callout-note
+## Note:
+
+These are the planned approaches, and we intend to explore and solve the problem statement which we came up with. Parts of our approach might change in the final implementation.
+:::
