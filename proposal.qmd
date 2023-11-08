@@ -21,7 +21,6 @@ if (!require(pacman))
   install.packages(pacman)
 
 pacman::p_load(tidyverse,
-               reticulate,
                formattable,
                janitor,
                dlookr,
@@ -44,11 +43,7 @@ In addition, our focus extends to the exploration of the intricate network of in
 #| message: false
 ```
 
----
-jupyter: python3
----
-
-```{python}
+```{}
 # importing module to download data
 import yfinance
 
@@ -73,15 +68,114 @@ The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This d
 
 : Data Dictionary {tbl-colwidths="[20,15,65]"}
 
+```{}
+data
+```
+
+```{=html}
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Open</th>
+<th data-quarto-table-cell-role="th">High</th>
+<th data-quarto-table-cell-role="th">Low</th>
+<th data-quarto-table-cell-role="th">Close</th>
+<th data-quarto-table-cell-role="th">Volume</th>
+<th data-quarto-table-cell-role="th">Dividends</th>
+<th data-quarto-table-cell-role="th">Stock Splits</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Datetime</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-11-07 09:30:00-05:00</td>
+<td>179.179993</td>
+<td>180.820007</td>
+<td>179.009995</td>
+<td>180.710007</td>
+<td>16268674</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-11-07 10:30:00-05:00</td>
+<td>180.695007</td>
+<td>181.595001</td>
+<td>180.529999</td>
+<td>181.455002</td>
+<td>8190077</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-11-07 11:30:00-05:00</td>
+<td>181.455002</td>
+<td>181.639999</td>
+<td>180.520004</td>
+<td>181.175003</td>
+<td>7493420</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-11-07 12:30:00-05:00</td>
+<td>181.175003</td>
+<td>182.160004</td>
+<td>180.934998</td>
+<td>182.014999</td>
+<td>6208182</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-11-07 13:30:00-05:00</td>
+<td>182.018494</td>
+<td>182.440002</td>
+<td>181.929993</td>
+<td>182.340897</td>
+<td>5219872</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2023-11-07 14:30:00-05:00</td>
+<td>182.350006</td>
+<td>182.429993</td>
+<td>181.899994</td>
+<td>182.198303</td>
+<td>5513486</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2023-11-07 15:30:00-05:00</td>
+<td>182.195007</td>
+<td>182.339996</td>
+<td>181.550003</td>
+<td>181.820007</td>
+<td>8142789</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+```
 
 $\color{Green} Why\ did\ we\ chose\ this\ data\ set?$
 
 This dataset is suitable for stock price prediction due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling in the context of stock price prediction.
 
-
-```{python}
-data
-```
 
 
 Variables Involved:
