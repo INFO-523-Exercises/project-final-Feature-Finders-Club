@@ -43,9 +43,45 @@ In addition, our focus extends to the exploration of the intricate network of in
 #| message: false
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+---
+jupyter: python3
+---
 
-Make sure to load the data and use inline code for some of this information.
+```{python}
+# importing module to download data
+import yfinance
+
+# Using Ticker module in yfinace to get data of desired stock
+apple = yfinance.Ticker("AAPL")
+# usign history function to get stock data of yesterday with 1 hour interval from maket opening to closing
+data = apple.history(period='1d',interval='1h')
+```
+
+The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This data contain's the information about a particular stock and how it performed during certain period. This information includes openning,closing and other related features of the stock. The following are the attributes(freatures) of the data retrived:
+
+| Column Name | Data Type | Description |
+|---------|-----|------|
+|Datetime|String| This column represents the date and time for each data point, in the format "YYYY-MM-DD HH:MM:SS-TZ." It provides the timestamp at which the stock price information was recorded. The timezone (TZ) indicates the time zone for the recorded data.|
+|Open|Integer|This column contains the opening price of the stock at the specific timestamp. The opening price is the price at which the stock started trading at the beginning of the given time interval (e.g., each hour).|
+|High|Integer|The "High" column contains the highest price reached by the stock during the time interval. It represents the peak value of the stock's price within that hour.|
+|Low|Integer|In this column, you find the lowest price reached by the stock during the same time interval. It represents the minimum value of the stock's price within that hour.|
+|Close|Integer| The "Close" column provides the closing price of the stock at the end of the specified time interval. It is the last price recorded before the end of that hour.|
+|Volume|Integer|This column represents the trading volume of the stock during the given time interval. Trading volume is the total number of shares or contracts traded during that hour.|
+|Dividends|Integer|The "Dividends" column typically contains information about any dividend payments made during the specified time interval. In the dataset you provided, it appears that no dividends were recorded (values are zero).|
+|Stock Splits|Integer|The "Stock Splits" column would typically record any information related to stock splits that occurred during the specified time interval. In the dataset, it also appears that no stock splits were recorded (values are zero).|
+
+: Data Dictionary {tbl-colwidths="[20,15,65]"}
+
+
+$\color{Green} Why\ did\ we\ chose\ this\ data\ set?$
+
+This dataset is suitable for stock price prediction due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling in the context of stock price prediction.
+
+
+```{python}
+data
+```
+
 
 Variables Involved:
 
