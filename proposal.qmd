@@ -74,6 +74,8 @@ identifying patterns, and exploring correlations. Furthermore, predictive models
 potential future stock price changes based on these insights. The goal is to gain a better understanding of how
 news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market
 behavior.
+
+
 ### Approach for Question 2
 We chose this question because it is crucial in the world of finance. It affects how we manage risks, make investments in 
 different things, understand industries, create smart trading plans, and make decisions as investors. When stocks in one industry 
