@@ -47,11 +47,71 @@ A brief description of your dataset including its provenance, dimensions, etc. a
 
 Make sure to load the data and use inline code for some of this information.
 
+Variables Involved:
+
+- News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
+
+- Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
+
+Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
+
+Variables to be Created:
+
+- Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
+
+- Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
+
 ## Questions
 
-The two questions you want to answer.
+Question 1: Does the world of news headlines influence the intricate dance of stock prices? Can we unveil the secrets?
+
+Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
+
 
 ## Analysis plan
+
+### Approach for Question 1
+The question frames the investigation into the influence of new headlines on the stock prices in captivating and
+thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
+uncovering hidden patterns or insights, which can be appealing to those interested in financial markets and data
+analysis.
+
+To address the question in a general sense, we would employ a combination of data analysis and predictive modeling.
+By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
+news sentiment and market movements. This analysis might involve quantifying sentiment in news headlines,
+identifying patterns, and exploring correlations. Furthermore, predictive models can be developed to forecast
+potential future stock price changes based on these insights. The goal is to gain a better understanding of how
+news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market
+behavior.
+
+
+### Approach for Question 2
+We chose this question because it is crucial in the world of finance. It affects how we manage risks, make investments in 
+different things, understand industries, create smart trading plans, and make decisions as investors. When stocks in one industry 
+move in the same way, it can mean more risk and less benefit from spreading out our investments. On the other hand, when they don't 
+move the same way, it can be a chance to lower risk and improve our investments. By figuring out these connections, we can make 
+smarter choices about where to invest our money, reduce risks, get a better grip on how industries work, and plan our trading and 
+investments more effectively.
+
+To address this question, we will pinpoint key elements, such as stock prices and financial market headlines, for examination. We will compute 
+correlation coefficients to gauge the magnitude and direction of the link between stock prices. To better understand this relationship, 
+we will visualize it using tools like scatter plots, heatmaps, or correlation matrices. We will then interpret the findings of our 
+analysis, determining whether stocks exhibit positive or negative correlations and to what degree these correlations extend.
+
+
+Plan Summary:
+
+- We will collect the stock price data and news headlines data.
+
+- Categorize the stocks into sectors.
+
+- To answer question 1, we will calculate correlation coefficients between stock prices and news sentiment .
+
+- To answer question 2, we will calculate correlation coefficients between stock prices of the selected sector.
+
+- And finally, create a sentiment index to gauge news sentiment's influence on stock prices.
+
+- We may use external data like economic indicators or sector-specific data like industry specific news or performance metrics.
 
 |               Week                | Weekly Tasks                                                                          | Persons in Charge |  Backup  |
 |:----------------:|-------------------|:----------------:|:----------------:|
@@ -73,8 +133,6 @@ The two questions you want to answer.
 |                \-                 | Review the model and debugging                                                        |        TBD        |   TBD    |
 |                \-                 | Write-up and presentation for the project                                             |     Everyone      | Everyone |
 
-: {.hover}
-
 ### Repo Organization
 
 The following are the folders involved in the Project repository.
@@ -95,4 +153,3 @@ The following are the folders involved in the Project repository.
 
 These are the planned approaches, and we intend to explore and solve the problem statement which we came up with. Parts of our approach might change in the final implementation.
 :::
-
