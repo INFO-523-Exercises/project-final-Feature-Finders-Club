@@ -58,7 +58,6 @@ Question 1: Does the world of news headlines influence the intricate dance of st
 
 Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
 
-### Approach for Question 1
 
 ## Analysis plan
 
