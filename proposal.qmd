@@ -70,6 +70,7 @@ Question 2: To what extent do changes in the stock prices influence the price mo
 
 ## Analysis plan
 
+
 ### Approach for Question 1
 The question frames the investigation into the influence of new headlines on the stock prices in captivating and
 thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
