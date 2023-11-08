@@ -252,20 +252,20 @@ analysis, determining whether stocks exhibit positive or negative correlations a
 |:----------------:|-------------------|:----------------:|:----------------:|
 |       until November 8^th^        | Explore and finalize the dataset and the problem statements                           |     Everyone      | Everyone |
 |                \-                 | Complete the proposal and assign some high-level tasks                                |     Everyone      | Everyone |
-|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library                                              |        TBD        |   TBD    |
-|                \-                 | Data cleaning and Data pre-processing                                                 |        TBD        |   TBD    |
-|                \-                 | Question specific exploration and data categorization                                 |        TBD        |   TBD    |
-|     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                                  |        TBD        |   TBD    |
-|                \-                 | Performing `Sentiment analysis` and find `correlations` for Q2                                                  |        TBD        |   TBD    |
-|                \-                 | Exploring on how to integrate our analysis with real-time prices.                     |        TBD        |   TBD    |
-|     November 23^rd^ to 29^th^     | Generating remaining parts of the plots for Q1 and Q2                                 |        TBD        |   TBD    |
-|                \-                 | Improving the generated sentiment analysis  model                                     |        TBD        |   TBD    |
-|                \-                 | Start integrating quarto and our model                                                |        TBD        |   TBD    |
-| November 30^th^ to December 6^th^ | Refining the code for code review with comments                                       |        TBD        |   TBD    |
-|                \-                 | Making a few changes on the model to test it based on historical data                 |        TBD        |   TBD    |
-|                \-                 | Continue with the integration of quarto and our models                                |        TBD        |   TBD    |
-|     December 7^th^ to 13^th^      | Complete the quarto website with presentable data                                     |        TBD        |   TBD    |
-|                \-                 | Review the model and debugging                                                        |        TBD        |   TBD    |
+|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library                                              |     Everyone      | Everyone |
+|                \-                 | Data cleaning and Data pre-processing                                                 |        Eshaan     | Aravind  |
+|                \-                 | Question specific exploration and data categorization                                 |        Likith     |   Sanjay |
+|     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                                |        Sanjay     |   Likith |
+|                \-                 | Performing `Sentiment analysis` and find `correlations` for Q2                        |        Vamsi      |  Aravind |
+|                \-                 | Exploring on how to integrate our analysis with real-time prices.                     |        Aravind    |   Likith |
+|     November 23^rd^ to 29^th^     | Generating remaining parts of the plots for Q1 and Q2                                 |        Eshaan     |  Sanjay  |
+|                \-                 | Improving the generated sentiment analysis  model                                     |        Sanjay     |   Vamsi  |
+|                \-                 | Start integrating quarto and our model                                                |        Likith     |   Eshaan |
+| November 30^th^ to December 6^th^ | Refining the code for code review with comments                                       |       Everyone    | Everyone |
+|                \-                 | Making a few changes on the model to test it based on historical data                 |        Vamsi      |  Aravind |
+|                \-                 | Continue with the integration of quarto and our models                                |        Aravind    |  Eshaan  |
+|     December 7^th^ to 13^th^      | Complete the quarto website with presentable data                                     |     Everyone      | Everyone |
+|                \-                 | Review the model and debugging                                                        |     Everyone      | Everyone |
 |                \-                 | Write-up and presentation for the project                                             |     Everyone      | Everyone |
 
 
