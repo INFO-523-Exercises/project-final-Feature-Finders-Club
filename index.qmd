@@ -1,9 +1,18 @@
 ---
-title: "Project title"
-subtitle: "INFO 523 - Project Final"
-author: "Team name"
-format: html
+title: "Sentiment Analysis on Tech-based Stocks"
+subtitle: "Proposal"
+format:
+  html:
+    code-tools: true
+    code-overflow: wrap
+    code-line-numbers: true
+    embed-resources: true
 editor: visual
+code-annotations: hover
+categories: 
+  - Data Mining and Discovery
+execute:
+  warning: false
 ---
 
 ## Abstract
