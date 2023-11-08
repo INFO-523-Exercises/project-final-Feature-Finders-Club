@@ -16,6 +16,8 @@ website:
         href: presentation.qmd
       - text: About
         href: about.qmd
+    logo: images\feature_finders.jpeg
+  favicon:  images\feature_finders.jpeg
 
 format:
   html:
