@@ -26,6 +26,15 @@ pacman::p_load(tidyverse,
                dlookr,
                here)
 ```
+## Introduction
+
+Our aim is to develop a robust stock prediction model by analyzing the correlation between news sentiment and market movements, while also exploring the interconnected dynamics of stock prices within specific sectors.
+
+## Abstract
+
+Our primary objective is to develop an advanced predictive model using the `yahoofinance` package, meticulously tailored for stock analysis, with Apple Inc. (AAPL) serving as a prominent example. This model is intricately designed to unravel the nuanced correlation between news sentiment and the dynamic landscape of stock prices. Leveraging sophisticated methodologies in natural language processing and machine learning, our goal is to discern identifiable patterns and trends within news data, providing invaluable insights into their profound impact on the pricing dynamics of stocks, illustrated by the case of `AAPL`. This predictive framework is meticulously crafted not only to forecast individual movements in example stocks with precision but also to contribute to a thorough understanding of the profound influence exerted by news sentiment on market behaviors, specifically within the technology sector.
+
+In addition, our focus extends to the exploration of the intricate network of interdependencies among stocks within the technology sector. A pivotal aspect of our objectives involves scrutinizing how fluctuations in the stock prices of one entity can act as a catalyst, triggering substantial market responses in others within the sector. Obtaining in-depth insights into how shifts in the stock prices of one company, notably Apple Inc., can propagate influence throughout the sector is crucial for informing strategic decision-making and anticipating broader market dynamics within the industry. This exploration not only augments our predictive accuracy but also furnishes strategic decision-makers with invaluable insights for informed decision-making.
 
 ## Dataset
 
