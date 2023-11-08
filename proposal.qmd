@@ -38,6 +38,20 @@ A brief description of your dataset including its provenance, dimensions, etc. a
 
 Make sure to load the data and use inline code for some of this information.
 
+Variables Involved:
+
+- News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
+
+- Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
+
+Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
+
+Variables to be Created:
+
+- Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
+
+- Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
+
 ## Questions
 
 Question 1: Does the world of news headlines influence the intricate dance of stock prices? Can we unveil the secrets?
@@ -71,22 +85,6 @@ analysis, determining whether stocks exhibit positive or negative correlations a
 
 
 ## Analysis plan
-
-Variables Involved:
-
-- News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
-
-- Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
-
-Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
-
-Variables to be Created:
-
-- Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
-
-- Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
-
-
 Plan Summary:
 
 - We will collect the stock price data and news headlines data.
@@ -121,7 +119,6 @@ Plan Summary:
 |                \-                 | Review the model and debugging                                                        |        TBD        |   TBD    |
 |                \-                 | Write-up and presentation for the project                                             |     Everyone      | Everyone |
 
-: {.hover}
 
 ### Repo Organization
 
