@@ -1,6 +1,6 @@
 ---
-title: "Sentiment Analysis on Tech-based Stocks"
-subtitle: "Proposal"
+title: "Tech or Treat: The Sentimental Stock Saga"
+subtitle: "Index-page"
 format:
   html:
     code-tools: true
