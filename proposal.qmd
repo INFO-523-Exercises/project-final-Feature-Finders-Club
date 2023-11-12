@@ -198,7 +198,7 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 ## Questions
 
-Question 1: Does the world of news headlines influence the intricate dance of stock prices? Can we unveil the secrets?
+Question 1: Can the movements of stock prices be understood by examining the impact of news headlines on the market?
 
 Motivation: The question frames the investigation into the influence of new headlines on the stock prices in captivating and
 thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
