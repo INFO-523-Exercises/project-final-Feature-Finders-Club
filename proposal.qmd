@@ -281,38 +281,38 @@ behavior.
 
 ### Plan Summary:
 
-###Data Collection:
+####Data Collection:
 
 Gather a diverse dataset of Apple-related news headlines, industry reports, and social media reviews during the specified timeframe.
 Collect historical stock price data for Apple Inc. corresponding to the same period.
 
-###Data Preprocessing:
+####Data Preprocessing:
 
 Clean and preprocess the text data, including handling any language-specific characters, removing duplicates, and ensuring consistency.
 Preprocess the stock price data, ensuring alignment with the timeframes of the news dataset.
 
-###Sentiment Analysis:
+####Sentiment Analysis:
 
 Utilize natural language processing techniques to perform sentiment analysis on the collected news headlines.
 Categorize sentiments as positive, negative, or neutral to quantify the overall sentiment trends.
 
-###Correlation Analysis:
+####Correlation Analysis:
 
 Identify key news events and occurrences during the specified timeframe.
 Analyze how the sentiment trends derived from news headlines correlate with Apple's stock price movements.
 Explore potential correlations between news events related to other stocks and subsequent impacts on Apple's stock.
 
-###Visualization and Interpretation:
+####Visualization and Interpretation:
 
 Create visualizations to illustrate the sentiment trends and stock price movements over time.
 Interpret the findings, identifying patterns, anomalies, and potential cause-effect relationships.
 
-###Statistical Analysis:
+####Statistical Analysis:
 
 Conduct statistical tests to validate the significance of observed correlations and trends.
 Evaluate the strength and direction of correlations between sentiment and stock price movements.
 
-###Discussion and Conclusions:
+####Discussion and Conclusions:
 
 Summarize the key findings and their implications for understanding the influence of news sentiment on Apple's stock prices.
 Discuss any broader market influences on Apple's stock performance.
