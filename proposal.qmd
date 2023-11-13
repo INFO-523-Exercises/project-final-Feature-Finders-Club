@@ -178,7 +178,8 @@ The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This d
 ## Headlines Dataset
 
 ```{=html}
-
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importing module to download data</span></span>
 <pre class="python"><code>import requests
 import pandas as pd
 from dateutil import parser
@@ -234,8 +235,8 @@ news_dataframe.head()</code></pre>
 
 | Column Name | Data Type | Description |
 |---------|-----|------|
-|Headline|String|A text field containing headlines related to Apple, ranging from news updates to reviews and opinions.|
-|Datetime|String| A datetime field representing the date and time when the headline was published or reported. The timestamps are in Coordinated Universal Time (UTC).|
+|HeadLine|String| A text field containing headlines related to Apple, ranging from news updates to reviews and opinions.|
+|Date|String|A datetime field representing the date and time when the headline was published or reported. The timestamps are in Coordinated Universal Time (UTC).|
 
 : Data Dictionary {tbl-colwidths="[20,15,65]"}
 
