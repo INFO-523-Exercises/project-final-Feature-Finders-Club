@@ -263,12 +263,9 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 ## Questions
 
-Question 1: Can the movements of stock prices be understood by examining the impact of news headlines on the market?
+Question 1: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
 
-Motivation: The question frames the investigation into the influence of new headlines on the stock prices in captivating and
-thought-provoking manner. It not only acknowledges the impact of news but also suggests the possibility of
-uncovering hidden patterns or insights, which can be appealing to those interested in financial markets and data
-analysis.
+Motivation: The question sparks curiosity about how news headlines might affect Apple's stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple's stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple.
 
 Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
 
