@@ -29,11 +29,11 @@ pacman::p_load(tidyverse,
 
 ## High-level goal
 
-Sentiment analysis of diverse data sources to predict Apple stock price movement.
+Sentiment analysis of diverse data sources to predict Apple Inc. stock price movement.
 
 ## Abstract
 
-Our aim is to conduct sentiment analysis on Apple stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
+Our aim is to conduct sentiment analysis on Apple Inc. stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
 
 Dataset
 
@@ -272,7 +272,7 @@ The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This d
 
 #### Why did we choose this data?
 
-This dataset is suitable for stock price prediction due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling in the context of stock price prediction.
+This dataset is suitable for analyzing the stock price movement due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling of the stock price movement.
 
 #### Variables Involved:
 
@@ -284,9 +284,9 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 #### Variables to be Created:
 
--   Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
+-   Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between Apple's stock price movements and news headlines, and between stocks within the same sector.
 
--   Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
+-   Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects Apple's stock prices.
 
 ## Question
 
