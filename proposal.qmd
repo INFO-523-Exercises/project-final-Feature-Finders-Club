@@ -316,7 +316,7 @@ To address the question in a general sense, we would employ a combination of `da
 |:----------------:|-------------------|:----------------:|:----------------:|
 |       until November 8^th^        | Explore and finalize the dataset and the problem statements           |     Everyone      | Everyone |
 |                \-                 | Complete the proposal and assign some high-level tasks                |     Everyone      | Everyone |
-|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library                              |     Everyone      | Everyone |
+|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library and news headlines API       |     Everyone      | Everyone |
 |                \-                 | Data cleaning and Data pre-processing                                 |      Eshaan       | Aravind  |
 |                \-                 | Question specific exploration and data categorization                 |      Likith       |  Sanjay  |
 |     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                |      Sanjay       |  Likith  |
