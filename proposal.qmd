@@ -261,23 +261,14 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 ## Questions
 
-Question 1: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
+Question: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
 
 Motivation: The question sparks curiosity about how news headlines might affect Apple's stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple's stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple.
-
-Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
-
-Motivation: We chose this question because it is crucial in the world of finance. It affects how we manage risks, make investments in 
-different things, understand industries, create smart trading plans, and make decisions as investors. When stocks in one industry 
-move in the same way, it can mean more risk and less benefit from spreading out our investments. On the other hand, when they don't 
-move the same way, it can be a chance to lower risk and improve our investments. By figuring out these connections, we can make 
-smarter choices about where to invest our money, reduce risks, get a better grip on how industries work, and plan our trading and 
-investments more effectively.
 
 ## Analysis plan
 
 
-### Approach for Question 1
+### Approach for Question
 
 To address the question in a general sense, we would employ a combination of `data analysis` and `predictive modeling`.
 By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
@@ -288,20 +279,11 @@ news impacts stock prices and, if possible, use this knowledge to make informed 
 behavior.
 
 
-### Approach for Question 2
-
-We will pinpoint key elements, such as stock prices and financial market headlines, for examination. We will compute 
-`correlation coefficients` to gauge the magnitude and direction of the link between stock prices. To better understand this relationship, 
-we will visualize it using tools like `scatter plots`, `heatmaps`, or `correlation matrices`. We will then interpret the findings of our 
-analysis, determining whether stocks exhibit positive or negative correlations and to what degree these correlations extend.
-
-
 ### Plan Summary:
 
 - We will collect the stock price data and news headlines data.
 - Categorize the stocks into sectors.
-- To answer question 1, we will calculate correlation coefficients between stock prices and news sentiment.
-- To answer question 2, we will calculate correlation coefficients between stock prices of the selected sector.
+- To answer the question, we will calculate correlation coefficients between stock prices and news sentiment.
 - And finally, create a sentiment index to gauge news sentiment's influence on stock prices.
 - We may use external data like economic indicators or sector-specific data like industry specific news or performance metrics.
 
