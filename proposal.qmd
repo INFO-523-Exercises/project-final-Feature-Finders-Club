@@ -35,7 +35,7 @@ Sentiment analysis of diverse data sources to predict Apple stock price movement
 
 Our aim is to conduct sentiment analysis on Apple stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
 
-## Dataset
+Dataset
 
 ```{r}
 #| label: load-dataset
@@ -254,11 +254,13 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 -   Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
 
-## Questions
+## Question
 
-Question: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
+How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
 
-Motivation: The question sparks curiosity about how news headlines might affect Apple's stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple's stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple.
+### Motivation:
+
+The question sparks curiosity about how news headlines might affect Apple's stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple's stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple.
 
 ## Analysis plan
 
@@ -266,45 +268,45 @@ Motivation: The question sparks curiosity about how news headlines might affect 
 
 To address the question in a general sense, we would employ a combination of `data analysis` and `predictive modeling`. By collecting historical data on stock prices and news headlines, we can examine the historical relationship between news sentiment and market movements. This analysis might involve quantifying `sentiment` in news headlines, `identifying patterns`, and exploring `correlations`. Furthermore, predictive models can be developed to forecast potential future stock price changes based on these insights. The goal is to gain a better understanding of how news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market behavior.
 
-### Plan Summary:
+## Plan Summary:
 
-#### Data Collection:
+### Data Collection:
 
 -   Gather a diverse dataset of Apple-related news headlines, industry reports, and social media reviews during the specified timeframe.
 
 -   Collect historical stock price data for Apple Inc. corresponding to the same period.
 
-#### Data Preprocessing:
+### Data Preprocessing:
 
 -   Clean and preprocess the text data, including handling any language-specific characters, removing duplicates, and ensuring consistency.
 
 -   Preprocess the stock price data, ensuring alignment with the timeframes of the news dataset.
 
-#### Sentiment Analysis:
+### Sentiment Analysis:
 
 -   Utilize natural language processing techniques to perform sentiment analysis on the collected news headlines.
 
 -   Categorize sentiments as positive, negative, or neutral to quantify the overall sentiment trends.
 
-#### Correlation Analysis:
+### Correlation Analysis:
 
 -   Identify key news events and occurrences during the specified timeframe. Analyze how the sentiment trends derived from news headlines correlate with Apple's stock price movements.
 
 -   Explore potential correlations between news events related to other stocks and subsequent impacts on Apple's stock.
 
-#### Visualization and Interpretation:
+### Visualization and Interpretation:
 
 -   Create visualizations to illustrate the sentiment trends and stock price movements over time.
 
 -   Interpret the findings, identifying patterns, anomalies, and potential cause-effect relationships.
 
-#### Statistical Analysis:
+### Statistical Analysis:
 
 -   Conduct statistical tests to validate the significance of observed correlations and trends.
 
 -   Evaluate the strength and direction of correlations between sentiment and stock price movements.
 
-#### Discussion and Conclusions:
+### Discussion and Conclusions:
 
 -   Summarize the key findings and their implications for understanding the influence of news sentiment on Apple's stock prices.
 
@@ -316,7 +318,7 @@ To address the question in a general sense, we would employ a combination of `da
 |:----------------:|-------------------|:----------------:|:----------------:|
 |       until November 8^th^        | Explore and finalize the dataset and the problem statements           |     Everyone      | Everyone |
 |                \-                 | Complete the proposal and assign some high-level tasks                |     Everyone      | Everyone |
-|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library and news headlines API       |     Everyone      | Everyone |
+|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library and news headlines           |     Everyone      | Everyone |
 |                \-                 | Data cleaning and Data pre-processing                                 |      Eshaan       | Aravind  |
 |                \-                 | Question specific exploration and data categorization                 |      Likith       |  Sanjay  |
 |     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                |      Sanjay       |  Likith  |
