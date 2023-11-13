@@ -26,6 +26,7 @@ pacman::p_load(tidyverse,
                dlookr,
                here)
 ```
+
 ## High-level goal
 
 Sentiment analysis of diverse data sources to predict Apple stock price movement.
@@ -41,7 +42,6 @@ Our aim is to conduct sentiment analysis on Apple stock by analysing diverse sou
 #| message: false
 ```
 
-
 ```{=html}
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importing module to download data</span></span>
@@ -52,24 +52,21 @@ Our aim is to conduct sentiment analysis on Apple stock by analysing diverse sou
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># usign history function to get stock data of yesterday with 1 hour interval from maket opening to closing</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> apple.history(period<span class="op">=</span><span class="st">'1d'</span>,interval<span class="op">=</span><span class="st">'1h'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
 ```
-
 The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This data contain's the information about a particular stock and how it performed during certain period. This information includes openning,closing and other related features of the stock. The following are the attributes(freatures) of the data retrived:
 
-| Column Name | Data Type | Description |
-|---------|-----|------|
-|Datetime|String| This column represents the date and time for each data point, in the format "YYYY-MM-DD HH:MM:SS-TZ." It provides the timestamp at which the stock price information was recorded. The timezone (TZ) indicates the time zone for the recorded data.|
-|Open|Integer|This column contains the opening price of the stock at the specific timestamp. The opening price is the price at which the stock started trading at the beginning of the given time interval (e.g., each hour).|
-|High|Integer|The "High" column contains the highest price reached by the stock during the time interval. It represents the peak value of the stock's price within that hour.|
-|Low|Integer|In this column, you find the lowest price reached by the stock during the same time interval. It represents the minimum value of the stock's price within that hour.|
-|Close|Integer| The "Close" column provides the closing price of the stock at the end of the specified time interval. It is the last price recorded before the end of that hour.|
-|Volume|Integer|This column represents the trading volume of the stock during the given time interval. Trading volume is the total number of shares or contracts traded during that hour.|
-|Dividends|Integer|The "Dividends" column typically contains information about any dividend payments made during the specified time interval. In the dataset you provided, it appears that no dividends were recorded (values are zero).|
-|Stock Splits|Integer|The "Stock Splits" column would typically record any information related to stock splits that occurred during the specified time interval. In the dataset, it also appears that no stock splits were recorded (values are zero).|
+| Column Name  | Data Type | Description                                                                                                                                                                                                                                         |
+|--------------------------------|------------------|----------------------|
+| Datetime     | String    | This column represents the date and time for each data point, in the format "YYYY-MM-DD HH:MM:SS-TZ." It provides the timestamp at which the stock price information was recorded. The timezone (TZ) indicates the time zone for the recorded data. |
+| Open         | Integer   | This column contains the opening price of the stock at the specific timestamp. The opening price is the price at which the stock started trading at the beginning of the given time interval (e.g., each hour).                                     |
+| High         | Integer   | The "High" column contains the highest price reached by the stock during the time interval. It represents the peak value of the stock's price within that hour.                                                                                     |
+| Low          | Integer   | In this column, you find the lowest price reached by the stock during the same time interval. It represents the minimum value of the stock's price within that hour.                                                                                |
+| Close        | Integer   | The "Close" column provides the closing price of the stock at the end of the specified time interval. It is the last price recorded before the end of that hour.                                                                                    |
+| Volume       | Integer   | This column represents the trading volume of the stock during the given time interval. Trading volume is the total number of shares or contracts traded during that hour.                                                                           |
+| Dividends    | Integer   | The "Dividends" column typically contains information about any dividend payments made during the specified time interval. In the dataset you provided, it appears that no dividends were recorded (values are zero).                               |
+| Stock Splits | Integer   | The "Stock Splits" column would typically record any information related to stock splits that occurred during the specified time interval. In the dataset, it also appears that no stock splits were recorded (values are zero).                    |
 
-: Data Dictionary {tbl-colwidths="[20,15,65]"}
-
+: Data Dictionary {tbl-colwidths="\[20,15,65\]"}
 
 ```{=html}
 <div class="cell" data-execution_count="2">
@@ -232,32 +229,30 @@ news_dataframe.head()</code></pre>
 
 </div>
 ```
-| Column Name | Data Type | Description |
-|---------|-----|------|
-|HeadLine|String| A text field containing headlines related to Apple, ranging from news updates to reviews and opinions.|
-|Date|String|A datetime field representing the date and time when the headline was published or reported. The timestamps are in Coordinated Universal Time (UTC).|
+| Column Name | Data Type | Description                                                                                                                                          |
+|--------------------------------|------------------|----------------------|
+| HeadLine    | String    | A text field containing headlines related to Apple, ranging from news updates to reviews and opinions.                                               |
+| Date        | String    | A datetime field representing the date and time when the headline was published or reported. The timestamps are in Coordinated Universal Time (UTC). |
 
-: Data Dictionary {tbl-colwidths="[20,15,65]"}
-
+: Data Dictionary {tbl-colwidths="\[20,15,65\]"}
 
 #### Why did we choose this data?
 
 This dataset is suitable for stock price prediction due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling in the context of stock price prediction.
 
-
 #### Variables Involved:
 
-- News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
+-   News Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.
 
-- Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
+-   Stock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.
 
-- Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
+-   Sector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.
 
 #### Variables to be Created:
 
-- Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
+-   Correlation Coefficients: Calculating the correlation coefficients to quantify the relationships between stock price movements and news headlines, and between stocks within the same sector.
 
-- Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
+-   Market Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects stock prices.
 
 ## Questions
 
@@ -267,81 +262,75 @@ Motivation: The question sparks curiosity about how news headlines might affect 
 
 ## Analysis plan
 
-
 ### Approach for Question
 
-To address the question in a general sense, we would employ a combination of `data analysis` and `predictive modeling`.
-By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
-news sentiment and market movements. This analysis might involve quantifying `sentiment` in news headlines,
-`identifying patterns`, and exploring `correlations`. Furthermore, predictive models can be developed to forecast
-potential future stock price changes based on these insights. The goal is to gain a better understanding of how
-news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market
-behavior.
-
+To address the question in a general sense, we would employ a combination of `data analysis` and `predictive modeling`. By collecting historical data on stock prices and news headlines, we can examine the historical relationship between news sentiment and market movements. This analysis might involve quantifying `sentiment` in news headlines, `identifying patterns`, and exploring `correlations`. Furthermore, predictive models can be developed to forecast potential future stock price changes based on these insights. The goal is to gain a better understanding of how news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market behavior.
 
 ### Plan Summary:
 
-####Data Collection:
+#### Data Collection:
 
-Gather a diverse dataset of Apple-related news headlines, industry reports, and social media reviews during the specified timeframe.
-Collect historical stock price data for Apple Inc. corresponding to the same period.
+-   Gather a diverse dataset of Apple-related news headlines, industry reports, and social media reviews during the specified timeframe.
 
-####Data Preprocessing:
+-   Collect historical stock price data for Apple Inc. corresponding to the same period.
 
-Clean and preprocess the text data, including handling any language-specific characters, removing duplicates, and ensuring consistency.
-Preprocess the stock price data, ensuring alignment with the timeframes of the news dataset.
+#### Data Preprocessing:
 
-####Sentiment Analysis:
+-   Clean and preprocess the text data, including handling any language-specific characters, removing duplicates, and ensuring consistency.
 
-Utilize natural language processing techniques to perform sentiment analysis on the collected news headlines.
-Categorize sentiments as positive, negative, or neutral to quantify the overall sentiment trends.
+-   Preprocess the stock price data, ensuring alignment with the timeframes of the news dataset.
 
-####Correlation Analysis:
+#### Sentiment Analysis:
 
-Identify key news events and occurrences during the specified timeframe.
-Analyze how the sentiment trends derived from news headlines correlate with Apple's stock price movements.
-Explore potential correlations between news events related to other stocks and subsequent impacts on Apple's stock.
+-   Utilize natural language processing techniques to perform sentiment analysis on the collected news headlines.
 
-####Visualization and Interpretation:
+-   Categorize sentiments as positive, negative, or neutral to quantify the overall sentiment trends.
 
-Create visualizations to illustrate the sentiment trends and stock price movements over time.
-Interpret the findings, identifying patterns, anomalies, and potential cause-effect relationships.
+#### Correlation Analysis:
 
-####Statistical Analysis:
+-   Identify key news events and occurrences during the specified timeframe. Analyze how the sentiment trends derived from news headlines correlate with Apple's stock price movements.
 
-Conduct statistical tests to validate the significance of observed correlations and trends.
-Evaluate the strength and direction of correlations between sentiment and stock price movements.
+-   Explore potential correlations between news events related to other stocks and subsequent impacts on Apple's stock.
 
-####Discussion and Conclusions:
+#### Visualization and Interpretation:
 
-Summarize the key findings and their implications for understanding the influence of news sentiment on Apple's stock prices.
-Discuss any broader market influences on Apple's stock performance.
-Consider limitations, potential biases, and areas for future research.
+-   Create visualizations to illustrate the sentiment trends and stock price movements over time.
 
+-   Interpret the findings, identifying patterns, anomalies, and potential cause-effect relationships.
 
+#### Statistical Analysis:
+
+-   Conduct statistical tests to validate the significance of observed correlations and trends.
+
+-   Evaluate the strength and direction of correlations between sentiment and stock price movements.
+
+#### Discussion and Conclusions:
+
+-   Summarize the key findings and their implications for understanding the influence of news sentiment on Apple's stock prices.
+
+-   Discuss any broader market influences on Apple's stock performance. Consider limitations, potential biases, and areas for future research.
 
 ## Weekly Plan of Attack
 
-|               Week                | Weekly Tasks                                                                          | Persons in Charge |  Backup  |
+|               Week                | Weekly Tasks                                                          | Persons in Charge |  Backup  |
 |:----------------:|-------------------|:----------------:|:----------------:|
-|       until November 8^th^        | Explore and finalize the dataset and the problem statements                           |     Everyone      | Everyone |
-|                \-                 | Complete the proposal and assign some high-level tasks                                |     Everyone      | Everyone |
-|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library                                              |     Everyone      | Everyone |
-|                \-                 | Data cleaning and Data pre-processing                                                 |        Eshaan     | Aravind  |
-|                \-                 | Question specific exploration and data categorization                                 |        Likith     |   Sanjay |
-|     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                                |        Sanjay     |   Likith |
-|                \-                 | Performing `Sentiment analysis` and find `correlations` for Q2                        |        Vamsi      |  Aravind |
-|                \-                 | Exploring on how to integrate our analysis with real-time prices.                     |        Aravind    |   Likith |
-|     November 23^rd^ to 29^th^     | Generating remaining parts of the plots for Q1 and Q2                                 |        Eshaan     |  Sanjay  |
-|                \-                 | Improving the generated sentiment analysis  model                                     |        Sanjay     |   Vamsi  |
-|                \-                 | Start integrating quarto and our model                                                |        Likith     |   Eshaan |
-| November 30^th^ to December 6^th^ | Refining the code for code review with comments                                       |       Everyone    | Everyone |
-|                \-                 | Making a few changes on the model to test it based on historical data                 |        Vamsi      |  Aravind |
-|                \-                 | Continue with the integration of quarto and our models                                |        Aravind    |  Eshaan  |
-|     December 7^th^ to 13^th^      | Complete the quarto website with presentable data                                     |     Everyone      | Everyone |
-|                \-                 | Review the model and debugging                                                        |     Everyone      | Everyone |
-|                \-                 | Write-up and presentation for the project                                             |     Everyone      | Everyone |
-
+|       until November 8^th^        | Explore and finalize the dataset and the problem statements           |     Everyone      | Everyone |
+|                \-                 | Complete the proposal and assign some high-level tasks                |     Everyone      | Everyone |
+|     November 9^th^ to 15^th^      | Getting to know about `yfinance` library and news headlines API       |     Everyone      | Everyone |
+|                \-                 | Data cleaning and Data pre-processing                                 |      Eshaan       | Aravind  |
+|                \-                 | Question specific exploration and data categorization                 |      Likith       |  Sanjay  |
+|     November 16^th^ to 22^nd^     | Performing `Sentiment analysis` for Q1                                |      Sanjay       |  Likith  |
+|                \-                 | Performing `Sentiment analysis` and find `correlations` for Q1        |       Vamsi       | Aravind  |
+|                \-                 | Exploring on how to integrate our analysis with real-time prices.     |      Aravind      |  Likith  |
+|     November 23^rd^ to 29^th^     | Generating remaining parts of the plots for Q1                        |      Eshaan       |  Sanjay  |
+|                \-                 | Improving the generated sentiment analysis model                      |      Sanjay       |  Vamsi   |
+|                \-                 | Start integrating quarto and our model                                |      Likith       |  Eshaan  |
+| November 30^th^ to December 6^th^ | Refining the code for code review with comments                       |     Everyone      | Everyone |
+|                \-                 | Making a few changes on the model to test it based on historical data |       Vamsi       | Aravind  |
+|                \-                 | Continue with the integration of quarto and our models                |      Aravind      |  Eshaan  |
+|     December 7^th^ to 13^th^      | Complete the quarto website with presentable data                     |     Everyone      | Everyone |
+|                \-                 | Review the model and debugging                                        |     Everyone      | Everyone |
+|                \-                 | Write-up and presentation for the project                             |     Everyone      | Everyone |
 
 ## Repo Organization
 
@@ -356,7 +345,6 @@ The following are the folders involved in the Project repository.
 -   **'\_freeze/':** This folder is used to store the generated files during the build process. These files represent the frozen state of the website at a specific point in time.
 
 -   **'.github/':** Folder for storing github templates and workflow.
-
 
 ::: callout-note
 ## Note:
