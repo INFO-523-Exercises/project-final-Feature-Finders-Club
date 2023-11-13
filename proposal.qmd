@@ -26,15 +26,13 @@ pacman::p_load(tidyverse,
                dlookr,
                here)
 ```
-## Introduction
+## High-level goal
 
-Our aim is to develop a robust stock prediction model by analyzing the correlation between news sentiment and market movements, while also exploring the interconnected dynamics of stock prices within specific sectors.
+Sentiment analysis of diverse data sources to predict Apple stock price movement.
 
 ## Abstract
 
-Our primary objective is to develop an advanced predictive model using the `yahoofinance` package, meticulously tailored for stock analysis, with Apple Inc. (AAPL) serving as a prominent example. This model is intricately designed to unravel the nuanced correlation between news sentiment and the dynamic landscape of stock prices. Leveraging sophisticated methodologies in natural language processing and machine learning, our goal is to discern identifiable patterns and trends within news data, providing invaluable insights into their profound impact on the pricing dynamics of stocks, illustrated by the case of `AAPL`. This predictive framework is meticulously crafted not only to forecast individual movements in example stocks with precision but also to contribute to a thorough understanding of the profound influence exerted by news sentiment on market behaviors, specifically within the technology sector.
-
-In addition, our focus extends to the exploration of the intricate network of interdependencies among stocks within the technology sector. A pivotal aspect of our objectives involves scrutinizing how fluctuations in the stock prices of one entity can act as a catalyst, triggering substantial market responses in others within the sector. Obtaining in-depth insights into how shifts in the stock prices of one company, notably Apple Inc., can propagate influence throughout the sector is crucial for informing strategic decision-making and anticipating broader market dynamics within the industry. This exploration not only augments our predictive accuracy but also furnishes strategic decision-makers with invaluable insights for informed decision-making.
+This data mining project aims to conduct sentiment analysis on Apple stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, the project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
 
 ## Dataset
 
@@ -263,23 +261,14 @@ This dataset is suitable for stock price prediction due to its time series forma
 
 ## Questions
 
-Question 1: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
+Question: How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
 
 Motivation: The question sparks curiosity about how news headlines might affect Apple's stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple's stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple.
-
-Question 2: To what extent do changes in the stock prices influence the price movements of other stocks in a particular sector?
-
-Motivation: We chose this question because it is crucial in the world of finance. It affects how we manage risks, make investments in 
-different things, understand industries, create smart trading plans, and make decisions as investors. When stocks in one industry 
-move in the same way, it can mean more risk and less benefit from spreading out our investments. On the other hand, when they don't 
-move the same way, it can be a chance to lower risk and improve our investments. By figuring out these connections, we can make 
-smarter choices about where to invest our money, reduce risks, get a better grip on how industries work, and plan our trading and 
-investments more effectively.
 
 ## Analysis plan
 
 
-### Approach for Question 1
+### Approach for Question
 
 To address the question in a general sense, we would employ a combination of `data analysis` and `predictive modeling`.
 By collecting historical data on stock prices and news headlines, we can examine the historical relationship between
@@ -290,20 +279,11 @@ news impacts stock prices and, if possible, use this knowledge to make informed 
 behavior.
 
 
-### Approach for Question 2
-
-We will pinpoint key elements, such as stock prices and financial market headlines, for examination. We will compute 
-`correlation coefficients` to gauge the magnitude and direction of the link between stock prices. To better understand this relationship, 
-we will visualize it using tools like `scatter plots`, `heatmaps`, or `correlation matrices`. We will then interpret the findings of our 
-analysis, determining whether stocks exhibit positive or negative correlations and to what degree these correlations extend.
-
-
 ### Plan Summary:
 
 - We will collect the stock price data and news headlines data.
 - Categorize the stocks into sectors.
-- To answer question 1, we will calculate correlation coefficients between stock prices and news sentiment.
-- To answer question 2, we will calculate correlation coefficients between stock prices of the selected sector.
+- To answer the question, we will calculate correlation coefficients between stock prices and news sentiment.
 - And finally, create a sentiment index to gauge news sentiment's influence on stock prices.
 - We may use external data like economic indicators or sector-specific data like industry specific news or performance metrics.
 
