@@ -221,7 +221,7 @@ for headline, _ in headlines:
     except ValueError:
         pass
 
-apple_related_headlines.sort(key=lambda x: x[1])
+apple_related_headlines.sort(key = lambda x: x[1])
 news_dataframe=pd.DataFrame(apple_related_headlines, columns=[&#39;Headline&#39;, &#39;Date&#39;])
 news_dataframe.head()</code></pre>
 <pre><code>##                                             Headline                      Date
