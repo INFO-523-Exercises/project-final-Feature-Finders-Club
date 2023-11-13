@@ -173,61 +173,95 @@ The data is retrived from $Yahoo^\textregistered!\ Finance$ in real-time. This d
 ## Headlines Dataset
 
 ```{=html}
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dateutil <span class="im">import</span> parser</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>api_key<span class="op">=</span><span class="st">'9dcab5d0d86940459623ec7dea5c8d36'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>stock_symbol <span class="op">=</span><span class="st">"AAPL"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>query_params <span class="op">=</span> {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'q'</span>: <span class="ss">f'</span><span class="sc">{</span>stock_symbol<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'apiKey'</span>: api_key,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'language'</span>: <span class="st">'en'</span>,  <span class="co"># English language</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'country'</span>: <span class="st">'us'</span>,   <span class="co"># USA sources</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>end_date <span class="op">=</span> datetime.now()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> end_date <span class="op">-</span> timedelta(days<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>from_date <span class="op">=</span> start_date.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>to_date <span class="op">=</span> end_date.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>news_url <span class="op">=</span> <span class="ss">f"https://newsapi.org/v2/everything?q=</span><span class="sc">{</span>stock_symbol<span class="sc">}</span><span class="ss">&amp;apiKey=</span><span class="sc">{</span>api_key<span class="sc">}</span><span class="ss">&amp;from=</span><span class="sc">{</span>from_date<span class="sc">}</span><span class="ss">&amp;to=</span><span class="sc">{</span>to_date<span class="sc">}</span><span class="ss">&amp;language=en"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(news_url)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    news_data <span class="op">=</span> response.json()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    articles <span class="op">=</span> news_data[<span class="st">'articles'</span>]</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    headlines <span class="op">=</span> [(article[<span class="st">'title'</span>], article[<span class="st">'publishedAt'</span>]) <span class="cf">for</span> article <span class="kw">in</span> articles]</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Failed to retrieve news data."</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>apple_related_headlines<span class="op">=</span>[]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> headline, _ <span class="kw">in</span> headlines:</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        date <span class="op">=</span> parser.parse(_)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'Apple'</span> <span class="kw">in</span> headline:</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            apple_related_headlines.append((headline, date))</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>apple_related_headlines.sort(key <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="dv">1</span>])</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>news_dataframe<span class="op">=</span>pd.DataFrame(apple_related_headlines, columns<span class="op">=</span>[<span class="st">'Headline'</span>, <span class="st">'Date'</span>])</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>news_dataframe.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
 
 
-
-<pre class="python"><code>import requests
-import pandas as pd
-from dateutil import parser
-from datetime import datetime, timedelta
-
-api_key=&#39;9dcab5d0d86940459623ec7dea5c8d36&#39;
-stock_symbol =&quot;AAPL&quot;
-query_params = {
-    &#39;q&#39;: f&#39;{stock_symbol}&#39;,
-    &#39;apiKey&#39;: api_key,
-    &#39;language&#39;: &#39;en&#39;,  # English language
-    &#39;country&#39;: &#39;us&#39;,   # USA sources
-}
-
-end_date = datetime.now()
-start_date = end_date - timedelta(days=7)
-
-from_date = start_date.strftime(&quot;%Y-%m-%d&quot;)
-to_date = end_date.strftime(&quot;%Y-%m-%d&quot;)
-
-news_url = f&quot;https://newsapi.org/v2/everything?q={stock_symbol}&amp;apiKey={api_key}&amp;from={from_date}&amp;to={to_date}&amp;language=en&quot;
-
-response = requests.get(news_url)
-
-if response.status_code == 200:
-    news_data = response.json()
-    articles = news_data[&#39;articles&#39;]
-    headlines = [(article[&#39;title&#39;], article[&#39;publishedAt&#39;]) for article in articles]
-else:
-    print(&quot;Failed to retrieve news data.&quot;)
-
-apple_related_headlines=[]
-for headline, _ in headlines:
-    try:
-        date = parser.parse(_)
-        if &#39;Apple&#39; in headline:
-            apple_related_headlines.append((headline, date))
-    except ValueError:
-        pass
-
-apple_related_headlines.sort(key = lambda x: x[1])
-news_dataframe=pd.DataFrame(apple_related_headlines, columns=[&#39;Headline&#39;, &#39;Date&#39;])
-news_dataframe.head()</code></pre>
-<pre><code>##                                             Headline                      Date
-## 0        SwitchBot for iOSがApple Watchのコンプリケーションに対応。 2023-11-06 05:24:22+00:00
-## 1  Apple&#39;s New Feature Detects Water In USB-C Por... 2023-11-06 08:20:06+00:00
-## 2  Charlie Munger&#39;s Apple Confidence, Raskin Take... 2023-11-06 10:26:19+00:00
-## 3  Apple iPhone-maker Foxconn sees solid holiday ... 2023-11-06 12:16:18+00:00
-## 4  Apple MacBook Pro 14-inch review: Huge amounts... 2023-11-06 17:14:11+00:00</code></pre>
-
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Headline</th>
+<th data-quarto-table-cell-role="th">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SwitchBot for iOSがApple Watchのコンプリケーションに対応。</td>
+<td>2023-11-06 05:24:22+00:00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Apple's New Feature Detects Water In USB-C Por...</td>
+<td>2023-11-06 08:20:06+00:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Charlie Munger's Apple Confidence, Raskin Take...</td>
+<td>2023-11-06 10:26:19+00:00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Apple iPhone-maker Foxconn sees solid holiday ...</td>
+<td>2023-11-06 12:16:18+00:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Apple MacBook Pro 14-inch review: Huge amounts...</td>
+<td>2023-11-06 17:14:11+00:00</td>
+</tr>
+</tbody>
+</table>
 
 </div>
+</div>
+</div>
+
 ```
 | Column Name | Data Type | Description                                                                                                                                          |
 |--------------------------------|------------------|----------------------|
