@@ -32,7 +32,7 @@ Sentiment analysis of diverse data sources to predict Apple stock price movement
 
 ## Abstract
 
-This data mining project aims to conduct sentiment analysis on Apple stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, the project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
+Our aim is to conduct sentiment analysis on Apple stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
 
 ## Dataset
 
