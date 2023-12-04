@@ -52,7 +52,7 @@ data=apple.history(period='1mo')
 ```
 
 
-```{python pulling-req}
+```{python API-calling}
 api_key='9dcab5d0d86940459623ec7dea5c8d36'
 stock_symbol ="AAPL"
 query_params = {
@@ -98,6 +98,7 @@ for data in apple_related_headlines:
 df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['Headlines', 'date'])
 df_unique_apple_related_headlines = df_apple_related_headlines.drop_duplicates(subset=['Headlines'])
 ```
+
 ```{python sentimentAnalysis}
 analyzer = SentimentIntensityAnalyzer()
 sentiments = []
