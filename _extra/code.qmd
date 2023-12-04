@@ -33,6 +33,9 @@ library(reticulate)
 '''
 ```
 ```{python importing-lib, message=FALSE}
+# Imports essential libraries for data manipulation, visualization, sentiment analysis, and financial data retrieval using Yahoo Finance.
+import warnings
+warnings.filterwarnings("ignore")
 from dateutil import parser
 import requests
 import pandas as pd
@@ -46,68 +49,102 @@ from plotly.subplots import make_subplots
 ```
 
 
-```{python data-fetch}
+```{python stockdata_extraction}
+# Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
 apple=yfinance.Ticker("AAPL")
+# Retrieve historical stock data for the last month for the specified ticker
 data=apple.history(period='1mo')
 ```
 
 
-```{python API-calling}
+```{python headlines_extraction}
+# Setting up necessary parameters for the API request
 api_key='9dcab5d0d86940459623ec7dea5c8d36'
 stock_symbol ="AAPL"
+# Creating query parameters for the API request
 query_params = {
     'q': f'{stock_symbol}',
     'apiKey': api_key,
     'language': 'en',  # English language
     'country': 'us',   # USA sources
 }
+# Defining the base URL for the news API
 news_url = "https://newsapi.org/v2/everything"
+# Making an initial request to the API to retrieve news data
 response = requests.get(news_url, params=query_params)
 
+# Setting up date range for fetching news data (last 31 days)
 end_date = datetime.now()
 start_date = end_date - timedelta(days=31)
 
+# Formatting dates for the API request
 from_date = start_date.strftime("%Y-%m-%d")
 to_date = end_date.strftime("%Y-%m-%d")
 
+# Constructing the final URL for fetching news within the date range
 news_url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en"
 
+# Making a request to the API with the specified date range
 response = requests.get(news_url)
 
+# Checking if the API request was successful (status code 200)
 if response.status_code == 200:
+    # Parsing the JSON response to retrieve news articles
     news_data = response.json()
     articles = news_data['articles']
+    # Extracting headlines and publication dates from articles
     headlines = [(article['title'], article['publishedAt']) for article in articles]
 else:
+  # Displaying an error message if the API request fails
     print("Failed to retrieve news data.")
 ```
 
 
-```{python headlines, message=FALSE}
+```{python headlines_transformation, message=FALSE}
+# Initialize an empty list to store Apple-related headlines with their respective dates
 apple_related_headlines=[]
+# Iterate through headlines and their associated publication dates
 for headline, _ in headlines:
     try:
+        # Attempt to parse the date using a parser (assuming it's in a valid format)
         date = parser.parse(_)
+        # Check if the headline contains the keyword 'Apple'
         if 'Apple' in headline:
+            # If it does, append the headline and its date to the list
             apple_related_headlines.append((headline, date))
     except ValueError:
+        # Ignore and continue if there's an issue parsing the date
         pass
+
+# Sort the list of Apple-related headlines by date
 apple_related_headlines.sort(key=lambda x: x[1])
+
+# Display the sorted Apple-related headlines along with their dates
 for data in apple_related_headlines:
     print(f'Headline: {data[0]}\nDate: {data[1]}\n')
+    
+# Create a DataFrame from the list of Apple-related headlines with dates
 df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['Headlines', 'date'])
+
+# Remove duplicate headlines to retain unique entries
 df_unique_apple_related_headlines = df_apple_related_headlines.drop_duplicates(subset=['Headlines'])
 ```
 
 ```{python sentimentAnalysis}
+# Initialize the SentimentIntensityAnalyzer
 analyzer = SentimentIntensityAnalyzer()
-sentiments = []
-neg_scores = []
-neu_scores = []
-pos_scores = []
-compound_scores = []
+# Initialize lists to store sentiment scores for each headline
+sentiments = [] # Stores headlines
+neg_scores = [] # Stores negative sentiment scores
+neu_scores = [] # Stores neutral sentiment scores
+pos_scores = [] # Stores positive sentiment scores
+compound_scores = [] # Stores compound sentiment scores
+
+# Iterate through each headline in the DataFrame to analyze sentiment
 for sentence in df_unique_apple_related_headlines['Headlines']:
+    # Perform sentiment analysis on each headline using the analyzer
     vs = analyzer.polarity_scores(sentence)
+    # Append headline, negative, neutral, positive, and compound scores to respective lists
     sentiments.append(sentence)
     neg_scores.append(vs['neg'])
     neu_scores.append(vs['neu'])
@@ -116,6 +153,7 @@ for sentence in df_unique_apple_related_headlines['Headlines']:
 ```
 
 ```{python sentimentScore}
+# Create a DataFrame to store sentiment scores of the headlines
 sentiment_df = pd.DataFrame({
     'Headlines': sentiments,
     'Negative Score': neg_scores,
@@ -125,11 +163,10 @@ sentiment_df = pd.DataFrame({
 })
 ```
 
-```{python mergingDF}
+```{python transformations}
+# Merge the unique Apple-related headlines DataFrame and the sentiment scores DataFrame
 merged_df= pd.merge(df_unique_apple_related_headlines, sentiment_df, how="inner", on=["Headlines"])
-```
-
-```{python mergingDF}
+# Convert the 'date' column to integer type
 merged_df['date'] = merged_df['date'].astype(int)
 ```
 
