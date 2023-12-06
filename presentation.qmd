@@ -18,10 +18,9 @@ format:
 editor: visual
 execute:
   echo: false
+jupyter: python3
 ---
-```{r}
-pacman::p_load(reticulate)
-```
+
 
 ```{python}
 #| label: load-packages
