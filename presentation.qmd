@@ -28,7 +28,6 @@ jupyter: python3
 !pip install matplotlib
 !pip install nltk
 !pip install plotly
-!pip install langdetect
 ```
 
 
