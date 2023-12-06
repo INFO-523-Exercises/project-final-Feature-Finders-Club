@@ -22,6 +22,10 @@ jupyter: python3
 ---
 
 ```{python}
+#| include: false
+#| message: false
+
+
 !pip install yfinance
 !pip install vaderSentiment
 !pip install pandas 
@@ -31,11 +35,10 @@ jupyter: python3
 !pip install langdetect
 ```
 
-
 ```{python}
 #| label: load-packages
 #| include: false
-
+#| message: false
 
 # Loading necessary packages
 from langdetect import detect
