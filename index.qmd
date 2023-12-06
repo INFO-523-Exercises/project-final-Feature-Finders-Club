@@ -13,6 +13,7 @@ categories:
   - Data Mining and Discovery
 execute:
   warning: false
+jupyter: python3
 ---
 
 ## Abstract
