@@ -19,11 +19,13 @@ editor: visual
 execute:
   echo: false
 ---
+```{r}
+pacman::p_load(reticulate)
+```
 
 ```{python}
 #| label: load-packages
 #| include: false
-
 # Loading necessary packages
 from langdetect import detect
 from dateutil import parser
