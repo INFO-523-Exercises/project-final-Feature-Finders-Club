@@ -1,0 +1,21 @@
+---
+title: "Tech or Treat: The Sentimental Stock Saga"
+subtitle: "Index-page"
+format:
+  html:
+    code-tools: true
+    code-overflow: wrap
+    code-line-numbers: true
+    embed-resources: true
+editor: visual
+code-annotations: hover
+categories: 
+  - Data Mining and Discovery
+execute:
+  warning: false
+jupyter: python3
+---
+
+## Abstract
+
+Add project abstract here

@@ -1,0 +1,135 @@
+[
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "",
+    "text": "# GETTING THE LIBRARIES\nif (!require(pacman))\n  install.packages(pacman)\n\npacman::p_load(tidyverse,\n               formattable,\n               janitor,\n               dlookr,\n               here)"
+  },
+  {
+    "objectID": "proposal.html#high-level-goal",
+    "href": "proposal.html#high-level-goal",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "High-level goal",
+    "text": "High-level goal\nSentiment analysis of diverse data sources to predict Apple Inc. stock price movement."
+  },
+  {
+    "objectID": "proposal.html#abstract",
+    "href": "proposal.html#abstract",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Abstract",
+    "text": "Abstract\nOur aim is to conduct sentiment analysis on Apple Inc. stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple’s stock performance, offering potential benefits for investors and analysts.\nDataset\n\n# importing module to download data\nimport yfinance\n\n# Using Ticker module in yfinace to get data of desired stock\napple = yfinance.Ticker(\"AAPL\")\n# usign history function to get stock data of yesterday with 1 hour interval from maket opening to closing\ndata = apple.history(period='1d',interval='1h')\n\nThe data is retrived from \\(Yahoo^\\textregistered!\\ Finance\\) in real-time. This data contain’s the information about a particular stock and how it performed during certain period. This information includes openning,closing and other related features of the stock. The following are the attributes(freatures) of the data retrived:\n\nData Dictionary\n\n\n\n\n\n\n\nColumn Name\nData Type\nDescription\n\n\n\n\nDatetime\nString\nThis column represents the date and time for each data point, in the format “YYYY-MM-DD HH:MM:SS-TZ.” It provides the timestamp at which the stock price information was recorded. The timezone (TZ) indicates the time zone for the recorded data.\n\n\nOpen\nInteger\nThis column contains the opening price of the stock at the specific timestamp. The opening price is the price at which the stock started trading at the beginning of the given time interval (e.g., each hour).\n\n\nHigh\nInteger\nThe “High” column contains the highest price reached by the stock during the time interval. It represents the peak value of the stock’s price within that hour.\n\n\nLow\nInteger\nIn this column, you find the lowest price reached by the stock during the same time interval. It represents the minimum value of the stock’s price within that hour.\n\n\nClose\nInteger\nThe “Close” column provides the closing price of the stock at the end of the specified time interval. It is the last price recorded before the end of that hour.\n\n\nVolume\nInteger\nThis column represents the trading volume of the stock during the given time interval. Trading volume is the total number of shares or contracts traded during that hour.\n\n\nDividends\nInteger\nThe “Dividends” column typically contains information about any dividend payments made during the specified time interval. In the dataset you provided, it appears that no dividends were recorded (values are zero).\n\n\nStock Splits\nInteger\nThe “Stock Splits” column would typically record any information related to stock splits that occurred during the specified time interval. In the dataset, it also appears that no stock splits were recorded (values are zero).\n\n\n\n\ndata\n\n\n\n\n\n\n\nOpen\nHigh\nLow\nClose\nVolume\nDividends\nStock Splits\n\n\nDatetime\n\n\n\n\n\n\n\n\n\n\n\n2023-11-07 09:30:00-05:00\n179.179993\n180.820007\n179.009995\n180.710007\n16268674\n0.0\n0.0\n\n\n2023-11-07 10:30:00-05:00\n180.695007\n181.595001\n180.529999\n181.455002\n8190077\n0.0\n0.0\n\n\n2023-11-07 11:30:00-05:00\n181.455002\n181.639999\n180.520004\n181.175003\n7493420\n0.0\n0.0\n\n\n2023-11-07 12:30:00-05:00\n181.175003\n182.160004\n180.934998\n182.014999\n6208182\n0.0\n0.0\n\n\n2023-11-07 13:30:00-05:00\n182.018494\n182.440002\n181.929993\n182.340897\n5219872\n0.0\n0.0\n\n\n2023-11-07 14:30:00-05:00\n182.350006\n182.429993\n181.899994\n182.198303\n5513486\n0.0\n0.0\n\n\n2023-11-07 15:30:00-05:00\n182.195007\n182.339996\n181.550003\n181.820007\n8142789\n0.0\n0.0"
+  },
+  {
+    "objectID": "proposal.html#headlines-dataset",
+    "href": "proposal.html#headlines-dataset",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Headlines Dataset",
+    "text": "Headlines Dataset\n\nimport requests\nimport pandas as pd\nfrom dateutil import parser\nfrom datetime import datetime, timedelta\n\napi_key='9dcab5d0d86940459623ec7dea5c8d36'\nstock_symbol =\"AAPL\"\nquery_params = {\n    'q': f'{stock_symbol}',\n    'apiKey': api_key,\n    'language': 'en',  # English language\n    'country': 'us',   # USA sources\n}\n\nend_date = datetime.now()\nstart_date = end_date - timedelta(days=7)\n\nfrom_date = start_date.strftime(\"%Y-%m-%d\")\nto_date = end_date.strftime(\"%Y-%m-%d\")\n\nnews_url = f\"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en\"\n\nresponse = requests.get(news_url)\n\nif response.status_code == 200:\n    news_data = response.json()\n    articles = news_data['articles']\n    headlines = [(article['title'], article['publishedAt']) for article in articles]\nelse:\n    print(\"Failed to retrieve news data.\")\n\napple_related_headlines=[]\nfor headline, _ in headlines:\n    try:\n        date = parser.parse(_)\n        if 'Apple' in headline:\n            apple_related_headlines.append((headline, date))\n    except ValueError:\n        pass\n\napple_related_headlines.sort(key = lambda x: x[1])\nnews_dataframe=pd.DataFrame(apple_related_headlines, columns=['Headline', 'Date'])\nnews_dataframe.head()\n\n\n\n\n\n\n\n\n\nHeadline\nDate\n\n\n\n\n0\nSwitchBot for iOSがApple Watchのコンプリケーションに対応。\n2023-11-06 05:24:22+00:00\n\n\n1\nApple's New Feature Detects Water In USB-C Por...\n2023-11-06 08:20:06+00:00\n\n\n2\nCharlie Munger's Apple Confidence, Raskin Take...\n2023-11-06 10:26:19+00:00\n\n\n3\nApple iPhone-maker Foxconn sees solid holiday ...\n2023-11-06 12:16:18+00:00\n\n\n4\nApple MacBook Pro 14-inch review: Huge amounts...\n2023-11-06 17:14:11+00:00\n\n\n\n\n\n\n\n\n\n\nData Dictionary\n\n\n\n\n\n\n\nColumn Name\nData Type\nDescription\n\n\n\n\nHeadLine\nString\nA text field containing headlines related to Apple, ranging from news updates to reviews and opinions.\n\n\nDate\nString\nA datetime field representing the date and time when the headline was published or reported. The timestamps are in Coordinated Universal Time (UTC).\n\n\n\n\nWhy did we choose this data?\nThis dataset is suitable for analyzing the stock price movement due to its time series format with open, high, low, and close prices, as well as volume, dividends, and stock splits. The high-frequency data, recorded at hourly intervals, is valuable for short-term trading. These features provide essential data for analysis and modeling of the stock price movement.\n\n\nVariables Involved:\n\nNews Headlines: Collecting a dataset of news headlines relevant to the stock market. These headlines will serve as a variable to assess the impact on stock prices.\nStock Prices: Gathering historical stock price data for a selected set of stocks within a particular sector. These will be the stocks to study for correlations.\nSector Information: Identifying and categorizing stocks into their respective sectors for sector specific analysis.\n\n\n\nVariables to be Created:\n\nCorrelation Coefficients: Calculating the correlation coefficients to quantify the relationships between Apple’s stock price movements and news headlines, and between stocks within the same sector.\nMarket Sentiment Index: Creating a sentiment index based on the tone of the news headlines (positive, negative, or neutral sentiment) to gauge how news sentiment affects Apple’s stock prices."
+  },
+  {
+    "objectID": "proposal.html#question",
+    "href": "proposal.html#question",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Question",
+    "text": "Question\nHow can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple’s stock performance in the broader market context?\n\nMotivation:\nThe question sparks curiosity about how news headlines might affect Apple’s stock prices. By delving into sentiment analysis, we aim to uncover patterns and insights in the relationship between public sentiment, specific news events, and Apple’s stock performance. This exploration could provide valuable knowledge for investors, analysts, and anyone keen on understanding the dynamics of stock price movements and market influences on Apple."
+  },
+  {
+    "objectID": "proposal.html#analysis-plan",
+    "href": "proposal.html#analysis-plan",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Analysis plan",
+    "text": "Analysis plan\n\nApproach for Question\nTo address the question in a general sense, we would employ a combination of data analysis and predictive modeling. By collecting historical data on stock prices and news headlines, we can examine the historical relationship between news sentiment and market movements. This analysis might involve quantifying sentiment in news headlines, identifying patterns, and exploring correlations. Furthermore, predictive models can be developed to forecast potential future stock price changes based on these insights. The goal is to gain a better understanding of how news impacts stock prices and, if possible, use this knowledge to make informed predictions about future market behavior."
+  },
+  {
+    "objectID": "proposal.html#plan-summary",
+    "href": "proposal.html#plan-summary",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Plan Summary:",
+    "text": "Plan Summary:\n\nData Collection:\n\nGather a diverse dataset of Apple-related news headlines, industry reports, and social media reviews during the specified timeframe.\nCollect historical stock price data for Apple Inc. corresponding to the same period.\n\n\n\nData Preprocessing:\n\nClean and preprocess the text data, including handling any language-specific characters, removing duplicates, and ensuring consistency.\nPreprocess the stock price data, ensuring alignment with the timeframes of the news dataset.\n\n\n\nSentiment Analysis:\n\nUtilize natural language processing techniques to perform sentiment analysis on the collected news headlines.\nCategorize sentiments as positive, negative, or neutral to quantify the overall sentiment trends.\n\n\n\nCorrelation Analysis:\n\nIdentify key news events and occurrences during the specified timeframe. Analyze how the sentiment trends derived from news headlines correlate with Apple’s stock price movements.\nExplore potential correlations between news events related to other stocks and subsequent impacts on Apple’s stock.\n\n\n\nVisualization and Interpretation:\n\nCreate visualizations to illustrate the sentiment trends and stock price movements over time.\nInterpret the findings, identifying patterns, anomalies, and potential cause-effect relationships.\n\n\n\nStatistical Analysis:\n\nConduct statistical tests to validate the significance of observed correlations and trends.\nEvaluate the strength and direction of correlations between sentiment and stock price movements.\n\n\n\nDiscussion and Conclusions:\n\nSummarize the key findings and their implications for understanding the influence of news sentiment on Apple’s stock prices.\nDiscuss any broader market influences on Apple’s stock performance. Consider limitations, potential biases, and areas for future research."
+  },
+  {
+    "objectID": "proposal.html#weekly-plan-of-attack",
+    "href": "proposal.html#weekly-plan-of-attack",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Weekly Plan of Attack",
+    "text": "Weekly Plan of Attack\n\n\n\n\n\n\n\n\n\nWeek\nWeekly Tasks\nPersons in Charge\nBackup\n\n\n\n\nuntil November 8th\nExplore and finalize the dataset and the problem statements\nEveryone\nEveryone\n\n\n-\nComplete the proposal and assign some high-level tasks\nEveryone\nEveryone\n\n\nNovember 9th to 15th\nGetting to know about yfinance library and news headlines\nEveryone\nEveryone\n\n\n-\nData cleaning and Data pre-processing\nEshaan\nAravind\n\n\n-\nQuestion specific exploration and data categorization\nLikith\nSanjay\n\n\nNovember 16th to 22nd\nPerforming Sentiment analysis for Q1\nSanjay\nLikith\n\n\n-\nPerforming Sentiment analysis and find correlations for Q1\nVamsi\nAravind\n\n\n-\nExploring on how to integrate our analysis with real-time prices.\nAravind\nLikith\n\n\nNovember 23rd to 29th\nGenerating remaining parts of the plots for Q1\nEshaan\nSanjay\n\n\n-\nImproving the generated sentiment analysis model\nSanjay\nVamsi\n\n\n-\nStart integrating quarto and our model\nLikith\nEshaan\n\n\nNovember 30th to December 6th\nRefining the code for code review with comments\nEveryone\nEveryone\n\n\n-\nMaking a few changes on the model to test it based on historical data\nVamsi\nAravind\n\n\n-\nContinue with the integration of quarto and our models\nAravind\nEshaan\n\n\nDecember 7th to 13th\nComplete the quarto website with presentable data\nEveryone\nEveryone\n\n\n-\nReview the model and debugging\nEveryone\nEveryone\n\n\n-\nWrite-up and presentation for the project\nEveryone\nEveryone"
+  },
+  {
+    "objectID": "proposal.html#repo-organization",
+    "href": "proposal.html#repo-organization",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "Repo Organization",
+    "text": "Repo Organization\nThe following are the folders involved in the Project repository.\n\n‘data/’: Used for storing any necessary data files for the project, such as input files.\n‘images/’: Used for storing image files used in the project.\n‘_extra/’: Used to brainstorm our analysis which won’t impact our project workflow.\n‘_freeze/’: This folder is used to store the generated files during the build process. These files represent the frozen state of the website at a specific point in time.\n‘.github/’: Folder for storing github templates and workflow.\n\n\n\n\n\n\n\nNote:\n\n\n\nThese are the planned approaches, and we intend to explore and solve the problem statement which we came up with. Parts of our approach might change in the final implementation."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "",
+    "text": "Add project abstract here"
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "",
+    "text": "Add project abstract here"
+  },
+  {
+    "objectID": "presentation.html#objective",
+    "href": "presentation.html#objective",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Objective",
+    "text": "Objective\n\n\nConduct sentiment analysis on Apple Inc. stock.\nAnalyze diverse inputs, including media coverage, industry reports, social media, and investor opinions from news headlines.\nLeverage sentiment analysis techniques to uncover patterns in sentiment.\nGain insights into the correlation between public perception and Apple’s stock performance, offering benefits for investors and analysts."
+  },
+  {
+    "objectID": "presentation.html#dataset-description",
+    "href": "presentation.html#dataset-description",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Dataset Description",
+    "text": "Dataset Description\n\n\nThe Stock Price Dataset is sourced in Real-Time from Yahoo Finance, a financial data provider known for its accuracy and reliability.\nReal-time news headlines related to Apple Inc. are fetched using the News API, providing insights into events and sentiments surrounding the company.\nThe Dataset focuses on the daily stock performance and news headlines related to Apple Inc. for the most recent 30-day period.\nOur data:\n\nStock Price Dataset\nHeadlines Dataset"
+  },
+  {
+    "objectID": "presentation.html#question",
+    "href": "presentation.html#question",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Question",
+    "text": "Question\nHow can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple’s stock performance in the broader market context?"
+  },
+  {
+    "objectID": "presentation.html#approach",
+    "href": "presentation.html#approach",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Approach",
+    "text": "Approach\n\n\nGather diverse Apple-related data, including news, industry reports, social media, and historical stock prices for a specified Timeframe.\nClean and preprocess stock price and headlines data, ensuring alignment with the chosen Timeframe and merging into a single Dataframe.\nUtilize VaderSentiment for sentiment analysis on news headlines, categorizing sentiments into positive, negative, or neutral.\nExplore correlations between news sentiment trends and Apple’s stock prices, using visualizations. Conduct statistical tests for significance and discuss key findings and implications."
+  },
+  {
+    "objectID": "presentation.html#analysis",
+    "href": "presentation.html#analysis",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Analysis",
+    "text": "Analysis"
+  },
+  {
+    "objectID": "presentation.html#conclusion",
+    "href": "presentation.html#conclusion",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "presentation.html#challenges-faced",
+    "href": "presentation.html#challenges-faced",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Challenges faced",
+    "text": "Challenges faced"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Tech or Treat: The Sentimental Stock Saga",
+    "section": "",
+    "text": "This project was developed by Feature Finders Club For INFO 523 - Data Mining and Discovery at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.\n\nTeam member 1: - Eshaan Mathakari: First-year graduate student pursuing Data Science at University of Arizona, github: @eshaanmathakari\nTeam member 2: Sanjay Bhargav Siddi: First-year graduate student pursuing Data Science at University of Arizona, github: @sanjaybhargavsiddi\nTeam member 3: Likith Kumar Dundigalla: First-year graduate student pursuing Data Science at University of Arizona, github: @LikithKumarDundigalla\nTeam member 4: Aravind shrenivas Murali: First-year graduate student pursuing Data Science at University of Arizona, github: @Aravind-shrenivas\nTeam member 5: Vamsi Vadala: First-year graduate student pursuing Data Science at University of Arizona, github: @Vamsi-Vadala"
+  }
+]
