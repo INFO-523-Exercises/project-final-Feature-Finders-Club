@@ -21,6 +21,16 @@ execute:
 jupyter: python3
 ---
 
+```{python}
+!pip install jupyter
+!pip install yfinance
+!pip install vaderSentiment
+!pip install pandas 
+!pip install matplotlib
+!pip install nltk
+!pip install plotly
+```
+
 
 ```{python}
 #| label: load-packages
