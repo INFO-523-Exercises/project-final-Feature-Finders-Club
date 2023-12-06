@@ -62,21 +62,10 @@ apple_data=apple.history(period='1mo')
 
 ```{python headlines_extraction}
 # Setting up necessary parameters for the API request
-api_key='9dcab5d0d86940459623ec7dea5c8d36'
+api_key='<API KEY>'
 stock_symbol ="AAPL"
-# Creating query parameters for the API request
-query_params = {
-    'q': f'{stock_symbol}',
-    'apiKey': api_key,
-    'language': 'en',  # English language
-    'country': 'us',   # USA sources
-}
-# Defining the base URL for the news API
-news_url = "https://newsapi.org/v2/everything"
-# Making an initial request to the API to retrieve news data
-response = requests.get(news_url, params=query_params)
 
-# Setting up date range for fetching news data (last 30 days)
+# Setting up date range for fetching news data (last 29 days)
 end_date = datetime.now()
 start_date = end_date - timedelta(days=29)
 
@@ -212,12 +201,6 @@ to_date = end_date.strftime("%Y-%m-%d")
 
 # Retrieve news data for each stock symbol
 for stock_symbol in stock_symbols:
-    query_params = {
-        'q': f'{stock_symbol}',
-        'apiKey': api_key,
-        'language': 'en',
-        'country': 'us',
-    }
 
     news_url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en"
     response = requests.get(news_url)
@@ -229,7 +212,8 @@ for stock_symbol in stock_symbols:
         all_headlines.extend(headlines)
     else:
         print(f"Failed to retrieve news data for {stock_symbol}.")
-
+```
+```{python}
 # Filter headlines containing the company name
 company_related_headlines = []
 
@@ -248,7 +232,8 @@ company_related_headlines.sort(key=lambda x: x[1])
 # Display company-related headlines
 for data in company_related_headlines:
     print(f'Headline: {data[0]}\nDate: {data[1]}\nSymbol: {data[2]}\n')
-
+```
+```{python}
 # Sentiment analysis using NLTK's VADER
 analyzer = SentimentIntensityAnalyzer()
 sentiments = []
@@ -288,11 +273,9 @@ grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_in
 
 # Display grouped sentiment scores
 print(grouped_df)
+```
 
-# Retrieve Apple stock data using Yahoo Finance API
-apple = yf.Ticker("AAPL")
-apple_data = apple.history(period='1mo')
-
+```{python}
 # Format date columns for merging
 apple_data['date'] = apple_data.index.to_series().dt.strftime('%Y-%m-%d')
 grouped_df['date'] = pd.to_datetime(grouped_df['date'])
