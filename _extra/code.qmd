@@ -62,7 +62,7 @@ apple_data=apple.history(period='1mo')
 
 ```{python headlines_extraction}
 # Setting up necessary parameters for the API request
-api_key='9dcab5d0d86940459623ec7dea5c8d36'
+api_key='<API KEY>'
 stock_symbol ="AAPL"
 # Creating query parameters for the API request
 query_params = {
