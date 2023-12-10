@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: Sentiment Analysis on Tech-based Stocks
+  title: Sentiment Analysis on Apple's Stock
   navbar:
     right:
       - icon: github
@@ -16,8 +16,7 @@ website:
         href: presentation.qmd
       - text: About
         href: about.qmd
-    logo: images\team_logo.png
-  favicon:  images\team_logo.png
+    favicon:  images\team_logo.png
 
 format:
   html:

@@ -1,7 +1,11 @@
 ---
-title: "Project title"
+title: "Tech Or Treat: The Sentimental Stock Saga"
 subtitle: "INFO 523 - Fall 2023 - Project Final"
-author: "Author names"
+author: "Team Feature Finders Club - Eshaan Mathakari,
+         Sanjay Bhargav Siddi, 
+         Likith Kumar Dundigalla,
+         Aravind shrenivas Murali,
+         Vamsi Vadala"
 title-slide-attributes:
   data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
   data-background-size: stretch
@@ -14,152 +18,132 @@ format:
 editor: visual
 execute:
   echo: false
+jupyter: python3
 ---
 
-```{r}
+```{python}
+#| include: false
+#| message: false
+
+
+!pip install yfinance
+!pip install vaderSentiment
+!pip install pandas 
+!pip install matplotlib
+!pip install nltk
+!pip install plotly
+!pip install langdetect
+```
+
+```{python}
 #| label: load-packages
 #| include: false
+#| message: false
 
-# Load packages here
-pacman::p_load(tidymodels,
-               tidyverse)
-
+# Loading necessary packages
+from langdetect import detect
+from dateutil import parser
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance
+import nltk
+import vaderSentiment
+import matplotlib.pyplot as plt
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 ```
 
-```{r}
-#| label: setup
-#| include: false
+## Objective
+::: incremental
+-   Conduct sentiment analysis on Apple Inc. stock.
 
-# Plot theme
-ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+-   Analyze diverse inputs, including media coverage, industry reports, social media, and investor opinions from news headlines.
 
-# For better figure resolution
-knitr::opts_chunk$set(
-  fig.retina = 3, 
-  dpi = 300, 
-  fig.width = 6, 
-  fig.asp = 0.618 
-  )
-```
+-   Leverage sentiment analysis techniques to uncover patterns in sentiment.
 
-```{r}
-#| label: load-data
-#| include: false
-# Load data here
-data(mtcars)
-mtcars$speed <- mtcars$hp / mtcars$wt
-
-data("penguins")
-```
-
-# Using Quarto for presentations
-
-## Quarto
-
--   The presentation is created using the Quarto CLI
-
--   `##` sets the start of a new slide
-
-## Layouts
-
-You can use plain text
-
-::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
+-   Gain insights into the correlation between public perception and Apple's stock performance, offering benefits for investors and analysts.
 :::
 
-::: {.column width="60%"}
-or in two columns
-:::
-:::
+## Dataset Description
 
-[^1]: And add footnotes
+::: incremental
+-   The Stock Price Dataset is sourced in Real-Time from Yahoo Finance, a financial data provider known for its accuracy and reliability.
 
--   like
+-   Real-time news headlines related to Apple Inc. are fetched using the News API, providing insights into events and sentiments surrounding the company.
 
--   this
+-   The Dataset focuses on the daily stock performance and news headlines related to Apple Inc. for the most recent 30-day period.
 
-## Code
+-   Our data:
 
-```{r, echo=FALSE}
-model <- lm(mpg ~ speed, data = mtcars) 
+    -   Stock Price Dataset
 
-model |> tidy()
-
-model |> glance()
-
-```
-
-## Plots
-
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
-
-## Plot and text
-
-::: columns
-::: {.column width="50%"}
--   Some text
-
--   goes here
+    -   Headlines Dataset
 :::
 
-::: {.column width="50%"}
-```{r, warning=FALSE, fig.width=5.5}
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
-```
+## Question
+
+How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple's stock performance in the broader market context?
+
+## Approach
+
+::: incremental
+-   Gather diverse Apple-related data, including news, industry reports, social media, and historical stock prices for a specified Timeframe.
+
+-   Clean and preprocess stock price and headlines data, ensuring alignment with the chosen Timeframe and merging into a single Dataframe.
+
+-   Utilize VaderSentiment for sentiment analysis on news headlines, categorizing sentiments into positive, negative, or neutral.
+
+-   Explore correlations between news sentiment trends and Apple's stock prices, using visualizations. Conduct statistical tests for significance and discuss key findings and implications.
 :::
+
+## Analysis
+
+::: incremental
+
 :::
 
-# A new section...
+## Conclusion
 
-## Tables
+::: incremental
+<span style="font-size:23px;">
+- In this project, we delved into the dynamic intersection of finance and sentiment analysis, specifically focusing on Apple stock. Leveraging the `SentimentIntensityAnalyzer` function in the `vaderSentiment` library in Python, we embarked on a journey to explore the emotional tone surrounding Apple's stock based on textual data.
+</span>
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+<span style="font-size:23px;">
+- The project initiated with data acquisition, utilizing the `yfinance` library to fetch comprehensive stock data through API calls. Subsequently, sentiment analysis was performed using `vaderSentiment`, a powerful tool for gauging sentiment intensity in text data. The sentiment scores obtained were then plotted against the `Apple` stock price, creating a visual representation of the relationship between sentiment and market dynamics.
+</span>
 
-```{r}
-penguins |> 
-  head() |>
-  kableExtra::kable() |>
-  kableExtra::kable_styling()
-```
+<span style="font-size:23px;">
+- The comparison plot revealed intriguing insights into the potential correlation between sentiment shifts and stock price movements. Peaks and troughs in sentiment scores corresponded with noteworthy fluctuations in the stock chart, indicating a potential influence of public sentiment on market trends.
+</span>
+:::
 
-## Images
+## Conclusion
+::: incremental
+<span style="font-size:23px;">
+- However, it's essential to acknowledge the multifaceted nature of stock markets and the intricate interplay of various factors influencing stock prices. While sentiment analysis provides valuable insights, it should be viewed as one of many tools in the broader landscape of financial analysis.
+</span>
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+<span style="font-size:23px;">
+- In conclusion, this project exemplifies the fusion of sentiment analysis techniques with financial data to derive meaningful insights into the emotional undercurrents surrounding Apple stock. As we navigate the complex realm of stock markets, this approach adds a nuanced layer to our understanding, paving the way for further exploration and refinement of strategies in financial decision-making.
+</span>
+:::
 
-## Math Expressions {.smaller}
+## Challenges faced
+::: incremental
+<span style="font-size:23px;">
+- One of the limitation to this project was fetching data from a live data source. We used `newsapi.org` to fetch realtime news but this platform only lets us fetch data for the past 30 days which would stop us from training the model on a wider timescale.
+</span>
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+<span style="font-size:23px;">
+- For the past few months, market sentiment has stayed overtly positive which doesn't help us in training the model well to fit in the `Bear Market` Scenario.
+</span>
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
+<span style="font-size:23px;">
+- Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. **DO NOT** take the outcome of this project as financial advice. Please be careful before making any investments.
+</span>
 
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
-
-Limitations:
-
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-2.  There should not be spaces after the opening `$` or before the closing `$`.
-
-# Wrap up
-
-## Feeling adventurous?
-
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+<span style="font-size:23px;">
+- Thank you for joining me on this exploration of sentiments in the world of Apple stocks.
+</span>
+:::
