@@ -72,18 +72,6 @@ apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
 # Setting up necessary parameters for the API request
 api_key='9dcab5d0d86940459623ec7dea5c8d36'
 stock_symbol ="AAPL"
-# Creating query parameters for the API request
-query_params = {
-    'q': f'{stock_symbol}',
-    'apiKey': api_key,
-    'language': 'en',  # English language
-    'country': 'us',   # USA sources
-}
-# Defining the base URL for the news API
-news_url = "https://newsapi.org/v2/everything"
-# Making an initial request to the API to retrieve news data
-response = requests.get(news_url, params=query_params)
-
 # Setting up date range for fetching news data (last 30 days)
 end_date = datetime.now()
 start_date = end_date - timedelta(days=29)
