@@ -1,0 +1,91 @@
+---
+title: "test-aapl"
+author: "Eshaan Mathakari"
+editor: visual
+---
+```{r}
+# Load yfinance and tidytext packages
+pacman::p_load(quantmod, 
+               tidytext, 
+               tm, 
+               dplyr, 
+               afinn)
+
+apple_df <- getSymbols('AAPL', src='yahoo', auto.assign=FALSE)
+
+# Get last 7 days worth of AAPL stock tickers 
+aapl_tickers <- yfinance::tq_get(c("AAPL"), 
+                                 from = Sys.Date() - 7,
+                                 to = Sys.Date())
+
+# Get text data from tickers
+aapl_text <- aapl_tickers$news
+
+# Prepare text data for sentiment analysis 
+aapl_sentiment <- aapl_text %>%
+  unnest_tokens(word, text) %>%
+  inner_join(get_sentiments("bing"))
+
+# Calculate sentiment scores
+aapl_sentiment_scores <- aapl_sentiment %>%
+  count(date, index = line_number, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>% 
+  mutate(sentiment = positive - negative)
+
+# Visualize sentiment over time
+library(ggplot2)
+ggplot(aapl_sentiment_scores, aes(date, sentiment)) +
+  geom_line() +
+  labs(title = "AAPL Stock Sentiment",
+       y = "Sentiment Score")
+```
+
+```{r}
+perform_sentiment_analysis <- function(stock_data, start_date, end_date) {
+  
+  # Get stock news headlines (replace this with your actual news data)
+  news <- c("Positive news about AAPL.", "Negative news on the horizon for Apple Inc.", "AAPL stock is soaring.")
+  
+  # Combine news headlines into a single text document
+  news_text <- paste(news, collapse = " ")
+  
+  # Create a Corpus
+  corpus <- Corpus(VectorSource(news_text))
+  
+  # Preprocess the text
+  corpus <- tm_map(corpus, content_transformer(tolower))
+  corpus <- tm_map(corpus, removePunctuation)
+  corpus <- tm_map(corpus, removeNumbers)
+  corpus <- tm_map(corpus, removeWords, stopwords("en"))
+  corpus <- tm_map(corpus, stripWhitespace)
+  
+  # Create a document-term matrix
+  dtm <- DocumentTermMatrix(corpus)
+  
+  # Convert the document-term matrix to a data frame
+  dtm_df <- as.data.frame(as.matrix(dtm))
+  
+  # Perform sentiment analysis
+  sentiment_scores <- tidytext::get_sentiments("afinn") %>%
+    left_join(dtm_df, by = c("word" = "row.names")) %>%
+    summarise(sentiment_score = sum(afinn, na.rm = TRUE))
+  
+  return(sentiment_scores)
+}
+
+# Example usage
+symbol <- 'AAPL'
+start_date <- '2007-01-03'
+end_date <- '2023-11-28'
+
+# Assuming you already have the stock data loaded using quantmod
+apple_df <- getSymbols('AAPL', src='yahoo', auto.assign=FALSE)
+
+sentiment_results <- perform_sentiment_analysis(apple_df, start_date, end_date)
+
+# Print sentiment results
+print(sentiment_results)
+
+```
+
+
