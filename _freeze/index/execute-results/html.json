@@ -1,0 +1,11 @@
+{
+  "hash": "a4f19fc6d124d8b5d75a87d05562cc50",
+  "result": {
+    "markdown": "---\ntitle: 'Tech or Treat: The Sentimental Stock Saga'\nsubtitle: Index-page\nformat:\n  html:\n    code-tools: true\n    code-overflow: wrap\n    code-line-numbers: true\n    embed-resources: true\neditor: visual\ncode-annotations: hover\ncategories:\n  - Data Mining and Discovery\nexecute:\n  warning: false\n---\n\n## Abstract\n\nAdd project abstract here.\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

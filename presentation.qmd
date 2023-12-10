@@ -18,11 +18,27 @@ format:
 editor: visual
 execute:
   echo: false
+jupyter: python3
 ---
+
+```{python}
+#| include: false
+#| message: false
+
+
+!pip install yfinance
+!pip install vaderSentiment
+!pip install pandas 
+!pip install matplotlib
+!pip install nltk
+!pip install plotly
+!pip install langdetect
+```
 
 ```{python}
 #| label: load-packages
 #| include: false
+#| message: false
 
 # Loading necessary packages
 from langdetect import detect
@@ -46,17 +62,17 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 -   Leverage sentiment analysis techniques to uncover patterns in sentiment.
 
--   Gain insights into the correlation between public perception and Apple\'s stock performance, offering benefits for investors and analysts.
+-   Gain insights into the correlation between public perception and Apple's stock performance, offering benefits for investors and analysts.
 :::
 
 ## Dataset Description
 
 ::: incremental
--   The stock price dataset is sourced in real-time from Yahoo Finance, a financial data provider known for its accuracy and reliability.
+-   The Stock Price Dataset is sourced in Real-Time from Yahoo Finance, a financial data provider known for its accuracy and reliability.
 
 -   Real-time news headlines related to Apple Inc. are fetched using the News API, providing insights into events and sentiments surrounding the company.
 
--   The dataset focuses on the daily stock performance and news headlines related to Apple Inc. for the most recent 30-day period.
+-   The Dataset focuses on the daily stock performance and news headlines related to Apple Inc. for the most recent 30-day period.
 
 -   Our data:
 
@@ -67,16 +83,16 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 ## Question
 
-How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple\'s stock performance in the broader market context?
+How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple's stock performance in the broader market context?
 
 ## Approach
 
 ::: incremental
--   Gather diverse Apple-related data, including news, industry reports, social media, and historical stock prices for a specified timeframe.
+-   Gather diverse Apple-related data, including news, industry reports, social media, and historical stock prices for a specified Timeframe.
 
--   Clean and preprocess stock price and headlines data, ensuring alignment with the chosen timeframe and merging into a single dataframe.
+-   Clean and preprocess stock price and headlines data, ensuring alignment with the chosen Timeframe and merging into a single Dataframe.
 
--   Utilize vaderSentiment for sentiment analysis on news headlines, categorizing sentiments into positive, negative, or neutral.
+-   Utilize VaderSentiment for sentiment analysis on news headlines, categorizing sentiments into positive, negative, or neutral.
 
 -   Explore correlations between news sentiment trends and Apple's stock prices, using visualizations. Conduct statistical tests for significance and discuss key findings and implications.
 :::
