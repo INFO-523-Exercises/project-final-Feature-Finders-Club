@@ -133,25 +133,25 @@
     "text": "Motivation\n\n\nUncover potential correlations between public perception, external factors on Apple Inc.’s stock performance\nUnderstanding how sentiment influences market movements"
   },
   {
+    "objectID": "presentation.html#workflow",
+    "href": "presentation.html#workflow",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Workflow",
+    "text": "Workflow\n\n\nPackage Integration\nData Acquisition\nData Refinement\nSentiment Analysis\nPlotted results and Interpretation"
+  },
+  {
     "objectID": "presentation.html#apple-inc.-stock-price-data",
     "href": "presentation.html#apple-inc.-stock-price-data",
     "title": "Tech Or Treat: The Sentimental Stock Saga",
     "section": "Apple Inc. Stock Price Data",
-    "text": "Apple Inc. Stock Price Data"
+    "text": "Apple Inc. Stock Price Data\n\nThe data is retrived from Yahoo-Finance python library in real-time."
   },
   {
     "objectID": "presentation.html#apple-inc.-news-headlines-data",
     "href": "presentation.html#apple-inc.-news-headlines-data",
     "title": "Tech Or Treat: The Sentimental Stock Saga",
     "section": "Apple Inc. News Headlines Data",
-    "text": "Apple Inc. News Headlines Data"
-  },
-  {
-    "objectID": "presentation.html#workflow",
-    "href": "presentation.html#workflow",
-    "title": "Tech Or Treat: The Sentimental Stock Saga",
-    "section": "Workflow",
-    "text": "Workflow\n\n\nPackage Integration\nData Acquisition\nData Refinement\nSentiment Analysis\nPlotted results and Interpretation"
+    "text": "Apple Inc. News Headlines Data\n\nNewsAPI url- &gt; https://newsapi.org/\nConstructed API for data retrieval-&gt; news_url = f”https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en”"
   },
   {
     "objectID": "presentation.html#apple-news-headlines---wordcloud",
@@ -165,7 +165,7 @@
     "href": "presentation.html#vadersentiment",
     "title": "Tech Or Treat: The Sentimental Stock Saga",
     "section": "Vadersentiment",
-    "text": "Vadersentiment\n\nVADER (Valence Aware Dictionary and sEntiment Reasoner)- is a lexicon and rule-based sentiment analysis tool designed to assess the sentiment of text, especially social media content. It performs several operations to evaluate the sentiment of a piece of text: - Tokenization- breaks input into words. - Sentiment Intensity Scoring- sentiment intensity scores to individual words. - Punctuation Emphasis - effect of punctuation in modifying the intensity of sentiment (e.g., “AMAZING!!!” might have higher intensity than “amazing”). - Negation Handling - effect of negation words (like “not” or “don’t”) on reversing the polarity. - Emoticon and Capitalization Awareness - Recognizes and interprets emoticons (e.g., :) or :D) and the impact of capitalization on sentiment intensity. - Sentiment Score Calculation - Aggregates the individual word scores to generate an overall sentiment score for the entire text. The scores typically include positive, negative, neutral, and a compound score - Thresholding: Applies predefined thresholds to the compound score to categorize the text as positive, negative, or neutral based on the intensity of sentiment."
+    "text": "Vadersentiment\n\nVADER (Valence Aware Dictionary and sEntiment Reasoner)- is a lexicon and rule-based sentiment analysis tool designed to assess the sentiment of text, especially social media content. It performs several operations to evaluate the sentiment of a piece of text:\n-Tokenization- breaks input into words.\n- Sentiment Intensity Scoring- sentiment intensity scores to individual words.\n- Punctuation Emphasis - effect of punctuation in modifying the intensity of sentiment (e.g., “AMAZING!!!” might have higher intensity than “amazing”).\n- Negation Handling - effect of negation words (like “not” or “don’t”) on reversing the polarity.\n- Emoticon and Capitalization Awareness - Recognizes and interprets emoticons (e.g., :) or :D) and the impact of capitalization on sentiment intensity.\n- Sentiment Score Calculation - Aggregates the individual word scores to generate an overall sentiment score for the entire text. The scores typically include positive, negative, neutral, and a compound score"
   },
   {
     "objectID": "presentation.html#apple-news-headlines---sentiment-analysis",

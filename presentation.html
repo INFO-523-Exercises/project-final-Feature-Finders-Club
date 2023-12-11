@@ -364,26 +364,6 @@ Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar
 </ul>
 </div>
 </section>
-<section id="apple-inc.-stock-price-data" class="slide level2">
-<h2>Apple Inc.&nbsp;Stock Price Data</h2>
-<div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/apple_stock_table.png" style="width:75.0%"></p>
-</figure>
-</div>
-</div>
-</section>
-<section id="apple-inc.-news-headlines-data" class="slide level2">
-<h2>Apple Inc.&nbsp;News Headlines Data</h2>
-<div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/apple_headline.png" style="width:75.0%"></p>
-</figure>
-</div>
-</div>
-</section>
 <section id="workflow" class="slide level2">
 <h2>Workflow</h2>
 <div>
@@ -394,6 +374,30 @@ Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar
 <li><p>Sentiment Analysis</p></li>
 <li><p>Plotted results and Interpretation</p></li>
 </ol>
+</div>
+</section>
+<section id="apple-inc.-stock-price-data" class="slide level2">
+<h2>Apple Inc.&nbsp;Stock Price Data</h2>
+<div>
+<p>The data is retrived from Yahoo-Finance python library in real-time.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/stock_data.jpg"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="apple-inc.-news-headlines-data" class="slide level2">
+<h2>Apple Inc.&nbsp;News Headlines Data</h2>
+<div>
+<p>NewsAPI url- &gt; <a href="https://newsapi.org/" class="uri">https://newsapi.org/</a></p>
+<p>Constructed API for data retrieval-&gt; news_url = f”https://newsapi.org/v2/everything?q={stock_symbol}&amp;apiKey={api_key}&amp;from={from_date}&amp;to={to_date}&amp;language=en”<br>
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/headlines_data.jpg"></p>
+</figure>
+</div>
 </div>
 </section>
 <section id="apple-news-headlines---wordcloud" class="slide level2">
@@ -409,7 +413,13 @@ Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar
 <section id="vadersentiment" class="slide level2">
 <h2>Vadersentiment</h2>
 <div>
-<p><span style="font-size:23px;">VADER (Valence Aware Dictionary and sEntiment Reasoner)- is a lexicon and rule-based sentiment analysis tool designed to assess the sentiment of text, especially social media content. It performs several operations to evaluate the sentiment of a piece of text:</span> <span style="font-size:23px;">- Tokenization- breaks input into words.</span> <span style="font-size:23px;">- Sentiment Intensity Scoring- sentiment intensity scores to individual words.</span> <span style="font-size:23px;">- Punctuation Emphasis - effect of punctuation in modifying the intensity of sentiment (e.g., “AMAZING!!!” might have higher intensity than “amazing”).</span> <span style="font-size:23px;">- Negation Handling - effect of negation words (like “not” or “don’t”) on reversing the polarity.</span> <span style="font-size:23px;">- Emoticon and Capitalization Awareness - Recognizes and interprets emoticons (e.g., :) or :D) and the impact of capitalization on sentiment intensity.</span> <span style="font-size:23px;">- Sentiment Score Calculation - Aggregates the individual word scores to generate an overall sentiment score for the entire text. The scores typically include positive, negative, neutral, and a compound score</span> <span style="font-size:23px;">- Thresholding: Applies predefined thresholds to the compound score to categorize the text as positive, negative, or neutral based on the intensity of sentiment.</span></p>
+<p><span style="font-size:23px;">VADER (Valence Aware Dictionary and sEntiment Reasoner)- is a lexicon and rule-based sentiment analysis tool designed to assess the sentiment of text, especially social media content. It performs several operations to evaluate the sentiment of a piece of text:</span></p>
+<p><span style="font-size:23px;">-Tokenization- breaks input into words.</span></p>
+<p><span style="font-size:23px;">- Sentiment Intensity Scoring- sentiment intensity scores to individual words.</span></p>
+<p><span style="font-size:23px;">- Punctuation Emphasis - effect of punctuation in modifying the intensity of sentiment (e.g., “AMAZING!!!” might have higher intensity than “amazing”).</span></p>
+<p><span style="font-size:23px;">- Negation Handling - effect of negation words (like “not” or “don’t”) on reversing the polarity.</span></p>
+<p><span style="font-size:23px;">- Emoticon and Capitalization Awareness - Recognizes and interprets emoticons (e.g., :) or :D) and the impact of capitalization on sentiment intensity.</span></p>
+<p><span style="font-size:23px;">- Sentiment Score Calculation - Aggregates the individual word scores to generate an overall sentiment score for the entire text. The scores typically include positive, negative, neutral, and a compound score</span></p>
 </div>
 </section>
 <section id="apple-news-headlines---sentiment-analysis" class="slide level2">
