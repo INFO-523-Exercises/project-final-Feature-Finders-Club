@@ -319,31 +319,12 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-  <script type="text/javascript">
-  window.PlotlyConfig = {MathJaxConfig: 'local'};
-  if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
-  if (typeof require !== 'undefined') {
-  require.undef("plotly");
-  requirejs.config({
-      paths: {
-          'plotly': ['https://cdn.plot.ly/plotly-2.12.1.min']
-      }
-  });
-  require(['plotly'], function(Plotly) {
-      window._Plotly = Plotly;
-  });
-  }
-  </script>
-
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="images/watercolour_sys02_img34_teacup-ocean.jpg" data-background-opacity="0.7" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
+<section id="title-slide" data-background-image="images/watercolour_sys02_img34_teacup-ocean.jpg" data-background-opacity="0.5" data-background-size="stretch" data-slide-number="none" class="quarto-title-block center">
   <h1 class="title">Tech Or Treat: The Sentimental Stock Saga</h1>
   <p class="subtitle">INFO 523 - Fall 2023 - Project Final</p>
 
@@ -358,964 +339,107 @@ Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar
 </section>
 <section id="objective" class="slide level2">
 <h2>Objective</h2>
+<div width="40%">
 <ul>
-<li><p>Analyze sentiment in news headlines about Apple Inc.&nbsp;stock to assess public perception.</p></li>
-<li><p>Explore correlation between sentiment analysis results and Apple’s stock performance for investor insights.</p></li>
+<li class="fragment"><p>Analyze sentiment in news headlines about Apple Inc.&nbsp;stock to assess public perception.</p></li>
+<li class="fragment"><p>Explore correlation between sentiment analysis results and Apple’s stock performance for investor insights.</p></li>
 </ul>
+</div>
 </section>
 <section id="question" class="slide level2">
 <h2>Question</h2>
-<p>How does sentiment analysis of news headlines provide insights into Apple Inc.’s stock price movements, revealing the influence of external factors on its market performance?<br>
-<br>
-What valuable insights can be derived from correlating sentiment analysis of news headlines with Apple’s stock behavior, elucidating the impact of external factors on the broader market context?</p>
+<div>
+<ul>
+<li><p>How does sentiment analysis of news headlines provide insights into Apple Inc.’s stock price movements, revealing the influence of external factors on its market performance?</p></li>
+<li><p>What valuable insights can be derived from correlating sentiment analysis of news headlines with Apple’s stock behavior, elucidating the impact of external factors on the broader market context?</p></li>
+</ul>
+</div>
 </section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
+<div>
 <ul>
 <li><p>Uncover potential correlations between public perception, external factors on Apple Inc.’s stock performance</p></li>
 <li><p>Understanding how sentiment influences market movements</p></li>
 </ul>
-</section>
-<section id="sample-data" class="slide level2">
-<h2>Sample Data</h2>
+</div>
 <h3 id="apple-inc.-stock-price-data">Apple Inc.&nbsp;Stock Price Data</h3>
-<div class="cell" data-execution_count="3">
-<div id="stockdata_extraction" class="cell-output cell-output-display" data-execution_count="3">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Date</th>
-<th data-quarto-table-cell-role="th">Open</th>
-<th data-quarto-table-cell-role="th">High</th>
-<th data-quarto-table-cell-role="th">Low</th>
-<th data-quarto-table-cell-role="th">Close</th>
-<th data-quarto-table-cell-role="th">Volume</th>
-<th data-quarto-table-cell-role="th">Dividends</th>
-<th data-quarto-table-cell-role="th">Stock Splits</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>2023-11-13</td>
-<td>185.820007</td>
-<td>186.029999</td>
-<td>184.210007</td>
-<td>184.800003</td>
-<td>43627500</td>
-<td>0.0</td>
-<td>0.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2023-11-14</td>
-<td>187.699997</td>
-<td>188.110001</td>
-<td>186.300003</td>
-<td>187.440002</td>
-<td>60108400</td>
-<td>0.0</td>
-<td>0.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>2023-11-15</td>
-<td>187.850006</td>
-<td>189.500000</td>
-<td>187.779999</td>
-<td>188.009995</td>
-<td>53790500</td>
-<td>0.0</td>
-<td>0.0</td>
-</tr>
-</tbody>
-</table>
-
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/apple_stock_table.png" style="width:75.0%"></p>
+</figure>
 </div>
-</div>
-</div>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
 <h3 id="apple-inc.-news-headlines-data">Apple Inc.&nbsp;News Headlines Data</h3>
-<p><br>
-</p>
-<div class="cell" data-execution_count="5">
-<div id="headlines_transformation" class="cell-output cell-output-display" data-execution_count="5">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Headlines</th>
-<th data-quarto-table-cell-role="th">date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Apple Stock: The Good and Bad News for AAPL In...</td>
-<td>2023-11-13 11:56:14+00:00</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Apple、Apple ConfiguratorからiPhoneやiPadにアプリがインスト...</td>
-<td>2023-11-13 22:17:15+00:00</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Major Apple assembler Foxconn reports surprise...</td>
-<td>2023-11-14 13:57:26+00:00</td>
-</tr>
-</tbody>
-</table>
-
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/apple_headline.png" style="width:75.0%"></p>
+</figure>
 </div>
-</div>
-</div>
-</section>
-<section id="analysis" class="slide level2">
-<h2>Analysis</h2>
 </section>
 <section id="workflow" class="slide level2">
 <h2>Workflow</h2>
+<div>
 <ol type="1">
 <li><p>Package Integration</p></li>
 <li><p>Data Acquisition</p></li>
 <li><p>Data Refinement</p></li>
 <li><p>Sentiment Analysis</p></li>
-<li><p>Plotted results and Interpretation.</p></li>
+<li><p>Plotted results and Interpretation</p></li>
 </ol>
-<div class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<p><img data-src="presentation_files/figure-revealjs/wordcloud-output-1.png" id="wordcloud" width="763" height="411"></p>
+</div>
+</section>
+<section id="apple-news-headlines---sentiment-analysis" class="slide level2">
+<h2>Apple News Headlines - Sentiment Analysis</h2>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/apple_sentiment.png" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
-<div id="aapl-stock-price-and-sentiment-analysis" class="cell-output cell-output-display">
-
-<div>                            <div id="f985568a-5c12-4c11-9fd1-6fd795c34f82" class="plotly-graph-div" style="height:600px; width:800px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("f985568a-5c12-4c11-9fd1-6fd795c34f82")) {                    Plotly.newPlot(                        "f985568a-5c12-4c11-9fd1-6fd795c34f82",                        [{"mode":"lines","name":"AAPL Close Price","x":["2023-11-13","2023-11-14","2023-11-15","2023-11-16","2023-11-17","2023-11-20","2023-11-21","2023-11-22","2023-11-24","2023-11-27","2023-11-28","2023-11-29","2023-11-30","2023-12-01","2023-12-04","2023-12-05","2023-12-06","2023-12-07","2023-12-08","2023-12-11"],"y":[184.8000030517578,187.44000244140625,188.00999450683594,189.7100067138672,189.69000244140625,191.4499969482422,190.63999938964844,191.30999755859375,189.97000122070312,189.7899932861328,190.39999389648438,189.3699951171875,189.9499969482422,191.24000549316406,189.42999267578125,193.4199981689453,192.32000732421875,194.27000427246094,195.7100067138672,192.38999938964844],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"orange"},"mode":"lines","name":"Sentiment Score","x":["2023-11-13","2023-11-13","2023-11-14","2023-11-16","2023-11-19","2023-11-20","2023-11-23","2023-11-23","2023-11-24","2023-11-27","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-12-05","2023-12-05","2023-12-06","2023-12-06","2023-12-06","2023-12-06","2023-12-07","2023-12-08","2023-12-08","2023-12-08","2023-12-09"],"y":[-0.1531,0.0,0.6124,0.0,0.5267,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2023,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.4404,-0.6369,0.5106,0.0,0.0],"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0]},"yaxis":{"anchor":"x","domain":[0.625,1.0],"title":{"text":"Price"}},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"title":{"text":"Date"}},"yaxis2":{"anchor":"x2","domain":[0.0,0.375],"title":{"text":"Sentiment Score"}},"annotations":[{"font":{"size":16},"showarrow":false,"text":"AAPL Stock Price","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Sentiment Analysis of News Headlines","x":0.5,"xanchor":"center","xref":"paper","y":0.375,"yanchor":"bottom","yref":"paper"}],"title":{"text":"AAPL Stock Price and Sentiment Analysis"},"height":600,"width":800},                        {"responsive": true}                    ).then(function(){
-                            
-var gd = document.getElementById('f985568a-5c12-4c11-9fd1-6fd795c34f82');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
-
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
-
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
-
-                        })                };                });            </script>        </div>
+<h3 id="apple-news-headlines---wordcloud">Apple News Headlines - wordcloud</h3>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/wordcloud_apple.png" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="11">
-<div class="cell-output cell-output-stdout">
-<pre><code>Headline: IronYun and HPE Introduce First AI-Powered Video Analytics Solution Validated on HPE ProLiant Gen 11
-Date: 2023-11-22 11:12:00+00:00
-Symbol: HPE
-
-Headline: Hewlett Packard Enterprise (NYSE:HPE) Shares Purchased by Heritage Trust Co
-Date: 2023-11-24 17:28:47+00:00
-Symbol: HPE
-
-Headline: Stocks to Watch Tuesday: Carlyle, PDD, Zscaler, HPE
-Date: 2023-11-28 15:24:05+00:00
-Symbol: HPE
-
-Headline: State Board of Administration of Florida Retirement System Reduces Holdings in Hewlett Packard Enterprise (NYSE:HPE)
-Date: 2023-11-28 15:38:45+00:00
-Symbol: HPE
-
-Headline: HPE sees promising future and double-digit growth in AI
-Date: 2023-11-28 21:50:08+00:00
-Symbol: HPE
-
-Headline: HPE’s earnings edge past Wall Street’s estimates, driven by upsurge in AI
-Date: 2023-11-29 00:11:54+00:00
-Symbol: HPE
-
-Headline: HPE: EPS down 9% in Q4
-Date: 2023-11-29 09:12:04+00:00
-Symbol: HPE
-
-Headline: HPE Announces Q4 FY2023 and Full Year Results
-Date: 2023-11-29 12:00:00+00:00
-Symbol: HPE
-
-Headline: Korea Telecom Selects HPE Aruba Networking SD-WAN to Help Deliver Faster Global Connectivity for Enterprises via AWS Cloud WAN
-Date: 2023-11-29 13:01:01+00:00
-Symbol: HPE
-
-Headline: 123,254 Shares in Hewlett Packard Enterprise (NYSE:HPE) Purchased by Trexquant Investment LP
-Date: 2023-11-29 13:46:45+00:00
-Symbol: HPE
-
-Headline: Trexquant Investment LP Invests $2.07 Million in Hewlett Packard Enterprise (NYSE:HPE)
-Date: 2023-11-29 14:18:51+00:00
-Symbol: HPE
-
-Headline: Server sales down 31% at HPE as enterprises hack spending
-Date: 2023-11-29 15:02:08+00:00
-Symbol: HPE
-
-Headline: Sustainability, security and AI take center stage at HPE Discover: theCUBE breaks down the day 1 keynote
-Date: 2023-11-29 16:57:38+00:00
-Symbol: HPE
-
-Headline: The evolution of Microsoft and HPE’s alliance in shaping the hybrid cloud landscape
-Date: 2023-11-29 21:18:43+00:00
-Symbol: HPE
-
-Headline: Following MSFT &amp; GOOG Lead, AWS Embraces Nvidia And Upgrades Own Chips
-Date: 2023-11-30 00:06:27+00:00
-Symbol: MSFT
-
-Headline: Ofinno Slashes Cloud Costs Up to 90% with HPE GreenLake
-Date: 2023-11-30 03:30:00+00:00
-Symbol: HPE
-
-Headline: Ofinno Slashes Cloud Costs Up to 90% with HPE GreenLake
-Date: 2023-11-30 08:31:01+00:00
-Symbol: HPE
-
-Headline: HPE, Nvidia partner on AI-optimized platforms and services
-Date: 2023-11-30 08:45:14+00:00
-Symbol: HPE
-
-Headline: HPE targets enterprises with Nvidia-powered platform for tuning AI
-Date: 2023-11-30 11:45:05+00:00
-Symbol: HPE
-
-Headline: HPE targets enterprises with Nvidia-powered platform for tuning AI
-Date: 2023-11-30 11:48:08+00:00
-Symbol: HPE
-
-Headline: Panagora Asset Management Inc. Sells 1,699,552 Shares of Hewlett Packard Enterprise (NYSE:HPE)
-Date: 2023-11-30 14:48:47+00:00
-Symbol: HPE
-
-Headline: Transforming IT operations: Exploring HPE’s AI-driven observability solutions
-Date: 2023-11-30 17:00:36+00:00
-Symbol: HPE
-
-Headline: Providing a supercomputing solution for generative AI: Inside HPE and Nvidia’s collaboration
-Date: 2023-11-30 18:00:37+00:00
-Symbol: HPE
-
-Headline: Hewlett Packard Enterprise (NYSE:HPE) Announces Earnings Results, Beats Expectations By $0.02 EPS
-Date: 2023-11-30 18:56:45+00:00
-Symbol: HPE
-
-Headline: Data reshaped: HPE’s AI-enhanced storage for the modern enterprise
-Date: 2023-11-30 20:40:36+00:00
-Symbol: HPE
-
-Headline: AMD and HPE forge new paths in sustainable computing
-Date: 2023-11-30 21:40:56+00:00
-Symbol: HPE
-
-Headline: How Atea and HPE are pioneering eco-friendly digital transformation
-Date: 2023-12-01 16:11:45+00:00
-Symbol: HPE
-
-Headline: HPE to start pumping AI capabilities into Greenlake under Project Ethan
-Date: 2023-12-01 17:04:07+00:00
-Symbol: HPE
-
-Headline: HPE to start pumping AI capabilities into Greenlake under Project Ethan
-Date: 2023-12-01 17:16:08+00:00
-Symbol: HPE
-
-Headline: Intel and HPE prioritize sustainability in processor design and manufacturing
-Date: 2023-12-01 20:25:53+00:00
-Symbol: HPE
-
-Headline: HPE ProLiant DL320 Gen11 Server Review
-Date: 2023-12-01 20:55:43+00:00
-Symbol: HPE
-
-Headline: HPE says impact of AI on enterprise not 'overstated.' It must be hoping so
-Date: 2023-12-01 21:03:12+00:00
-Symbol: HPE
-
-Headline: HPE says impact of AI on enterprise not 'overstated.' It must be hoping so
-Date: 2023-12-01 21:08:48+00:00
-Symbol: HPE
-
-Headline: HPE and the Ryder Cup: Partnering for innovation and sustainability in golf
-Date: 2023-12-01 21:40:29+00:00
-Symbol: HPE
-
-Headline: Bridging the gap: HPE’s hybrid cloud and AI integration strategy
-Date: 2023-12-04 22:30:59+00:00
-Symbol: HPE
-
-Headline: Microsoft and HPE unite to integrate AI into cloud solutions
-Date: 2023-12-04 23:30:16+00:00
-Symbol: HPE
-
-Headline: Three insights you might have missed from the ‘HPE Discover Barcelona’ event
-Date: 2023-12-05 20:25:30+00:00
-Symbol: HPE
-
-Headline: MSFT Stock, PANW, CRWD, ZS Lead Screen Of 22 Stocks To Watch As AI Boom Continues
-Date: 2023-12-05 20:38:25+00:00
-Symbol: MSFT
-
-Headline: KIOXIA RM7 Series Value SAS SSDs Now Available for HPE ProLiant Gen11 Servers
-Date: 2023-12-05 21:44:58+00:00
-Symbol: HPE
-
-Headline: Here’s Why You Should Keep an Eye on Your Microsoft (MSFT) Investment
-Date: 2023-12-07 08:59:07+00:00
-Symbol: MSFT
-
-Headline: (PR) New Kioxia RM7 Series Value SAS SSDs Debut on HPE Servers
-Date: 2023-12-07 11:47:13+00:00
-Symbol: HPE
-
-Headline: Microsoft (NASDAQ: MSFT) Vs. Meta (NASDAQ: META) — Analyzing $1,000 Investments From May 18, 2012
-Date: 2023-12-07 17:24:41+00:00
-Symbol: MSFT
-
-Headline: Microsoft (NASDAQ: MSFT) Vs. Meta (NASDAQ: META)
-Date: 2023-12-07 20:56:07+00:00
-Symbol: MSFT
-
-Headline: HPE GreenLake aims to bridge the gap in the hybrid cloud world
-Date: 2023-12-08 16:39:22+00:00
-Symbol: HPE
-
-Headline: Is Microsoft (MSFT) Still a Great Investment Choice?
-Date: 2023-12-10 05:17:09+00:00
-Symbol: MSFT
-
-Headline: Is Microsoft (MSFT) Still a Great Investment Choice?
-Date: 2023-12-10 05:17:09+00:00
-Symbol: MSFT
-
-         date  Compound Score
-0  2023-11-22        0.493900
-1  2023-11-24        0.670500
-2  2023-11-28        0.216200
-3  2023-11-29        0.115322
-4  2023-11-30        0.016175
-5  2023-12-01        0.172317
-6  2023-12-04        0.088950
-7  2023-12-05        0.014667
-8  2023-12-07        0.085000
-9  2023-12-08        0.000000
-10 2023-12-10        0.624900
-Correlation between Compound Score and Closing Price: -0.3620196879470234
-        date  Compound Score        Open        High         Low       Close  \
-0 2023-11-22        0.493900  191.490005  192.929993  190.830002  191.309998   
-1 2023-11-24        0.670500  190.869995  190.899994  189.250000  189.970001   
-2 2023-11-28        0.216200  189.779999  191.080002  189.399994  190.399994   
-3 2023-11-29        0.115322  190.899994  192.089996  188.970001  189.369995   
-4 2023-11-30        0.016175  189.839996  190.320007  188.190002  189.949997   
-5 2023-12-01        0.172317  190.330002  191.559998  189.229996  191.240005   
-6 2023-12-04        0.088950  189.979996  190.050003  187.449997  189.429993   
-7 2023-12-05        0.014667  190.210007  194.399994  190.179993  193.419998   
-8 2023-12-07        0.085000  193.630005  195.000000  193.589996  194.270004   
-9 2023-12-08        0.000000  194.199997  195.990005  193.669998  195.710007   
-
-     Volume  Dividends  Stock Splits  
-0  39617700        0.0           0.0  
-1  24048300        0.0           0.0  
-2  38415400        0.0           0.0  
-3  43014200        0.0           0.0  
-4  48794400        0.0           0.0  
-5  45679300        0.0           0.0  
-6  43389500        0.0           0.0  
-7  66628400        0.0           0.0  
-8  47477700        0.0           0.0  
-9  53377300        0.0           0.0  
-Correlation between Compound Score and Closing Price: -0.3620196879470234</code></pre>
-</div>
-<div id="correlation" class="cell-output cell-output-display">
-
-<div>                            <div id="2c54315f-5673-47a3-80b9-8e8b5a42eb90" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("2c54315f-5673-47a3-80b9-8e8b5a42eb90")) {                    Plotly.newPlot(                        "2c54315f-5673-47a3-80b9-8e8b5a42eb90",                        [{"mode":"lines+markers","name":"Compound Score","x":["2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[0.4939,0.6705,0.21619999999999998,0.11532222222222223,0.016174999999999995,0.17231666666666667,0.08895,0.01466666666666668,0.085,0.0],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"darkgoldenrod"},"mode":"lines+markers","name":"Closing Price","x":["2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[191.30999755859375,189.97000122070312,190.39999389648438,189.3699951171875,189.9499969482422,191.24000549316406,189.42999267578125,193.4199981689453,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"green","size":8},"mode":"markers","name":"Positive Change","x":["2023-11-28T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[190.39999389648438,189.9499969482422,191.24000549316406,193.4199981689453,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"red","size":8},"mode":"markers","name":"Negative Change","x":["2023-11-24T00:00:00","2023-11-29T00:00:00","2023-12-04T00:00:00"],"y":[189.97000122070312,189.3699951171875,189.42999267578125],"type":"scatter","xaxis":"x","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.94],"title":{"text":"Date"},"showgrid":true,"zeroline":true,"gridcolor":"lightgrey","gridwidth":0.5,"showline":true,"linecolor":"#2a3f5f","linewidth":2},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Compound Score"},"color":"blue","showline":true,"linecolor":"blue","linewidth":2},"yaxis2":{"anchor":"x","overlaying":"y","side":"right","title":{"text":"Closing Price"},"color":"darkgoldenrod","showline":true,"linecolor":"darkgoldenrod","linewidth":2},"title":{"text":"Competitors Sentiment Scores vs. Apple Closing Price"},"plot_bgcolor":"white","paper_bgcolor":"white"},                        {"responsive": true}                    ).then(function(){
-                            
-var gd = document.getElementById('2c54315f-5673-47a3-80b9-8e8b5a42eb90');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
-
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
-
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
-
-                        })                };                });            </script>        </div>
+</section>
+<section id="competitors-vs-apple" class="slide level2">
+<h2>Competitors vs Apple</h2>
+<div>
+<p>Correlation = -0.15</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/Competitors.png" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
-<div class="cell" data-execution_count="12">
-<div class="cell-output cell-output-stdout">
-<pre><code>Headline: The ruble is gaining and is the world's best performing currency versus the dollar in recent weeks amid rate hikes and energy costs
-Date: 2023-11-21 15:20:52+00:00
-Symbol: currency
-
-Headline: Chinese state-owned banks are propping up the yuan while the central bank signals currency weakness
-Date: 2023-11-21 16:23:15+00:00
-Symbol: currency
-
-Headline: Magnitude 6.2 earthquake strikes Halmahera, Indonesia
-Date: 2023-11-22 04:22:00+00:00
-Symbol: earthquake
-
-Headline: A strong earthquake shakes eastern Indonesia with no immediate reports of casualties or damages
-Date: 2023-11-22 04:46:59+00:00
-Symbol: earthquake
-
-Headline: A strong earthquake shakes eastern Indonesia with no immediate reports of casualties or damages
-Date: 2023-11-22 09:47:05+00:00
-Symbol: earthquake
-
-Headline: Woman Still Wearing Mask On Plane Must Have Inside Information About Next Pandemic
-Date: 2023-11-22 11:00:00+00:00
-Symbol: Pandemic
-
-Headline: Woman Still Wearing Mask On Plane Must Have Inside Information About Next Pandemic
-Date: 2023-11-22 11:00:00+00:00
-Symbol: Pandemic
-
-Headline: Cryptocurrency and Taxes: What Tech Entrepreneurs Need to Know
-Date: 2023-11-23 14:00:59+00:00
-Symbol: currency
-
-Headline: New homeowners are fleeing their pandemic-era digs to be closer to the office, report says
-Date: 2023-11-24 02:49:21+00:00
-Symbol: pandemic
-
-Headline: New homeowners are fleeing their pandemic-era digs to be closer to the office, report says
-Date: 2023-11-24 02:49:21+00:00
-Symbol: pandemic
-
-Headline: This is the ONLY game I played throughout the pandemic and it single-handedly saved my sanity, and you can get it free with a Nintendo Switch Lite
-Date: 2023-11-24 11:35:06+00:00
-Symbol: pandemic
-
-Headline: This is the ONLY game I played throughout the pandemic and it single-handedly saved my sanity, and you can get it free with a Nintendo Switch Lite
-Date: 2023-11-24 11:35:06+00:00
-Symbol: pandemic
-
-Headline: This is the ONLY game I played throughout the pandemic and it single-handedly saved my sanity, and you can get it free with a Nintendo Switch Lite
-Date: 2023-11-24 11:35:06+00:00
-Symbol: pandemic
-
-Headline: This is the ONLY game I played throughout the pandemic and it single-handedly saved my sanity, and you can get it free with a Nintendo Switch Lite
-Date: 2023-11-24 11:35:06+00:00
-Symbol: pandemic
-
-Headline: Aftershocks from devastating 1886 Charleston earthquake may still be hitting the US today
-Date: 2023-11-24 14:45:07+00:00
-Symbol: earthquake
-
-Headline: Predicting earthquakes and tsunamis with fiber-optic networks
-Date: 2023-11-24 14:52:55+00:00
-Symbol: earthquake
-
-Headline: Grants Support New Businesses Launched During COVID-19 Pandemic
-Date: 2023-11-25 11:00:04+00:00
-Symbol: Pandemic
-
-Headline: Grants Support New Businesses Launched During COVID-19 Pandemic
-Date: 2023-11-25 11:00:04+00:00
-Symbol: Pandemic
-
-Headline: Cockroaches and mountains of trash plague Acapulco after hurricane
-Date: 2023-11-25 21:45:11+00:00
-Symbol: hurricane
-
-Headline: Slow Acapulco recovery after hurricane fans fears over livelihoods
-Date: 2023-11-26 00:06:09+00:00
-Symbol: hurricane
-
-Headline: This legendary market forecaster has warned of a stock-market crash and a recession for years. Here are Gary Shilling's 14 best X posts since the pandemic.
-Date: 2023-11-26 11:30:01+00:00
-Symbol: pandemic
-
-Headline: This legendary market forecaster has warned of a stock-market crash and a recession for years. Here are Gary Shilling's 14 best X posts since the pandemic.
-Date: 2023-11-26 11:30:01+00:00
-Symbol: pandemic
-
-Headline: This legendary market forecaster has warned of a stock-market crash and a recession for years. Here are Gary Shilling's 14 best X posts since the pandemic.
-Date: 2023-11-26 11:30:01+00:00
-Symbol: pandemic
-
-Headline: Q&amp;A with Slack CTO Cal Henderson on how the pandemic changed Slack and workplace habits, acquisition by Salesforce, generative AI, India market, and more (Vikas SN/Moneycontrol)
-Date: 2023-11-26 13:00:47+00:00
-Symbol: pandemic
-
-Headline: Q&amp;A with Slack CTO Cal Henderson on how the pandemic changed Slack and workplace habits, acquisition by Salesforce, generative AI, India market, and more (Vikas SN/Moneycontrol)
-Date: 2023-11-26 13:00:47+00:00
-Symbol: pandemic
-
-Headline: Why the Israeli shekel is the world's best performing currency against the US dollar this month
-Date: 2023-11-27 16:32:14+00:00
-Symbol: currency
-
-Headline: Why the Israeli shekel is the world's best performing currency against the US dollar this month
-Date: 2023-11-27 16:48:06+00:00
-Symbol: currency
-
-Headline: How China’s digital yuan could work in a dual-currency socialist system
-Date: 2023-11-28 08:34:15+00:00
-Symbol: currency
-
-Headline: Take-Two Interactive sued over use of virtual currency
-Date: 2023-11-28 14:29:32+00:00
-Symbol: currency
-
-Headline: Take-Two and 2K sued over in-game currency in yearly sports series
-Date: 2023-11-28 16:10:06+00:00
-Symbol: currency
-
-Headline: How a small Caribbean island is trying to become hurricane-proof
-Date: 2023-11-28 17:03:43+00:00
-Symbol: hurricane
-
-Headline: Why tenants struggle more in the wake of hurricanes
-Date: 2023-11-28 19:49:04+00:00
-Symbol: hurricane
-
-Headline: Analyses of the Kahramanmaraş earthquake from February 2023
-Date: 2023-11-28 22:37:04+00:00
-Symbol: earthquake
-
-Headline: U.S. life expectancy starts to recover after sharp pandemic decline
-Date: 2023-11-29 05:01:42+00:00
-Symbol: pandemic
-
-Headline: U.S. life expectancy starts to recover after sharp pandemic decline
-Date: 2023-11-29 05:01:42+00:00
-Symbol: pandemic
-
-Headline: Foreign currency deposits plunge in Russia
-Date: 2023-11-29 05:18:22+00:00
-Symbol: currency
-
-Headline: Nikki Teran wants to stop the next pandemic
-Date: 2023-11-29 11:00:00+00:00
-Symbol: pandemic
-
-Headline: Nikki Teran wants to stop the next pandemic
-Date: 2023-11-29 11:00:00+00:00
-Symbol: pandemic
-
-Headline: How a small Caribbean island is trying to become hurricane-proof
-Date: 2023-11-29 17:22:04+00:00
-Symbol: hurricane
-
-Headline: Matt Hancock reveals 'biggest regret' of pandemic during COVID Inquiry grilling - what you missed today
-Date: 2023-11-30 09:31:33+00:00
-Symbol: pandemic
-
-Headline: Matt Hancock reveals 'biggest regret' of pandemic during COVID Inquiry grilling - what you missed today
-Date: 2023-11-30 09:31:33+00:00
-Symbol: pandemic
-
-Headline: Atlantic hurricane season 2023 was filled with monster storms: How bad was it?
-Date: 2023-11-30 10:25:55+00:00
-Symbol: hurricane
-
-Headline: US Sanctions Cryptocurrency Mixer Sinbad for Aiding North Korean Hackers
-Date: 2023-11-30 12:30:00+00:00
-Symbol: currency
-
-Headline: North Korean Hackers Amass $3bn in Cryptocurrency Heists
-Date: 2023-11-30 16:30:00+00:00
-Symbol: currency
-
-Headline: How politicians are using fake news to crack down on digital currency
-Date: 2023-11-30 16:30:12+00:00
-Symbol: currency
-
-Headline: Atlantic hurricane season is over. Here are 5 things that stood out.
-Date: 2023-11-30 17:32:55+00:00
-Symbol: hurricane
-
-Headline: An active 2023 hurricane season comes to a close
-Date: 2023-11-30 19:46:06+00:00
-Symbol: hurricane
-
-Headline: Magnitude 5.8 earthquake strikes Bangladesh region
-Date: 2023-12-02 04:05:24+00:00
-Symbol: earthquake
-
-Headline: A 5.5 magnitude earthquake jolts Bangladesh
-Date: 2023-12-02 06:06:03+00:00
-Symbol: earthquake
-
-Headline: Moderate earthquake hits Indonesia's Banda Sea
-Date: 2023-12-02 13:59:00+00:00
-Symbol: earthquake
-
-Headline: 7.6 magnitude earthquake strikes off the southern Philippines: Tsunami warning issued
-Date: 2023-12-02 15:36:00+00:00
-Symbol: earthquake
-
-Headline: Tsunami warning issued after 7.6 magnitude earthquake hits off coast of southern Philippines
-Date: 2023-12-02 15:52:14+00:00
-Symbol: earthquake
-
-Headline: 7.6 magnitude earthquake strikes off the southern Philippines and a tsunami warning is issued
-Date: 2023-12-02 16:15:07+00:00
-Symbol: earthquake
-
-Headline: Philippines earthquake: Tsunami warning after powerful quake hits
-Date: 2023-12-02 16:57:57+00:00
-Symbol: earthquake
-
-Headline: Philippines earthquake: Tsunami warning after powerful quake hits
-Date: 2023-12-02 16:58:35+00:00
-Symbol: earthquake
-
-Headline: 7.6 magnitude earthquake strikes off the southern Philippines: Tsunami warning issued [Scary]
-Date: 2023-12-02 17:11:20+00:00
-Symbol: earthquake
-
-Headline: Powerful magnitude 7.5 earthquake strikes southern Philippines
-Date: 2023-12-02 18:43:47+00:00
-Symbol: earthquake
-
-Headline: M7.6 earthquake strikes off southern Philippines
-Date: 2023-12-02 21:06:18+00:00
-Symbol: earthquake
-
-Headline: Philippines earthquake and dozens of powerful aftershocks trigger evacuations and tsunami warnings
-Date: 2023-12-02 22:14:17+00:00
-Symbol: earthquake
-
-Headline: Strong earthquake that sparked a tsunami warning leaves 1 dead amid widespread panic in Philippines
-Date: 2023-12-03 10:43:05+00:00
-Symbol: earthquake
-
-Headline: El Niño helped steer storms away from U.S. this hurricane season. What about next year?
-Date: 2023-12-03 15:30:01+00:00
-Symbol: hurricane
-
-Headline: Philippines: New 6.9 earthquake off Mindanao island
-Date: 2023-12-04 04:06:00+00:00
-Symbol: earthquake
-
-Headline: Magnitude 5.1 earthquake shakes northwest Turkey. No damage or injuries reported.
-Date: 2023-12-04 08:29:16+00:00
-Symbol: earthquake
-
-Headline: 3.2 magnitude earthquake strikes near San Diego County after series last week
-Date: 2023-12-04 16:28:56+00:00
-Symbol: earthquake
-
-Headline: Powerful financial giants could play vital role in preventing the next pandemic
-Date: 2023-12-05 02:59:10+00:00
-Symbol: pandemic
-
-Headline: Powerful financial giants could play vital role in preventing the next pandemic
-Date: 2023-12-05 02:59:10+00:00
-Symbol: pandemic
-
-Headline: Magnitude 3.5 earthquake rattles Fullerton
-Date: 2023-12-05 04:21:21+00:00
-Symbol: earthquake
-
-Headline: Magnitude 5.1 earthquake felt widely across Big Island of Hawaii; no damage or risk of tsunami
-Date: 2023-12-05 06:03:44+00:00
-Symbol: earthquake
-
-Headline: Students suffered huge learning setbacks during the pandemic, study finds
-Date: 2023-12-05 11:26:33+00:00
-Symbol: pandemic
-
-Headline: Students suffered huge learning setbacks during the pandemic, study finds
-Date: 2023-12-05 11:26:33+00:00
-Symbol: pandemic
-
-Headline: Slow-mo rainbow fire tornado.
-Date: 2023-12-05 14:20:11+00:00
-Symbol: tornado
-
-Headline: More older Americans use cannabis now than before pandemic
-Date: 2023-12-05 14:27:47+00:00
-Symbol: pandemic
-
-Headline: More older Americans use cannabis now than before pandemic
-Date: 2023-12-05 14:27:47+00:00
-Symbol: pandemic
-
-Headline: The Lessons of Pandemic Inflation
-Date: 2023-12-05 19:31:11+00:00
-Symbol: Pandemic
-
-Headline: The Lessons of Pandemic Inflation
-Date: 2023-12-05 19:31:11+00:00
-Symbol: Pandemic
-
-Headline: The Lessons of Pandemic Inflation
-Date: 2023-12-05 19:31:11+00:00
-Symbol: Pandemic
-
-Headline: Magnitude 3.7 earthquake strikes near El Centro
-Date: 2023-12-06 04:46:50+00:00
-Symbol: earthquake
-
-Headline: Kashmir’s famed apples face extreme weather and economic crisis
-Date: 2023-12-07 00:27:20+00:00
-Symbol: economic crisis
-
-Headline: Google Updating Cryptocurrency Advertising Policy For 2024 via @sejournal, @martinibuster
-Date: 2023-12-07 11:17:26+00:00
-Symbol: currency
-
-Headline: Powerful earthquake shakes South Pacific nation of Vanuatu; no tsunami threat
-Date: 2023-12-07 16:06:15+00:00
-Symbol: earthquake
-
-Headline: 99% of Americans will be financially worse-off than they were pre-pandemic by mid-2024, JPMorgan says
-Date: 2023-12-07 16:53:30+00:00
-Symbol: pandemic
-
-Headline: 99% of Americans will be financially worse-off than they were pre-pandemic by mid-2024, JPMorgan says
-Date: 2023-12-07 16:53:30+00:00
-Symbol: pandemic
-
-Headline: 99% of Americans will be financially worse-off than they were pre-pandemic by mid-2024, JPMorgan says
-Date: 2023-12-07 16:53:30+00:00
-Symbol: pandemic
-
-Headline: Microplastic pollution rained down on Canada during a hurricane
-Date: 2023-12-07 17:01:32+00:00
-Symbol: hurricane
-
-Headline: Underwater volcano riding a sinking tectonic plate may have unleashed major earthquakes in Japan
-Date: 2023-12-07 17:32:45+00:00
-Symbol: earthquake
-
-Headline: Tsunami warning lifted for Vanuatu, New Caledonia after magnitude-7.1 earthquake rocks Pacific
-Date: 2023-12-07 23:03:49+00:00
-Symbol: earthquake
-
-Headline: How Businesses Can Navigate Currency Exchange Risks With Multicurrency Accounts
-Date: 2023-12-08 14:00:00+00:00
-Symbol: currency
-
-Headline: Brazil looks to digital currency to broaden financial inclusion
-Date: 2023-12-08 19:49:58+00:00
-Symbol: currency
-
-Headline: Severe weather and tornado possible in Triangle, NWS says. Here’s the latest forecast.
-Date: 2023-12-09 16:12:02+00:00
-Symbol: tornado
-
-Headline: Severe storms in the southeast cause extreme tornado damage in Tennessee
-Date: 2023-12-09 22:17:08+00:00
-Symbol: tornado
-
-Headline: Tennessee homes damaged by apparent tornado as severe storms rake the state
-Date: 2023-12-09 23:55:50+00:00
-Symbol: tornado
-
-Headline: Multiple fatalities as tornadoes tear through northwest Tennessee
-Date: 2023-12-10 01:38:34+00:00
-Symbol: tornado
-
-Headline: Six dead as tornadoes tear across Tennessee
-Date: 2023-12-10 01:46:14+00:00
-Symbol: tornado
-
-Headline: Multiple fatalities as tornadoes tear through northwest Tennessee
-Date: 2023-12-10 01:52:00+00:00
-Symbol: tornado
-
-Headline: Tennessee tornadoes leave at least 6 dead, tens of thousands without power
-Date: 2023-12-10 02:17:04+00:00
-Symbol: tornado
-
-Headline: At least 6 dead after severe storms, tornadoes hit Tennessee
-Date: 2023-12-10 02:22:00+00:00
-Symbol: tornado
-
-Headline: Tennessee: At least six dead as tornadoes rip through state
-Date: 2023-12-10 05:02:48+00:00
-Symbol: tornado
-
-Headline: Egyptians vote in presidential polls clouded by economic crisis, Gaza war
-Date: 2023-12-10 09:45:32+00:00
-Symbol: economic crisis
-
-Headline: Egyptians vote in presidential polls clouded by economic crisis, Gaza war
-Date: 2023-12-10 09:45:32+00:00
-Symbol: economic crisis
-
-Headline: At least six people are killed in severe storms and tornadoes in Tennessee
-Date: 2023-12-10 14:51:05+00:00
-Symbol: tornado
-
-Headline: ‘I know a 45-year-old woman is NOT the manager’: Customer blasts chaotic Aeropostale that ‘looks like a hurricane hit’
-Date: 2023-12-10 15:00:00+00:00
-Symbol: hurricane
-
-Headline: Gardaí ask people to avoid Co Leitrim village after 'tornado' event sweeps through the area
-Date: 2023-12-10 15:18:06+00:00
-Symbol: tornado
-
-Headline: Videos show wake of destruction after deadly tornado rips through Tennessee
-Date: 2023-12-10 15:20:04+00:00
-Symbol: tornado
-
-Headline: 'Quick and nasty' tornado causes destruction in Irish village
-Date: 2023-12-10 15:22:32+00:00
-Symbol: tornado
-
-         date  Compound Score
-0  2023-11-21        0.211350
-1  2023-11-22       -0.130044
-2  2023-11-23        0.000000
-3  2023-11-24        0.565136
-4  2023-11-25        0.499920
-5  2023-11-26       -0.234736
-6  2023-11-27        0.636900
-7  2023-11-28       -0.045457
-8  2023-11-29       -0.107636
-9  2023-11-30       -0.306670
-10 2023-12-02       -0.172607
-11 2023-12-03       -0.385850
-12 2023-12-04        0.008767
-13 2023-12-05        0.094175
-14 2023-12-06       -0.361200
-15 2023-12-07       -0.029467
-16 2023-12-08       -0.136600
-17 2023-12-09       -0.592467
-18 2023-12-10       -0.658341
-Correlation between Compound Score and Closing Price: -0.2969194951580508
-         date  Compound Score        Open        High         Low       Close  \
-0  2023-11-21        0.211350  191.410004  191.520004  189.740005  190.639999   
-1  2023-11-22       -0.130044  191.490005  192.929993  190.830002  191.309998   
-2  2023-11-24        0.565136  190.869995  190.899994  189.250000  189.970001   
-3  2023-11-27        0.636900  189.919998  190.669998  188.899994  189.789993   
-4  2023-11-28       -0.045457  189.779999  191.080002  189.399994  190.399994   
-5  2023-11-29       -0.107636  190.899994  192.089996  188.970001  189.369995   
-6  2023-11-30       -0.306670  189.839996  190.320007  188.190002  189.949997   
-7  2023-12-04        0.008767  189.979996  190.050003  187.449997  189.429993   
-8  2023-12-05        0.094175  190.210007  194.399994  190.179993  193.419998   
-9  2023-12-06       -0.361200  194.449997  194.759995  192.110001  192.320007   
-10 2023-12-07       -0.029467  193.630005  195.000000  193.589996  194.270004   
-11 2023-12-08       -0.136600  194.199997  195.990005  193.669998  195.710007   
-
-      Volume  Dividends  Stock Splits  
-0   38134500        0.0           0.0  
-1   39617700        0.0           0.0  
-2   24048300        0.0           0.0  
-3   40552600        0.0           0.0  
-4   38415400        0.0           0.0  
-5   43014200        0.0           0.0  
-6   48794400        0.0           0.0  
-7   43389500        0.0           0.0  
-8   66628400        0.0           0.0  
-9   41089700        0.0           0.0  
-10  47477700        0.0           0.0  
-11  53377300        0.0           0.0  
-Correlation between Compound Score and Closing Price: 0.2969194951580508</code></pre>
-</div>
-<div id="global-factors-vs-apple-closing-price-correlation" class="cell-output cell-output-display">
-
-<div>                            <div id="4778eaa2-5a27-4ba4-8154-f750e254df79" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4778eaa2-5a27-4ba4-8154-f750e254df79")) {                    Plotly.newPlot(                        "4778eaa2-5a27-4ba4-8154-f750e254df79",                        [{"mode":"lines+markers","name":"Compound Score","x":["2023-11-21T00:00:00","2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-27T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-06T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[-0.21134999999999998,0.13004444444444446,-0.5651363636363637,-0.6369,0.045457142857142856,0.10763636363636363,0.30667000000000005,-0.008766666666666664,-0.094175,0.3612,0.029466666666666665,0.1366],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"darkgoldenrod"},"mode":"lines+markers","name":"Closing Price","x":["2023-11-21T00:00:00","2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-27T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-06T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[190.63999938964844,191.30999755859375,189.97000122070312,189.7899932861328,190.39999389648438,189.3699951171875,189.9499969482422,189.42999267578125,193.4199981689453,192.32000732421875,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"green","size":8},"mode":"markers","name":"Positive Change","x":["2023-11-22T00:00:00","2023-11-28T00:00:00","2023-11-30T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[191.30999755859375,190.39999389648438,189.9499969482422,193.4199981689453,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"red","size":8},"mode":"markers","name":"Negative Change","x":["2023-11-24T00:00:00","2023-11-27T00:00:00","2023-11-29T00:00:00","2023-12-04T00:00:00","2023-12-06T00:00:00"],"y":[189.97000122070312,189.7899932861328,189.3699951171875,189.42999267578125,192.32000732421875],"type":"scatter","xaxis":"x","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.94],"title":{"text":"Date"},"showgrid":true,"zeroline":true,"gridcolor":"lightgrey","gridwidth":0.5,"showline":true,"linecolor":"#2a3f5f","linewidth":2},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Compound Score"},"color":"blue","showline":true,"linecolor":"blue","linewidth":2},"yaxis2":{"anchor":"x","overlaying":"y","side":"right","title":{"text":"Closing Price"},"color":"darkgoldenrod","showline":true,"linecolor":"darkgoldenrod","linewidth":2},"title":{"text":"Global Factors Sentiment Scores vs. Apple Closing Price"},"plot_bgcolor":"white","paper_bgcolor":"white"},                        {"responsive": true}                    ).then(function(){
-                            
-var gd = document.getElementById('4778eaa2-5a27-4ba4-8154-f750e254df79');
-var x = new MutationObserver(function (mutations, observer) {{
-        var display = window.getComputedStyle(gd).display;
-        if (!display || display === 'none') {{
-            console.log([gd, 'removed!']);
-            Plotly.purge(gd);
-            observer.disconnect();
-        }}
-}});
-
-// Listen for the removal of the full notebook cells
-var notebookContainer = gd.closest('#notebook-container');
-if (notebookContainer) {{
-    x.observe(notebookContainer, {childList: true});
-}}
-
-// Listen for the clearing of the current output cell
-var outputEl = gd.closest('.output');
-if (outputEl) {{
-    x.observe(outputEl, {childList: true});
-}}
-
-                        })                };                });            </script>        </div>
+</section>
+<section id="external-factors-vs-apple" class="slide level2">
+<h2>External Factors vs Apple</h2>
+<div>
+<p>Correlation = 0.45</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/global_factors.png" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <div>
-<ul>
-<li class="fragment"><p>Acquired data from yfinance and headlines from NewAPI.</p></li>
-<li class="fragment"><p>Explored intersection of finance and sentiment analysis focused on Apple stock using vaderSentiment in Python.</p></li>
-<li class="fragment"><p>Plotted sentiment scores against Apple’s stock price, visually highlighting the potential correlations between sentiments shifts and market trends.</p></li>
-</ul>
+<p><span style="font-size:23px;">- Acquired data from yfinance and headlines from NewAPI.</span></p>
+<p><span style="font-size:23px;">- Explored intersection of finance and sentiment analysis focused on Apple stock using vaderSentiment in Python.</span></p>
+<p><span style="font-size:23px;">- Plotted sentiment scores against Apple’s stock price, visually highlighting the potential correlations between sentiments shifts and market trends.</span></p>
 </div>
 </section>
 <section id="challenges-faced" class="slide level2">
 <h2>Challenges faced</h2>
 <div>
-<p><span style="font-size:23px;">- One of the limitation to this project was fetching data from a live data source. We used newsapi.org to fetch realtime news but this platform only lets us fetch data for the past 29 days which would stop us from training the model on a wider timescale.</span></p>
+<p><span style="font-size:23px;">- One of the limitation to this project was fetching data from a live data source. We used newsapi.org to fetch real time news but this platform only lets us fetch data for the past 29 days which would stop us from training the model on a wider timescale.</span></p>
 <p><span style="font-size:23px;">- For the past few months, market sentiment has stayed overtly positive which doesn’t help us in training the model well to fit in the Bear Market Scenario.</span></p>
 <p><span style="font-size:23px;">- Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. DO NOT take the outcome of this project as financial advice. Please be careful before making any investments.</span></p>
 <p><span style="font-size:23px;">- Thank you for joining me on this exploration of sentiments in the world of Apple stocks.</span></p>
