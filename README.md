@@ -14,8 +14,8 @@ This project conducts sentiment analysis on Apple stock using the `SentimentInte
 - Aravind shrenivas Murali - @Aravind-shrenivas
 
 - Vamsi Vadala - @Vamsi-Vadala
-- 
-#### Affiliation: School of Information, University of Arizona  
+
+### Affiliation: School of Information, University of Arizona  
 
 ### Features
 - Sentiment Analysis: Utilizes vaderSentiment's `SentimentIntensityAnalyzer` for sentiment analysis on textual data related to Apple stock.
