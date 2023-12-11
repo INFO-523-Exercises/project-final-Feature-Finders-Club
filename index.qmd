@@ -13,8 +13,530 @@ categories:
   - Data Mining and Discovery
 execute:
   warning: false
+jupyter: python3
 ---
 
 ## Abstract
 
-Add project abstract here.
+Our aim is to conduct sentiment analysis on Apple Inc. stock by analysing diverse sources, including media coverage, industry reports, social media reviews, and investor opinions from news headlines. By leveraging sentiment analysis techniques, our project intends to uncover patterns in sentiment that may correlate with stock price movements. The insights gained could provide valuable perspectives on how public perception influences Apple's stock performance, offering potential benefits for investors and analysts.
+
+## Introduction
+
+In an era dominated by data, the dynamics of financial markets have become increasingly intricate. Investors and analysts are continuously seeking innovative approaches to gain insights into stock price movements. This project embarks on a comprehensive exploration of sentiment analysis as a tool to unravel the nuanced relationship between public sentiment, news events, and the stock performance of Apple Inc.
+
+## Question
+
+How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the interconnectedness of external factors and their impact on Apple's stock performance in the broader market context?
+
+## Approach
+
+## Code
+
+---
+title: "Final-Project"
+author: "Feature-Finders-Club"
+format:
+  html:
+    embed-resources: true
+execute:
+  warning: false
+  error: false
+  
+toc: true
+jupyter: python3
+---
+
+```{r,echo=FALSE}
+#| label: load-pkgs
+#| message: false
+suppressWarnings(library(tidyverse))
+library(knitr)
+library(lubridate)
+library(reticulate)
+```
+
+```{python setup, message=FALSE,echo=FALSE,results='hide'}
+'''
+#Remove the library installing commands from comment 
+!pip install yfinance
+!pip install vaderSentiment
+!pip install pandas 
+!pip install matplotlib
+!pip install nltk
+!pip install plotly
+!pip install wordcloud
+'''
+```
+
+```{python importing-lib, message=FALSE,echo=FALSE,results='hide'}
+# Imports essential libraries for data manipulation, visualization, sentiment analysis, and financial data retrieval using Yahoo Finance.
+import warnings
+warnings.filterwarnings("ignore")
+from dateutil import parser
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance 
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from datetime import datetime, timedelta
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+import seaborn as sns
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+```
+
+```{python stockdata_extraction,echo=FALSE,results='hide'}
+# Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
+apple=yfinance.Ticker("AAPL")
+# Retrieve historical stock data for the last month for the specified ticker
+apple_data=apple.history(period='1mo')
+#Restting date from index to column and converting it to '%Y-%m-%d' format
+apple_data.reset_index(inplace=True)
+apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
+```
+
+```{python headlines_extraction,echo=FALSE,results='hide'}
+# Setting up necessary parameters for the API request
+api_key='9dcab5d0d86940459623ec7dea5c8d36'
+stock_symbol ="AAPL"
+# Setting up date range for fetching news data (last 30 days)
+end_date = datetime.now()
+start_date = end_date - timedelta(days=29)
+
+# Formatting dates for the API request
+from_date = start_date.strftime("%Y-%m-%d")
+to_date = end_date.strftime("%Y-%m-%d")
+
+# Constructing the final URL for fetching news within the date range
+news_url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en"
+
+# Making a request to the API with the specified date range
+response = requests.get(news_url)
+
+# Checking if the API request was successful (status code 200)
+if response.status_code == 200:
+    # Parsing the JSON response to retrieve news articles
+    news_data = response.json()
+    articles = news_data['articles']
+    # Extracting headlines and publication dates from articles
+    headlines = [(article['title'], article['publishedAt']) for article in articles]
+else:
+  # Displaying an error message if the API request fails
+    print("Failed to retrieve news data.")
+```
+
+```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide'}
+# Initialize an empty list to store Apple-related headlines with their respective dates
+apple_related_headlines=[]
+# Iterate through headlines and their associated publication dates
+for headline, _ in headlines:
+    try:
+        # Attempt to parse the date using a parser (assuming it's in a valid format)
+        date = parser.parse(_)
+        # Check if the headline contains the keyword 'Apple'
+        if 'Apple' in headline:
+            # If it does, append the headline and its date to the list
+            apple_related_headlines.append((headline, date))
+    except ValueError:
+        # Ignore and continue if there's an issue parsing the date
+        pass
+
+# Sort the list of Apple-related headlines by date
+apple_related_headlines.sort(key=lambda x: x[1])
+
+# Display the sorted Apple-related headlines along with their dates
+for data in apple_related_headlines:
+    print(f'Headline: {data[0]}\nDate: {data[1]}\n')
+    
+# Create a DataFrame from the list of Apple-related headlines with dates
+df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['Headlines', 'date'])
+
+# Remove duplicate headlines to retain unique entries
+df_unique_apple_related_headlines = df_apple_related_headlines.drop_duplicates(subset=['Headlines'])
+```
+
+```{python wordcloud,echo=FALSE,results='hide'}
+text = ' '.join(df_unique_apple_related_headlines['Headlines'])
+
+# Generate the word cloud
+wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+
+# Display the word cloud using matplotlib
+plt.figure(figsize=(10, 6))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.title('Word Cloud of Headlines')
+plt.show()
+```
+
+```{python sentimentAnalysis,echo=FALSE,results='hide'}
+# Initialize the SentimentIntensityAnalyzer
+analyzer = SentimentIntensityAnalyzer()
+# Initialize lists to store sentiment scores for each headline
+sentiments = [] # Stores headlines
+neg_scores = [] # Stores negative sentiment scores
+neu_scores = [] # Stores neutral sentiment scores
+pos_scores = [] # Stores positive sentiment scores
+compound_scores = [] # Stores compound sentiment scores
+
+# Iterate through each headline in the DataFrame to analyze sentiment
+for sentence in df_unique_apple_related_headlines['Headlines']:
+    # Perform sentiment analysis on each headline using the analyzer
+    vs = analyzer.polarity_scores(sentence)
+    # Append headline, negative, neutral, positive, and compound scores to respective lists
+    sentiments.append(sentence)
+    neg_scores.append(vs['neg'])
+    neu_scores.append(vs['neu'])
+    pos_scores.append(vs['pos'])
+    compound_scores.append(vs['compound'])
+```
+
+```{python sentimentScore,echo=FALSE,results='hide'}
+# Create a DataFrame to store sentiment scores of the headlines
+sentiment_df = pd.DataFrame({
+    'Headlines': sentiments,
+    'Negative Score': neg_scores,
+    'Neutral Score': neu_scores,
+    'Positive Score': pos_scores,
+    'Compound Score': compound_scores
+})
+```
+
+```{python transformations,echo=FALSE,results='hide'}
+# Merge the unique Apple-related headlines DataFrame and the sentiment scores DataFrame
+merged_df= pd.merge(df_unique_apple_related_headlines, sentiment_df, how="inner", on=["Headlines"])
+# Convert the 'date' column to required format
+merged_df['date'] = merged_df['date'].dt.strftime('%Y-%m-%d')
+```
+
+```{python plot,echo=FALSE,results='hide'}
+# Creating traces for the subplots
+trace1 = go.Scatter(x=apple_data['Date'], y=apple_data['Close'], mode='lines', name='AAPL Close Price')
+trace2 = go.Scatter(x=merged_df['date'], y=merged_df['Compound Score'], mode='lines', name='Sentiment Score', line=dict(color='orange'))
+
+# Creating subplot figure
+fig = make_subplots(rows=2, cols=1, subplot_titles=('AAPL Stock Price', 'Sentiment Analysis of News Headlines'))
+
+# Adding traces to subplots
+fig.add_trace(trace1, row=1, col=1)
+fig.add_trace(trace2, row=2, col=1)
+
+# Updating layout
+fig.update_layout(height=600, width=800, title_text="AAPL Stock Price and Sentiment Analysis")
+
+# Updating x-axis and y-axis labels
+fig.update_xaxes(title_text="Date", row=2, col=1)
+fig.update_yaxes(title_text="Price", row=1, col=1)
+fig.update_yaxes(title_text="Sentiment Score", row=2, col=1)
+
+# Displaying the interactive subplot
+fig.show()
+```
+
+```{python correlation calculation,echo=FALSE,results='hide'}
+# Stock symbols to analyze (add more symbols as needed)
+stock_symbols = ["LNVGY", "DELL", "HPE", "MSFT", "SSNLF"]
+api_key = '9dcab5d0d86940459623ec7dea5c8d36'
+all_headlines = []
+
+# Set the date range for news retrieval
+end_date = datetime.now()
+start_date = end_date - timedelta(days=20)
+from_date = start_date.strftime("%Y-%m-%d")
+to_date = end_date.strftime("%Y-%m-%d")
+
+# Retrieve news data for each stock symbol
+for stock_symbol in stock_symbols:
+    query_params = {
+        'q': f'{stock_symbol}',
+        'apiKey': api_key,
+        'language': 'en',
+        'country': 'us',
+    }
+
+    news_url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en"
+    response = requests.get(news_url)
+
+    if response.status_code == 200:
+        news_data = response.json()
+        articles = news_data['articles']
+        headlines = [(article['title'], article['publishedAt']) for article in articles]
+        all_headlines.extend(headlines)
+    else:
+        print(f"Failed to retrieve news data for {stock_symbol}.")
+
+# Filter headlines containing the company name
+company_related_headlines = []
+
+for headline, _ in all_headlines:
+    try:
+        date = parser.parse(_)
+        for stock_symbol in stock_symbols:
+            if stock_symbol in headline:
+                company_related_headlines.append((headline, date, stock_symbol))
+    except ValueError:
+        pass
+
+# Sort headlines by date
+company_related_headlines.sort(key=lambda x: x[1])
+
+# Display company-related headlines
+for data in company_related_headlines:
+    print(f'Headline: {data[0]}\nDate: {data[1]}\nSymbol: {data[2]}\n')
+
+# Sentiment analysis using NLTK's VADER
+analyzer = SentimentIntensityAnalyzer()
+sentiments = []
+neg_scores = []
+neu_scores = []
+pos_scores = []
+compound_scores = []
+
+# Analyze sentiment for each headline
+for sentence in company_related_headlines:
+    vs = analyzer.polarity_scores(sentence[0])
+    sentiments.append(sentence[0])
+    neg_scores.append(vs['neg'])
+    neu_scores.append(vs['neu'])
+    pos_scores.append(vs['pos'])
+    compound_scores.append(vs['compound'])
+
+# Create a DataFrame for sentiment scores
+company_sentiment_df = pd.DataFrame({
+    'Headlines': sentiments,
+    'Negative Score': neg_scores,
+    'Neutral Score': neu_scores,
+    'Positive Score': pos_scores,
+    'Compound Score': compound_scores
+})
+
+# Merge sentiment data with company-related headlines
+company_merged_df = pd.merge(pd.DataFrame(company_related_headlines, columns=['Headlines', 'date', 'Symbol']),
+                             company_sentiment_df, how="inner", on=["Headlines"])
+
+# Format date columns
+company_merged_df['date'] = company_merged_df['date'].dt.strftime('%Y-%m-%d')
+company_merged_df['date'] = pd.to_datetime(company_merged_df['date'])
+
+# Group sentiment scores by date
+grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_index()
+
+# Display grouped sentiment scores
+print(grouped_df)
+
+# Retrieve Apple stock data using Yahoo Finance API
+apple = yf.Ticker("AAPL")
+apple_data = apple.history(period='1mo')
+
+# Format date columns for merging
+apple_data['date'] = apple_data.index.to_series().dt.strftime('%Y-%m-%d')
+grouped_df['date'] = pd.to_datetime(grouped_df['date'])
+apple_data['date'] = pd.to_datetime(apple_data['date'])
+
+# Merge sentiment scores with Apple stock data
+full_merged_data = pd.merge(grouped_df, apple_data, how='inner', left_on='date', right_on='date')
+
+# Calculate correlation between 'Compound Score' and 'Close'
+correlation = full_merged_data['Compound Score'].corr(full_merged_data['Close'])
+print(f"Correlation between Compound Score and Closing Price: {correlation}")
+
+print(full_merged_data)
+
+# Plotting
+# Calculate correlation between 'Compound Score' and 'Close'
+reversed_correlation = full_merged_data['Compound Score'].corr(full_merged_data['Close'])
+print(f"Correlation between Compound Score and Closing Price: {reversed_correlation}")
+
+# Create subplots with two y-axes
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+fig.update_layout(
+    title='Competitors Sentiment Scores vs. Apple Closing Price',
+    xaxis_title='Date',
+    plot_bgcolor='white',  # Set plot background color
+    paper_bgcolor='white',  # Set paper background color
+)
+
+# Identify increases and decreases in Closing Price
+positive_changes = full_merged_data['Close'].diff().gt(0)
+negative_changes = full_merged_data['Close'].diff().lt(0)
+
+# Add traces for the Reversed Compound Score, Closing Price, and changes
+fig.add_trace(go.Scatter(x=full_merged_data['date'], y=full_merged_data['Compound Score'],
+                         mode='lines+markers', name='Compound Score'), secondary_y=False)
+fig.add_trace(go.Scatter(x=full_merged_data['date'], y=full_merged_data['Close'],
+                         mode='lines+markers', name='Closing Price', line=dict(color='darkgoldenrod')), secondary_y=True)
+fig.add_trace(go.Scatter(x=full_merged_data['date'][positive_changes], y=full_merged_data['Close'][positive_changes],
+                         mode='markers', name='Positive Change', marker=dict(color='green', size=8)),
+              secondary_y=True)
+fig.add_trace(go.Scatter(x=full_merged_data['date'][negative_changes], y=full_merged_data['Close'][negative_changes],
+                         mode='markers', name='Negative Change', marker=dict(color='red', size=8)),
+              secondary_y=True)
+
+# Update y-axis labels and styles
+fig.update_yaxes(title_text='Compound Score', secondary_y=False, color='blue', showline=True, linecolor='blue', linewidth=2)
+fig.update_yaxes(title_text='Closing Price', secondary_y=True, color='darkgoldenrod', showline=True, linecolor='darkgoldenrod', linewidth=2)
+fig.update_xaxes(showgrid=True, zeroline=True, gridcolor='lightgrey', gridwidth=0.5, showline=True, linecolor='#2a3f5f', linewidth=2)  # Show minimal gridlines
+
+# Display the plot
+fig.show()
+```
+
+```{python Global factors vs Apple closing price correlation}
+
+# Global factors vs Apple stock
+import seaborn as sns
+
+# Stock symbols to analyze (add more symbols as needed)
+stock_symbols = ["pandemic", "tornado", "hurricane", "Pandemic", "economic crisis","earthquake","Global recession", "currency"]
+api_key = 'ef5a0ad43b08420bb13b761a3a1239fa'
+all_headlines = []
+
+# Set the date range for news retrieval
+end_date = datetime.now()
+start_date = end_date - timedelta(days=20)
+from_date = start_date.strftime("%Y-%m-%d")
+to_date = end_date.strftime("%Y-%m-%d")
+
+# Retrieve news data for each stock symbol
+for stock_symbol in stock_symbols:
+    query_params = {
+        'q': f'{stock_symbol}',
+        'apiKey': api_key,
+        'language': 'en',
+        'country': 'us',
+    }
+
+    news_url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey={api_key}&from={from_date}&to={to_date}&language=en"
+    response = requests.get(news_url)
+
+    if response.status_code == 200:
+        news_data = response.json()
+        articles = news_data['articles']
+        headlines = [(article['title'], article['publishedAt']) for article in articles]
+        all_headlines.extend(headlines)
+    else:
+        print(f"Failed to retrieve news data for {stock_symbol}.")
+
+# Filter headlines containing the company name
+company_related_headlines = []
+
+for headline, _ in all_headlines:
+    try:
+        date = parser.parse(_)
+        for stock_symbol in stock_symbols:
+            if stock_symbol in headline:
+                company_related_headlines.append((headline, date, stock_symbol))
+    except ValueError:
+        pass
+
+# Sort headlines by date
+company_related_headlines.sort(key=lambda x: x[1])
+
+# Display company-related headlines
+for data in company_related_headlines:
+    print(f'Headline: {data[0]}\nDate: {data[1]}\nSymbol: {data[2]}\n')
+
+# Sentiment analysis using NLTK's VADER
+analyzer = SentimentIntensityAnalyzer()
+sentiments = []
+neg_scores = []
+neu_scores = []
+pos_scores = []
+compound_scores = []
+
+# Analyze sentiment for each headline
+for sentence in company_related_headlines:
+    vs = analyzer.polarity_scores(sentence[0])
+    sentiments.append(sentence[0])
+    neg_scores.append(vs['neg'])
+    neu_scores.append(vs['neu'])
+    pos_scores.append(vs['pos'])
+    compound_scores.append(vs['compound'])
+
+# Create a DataFrame for sentiment scores
+company_sentiment_df = pd.DataFrame({
+    'Headlines': sentiments,
+    'Negative Score': neg_scores,
+    'Neutral Score': neu_scores,
+    'Positive Score': pos_scores,
+    'Compound Score': compound_scores
+})
+
+# Merge sentiment data with company-related headlines
+company_merged_df = pd.merge(pd.DataFrame(company_related_headlines, columns=['Headlines', 'date', 'Symbol']),
+                             company_sentiment_df, how="inner", on=["Headlines"])
+
+# Format date columns
+company_merged_df['date'] = company_merged_df['date'].dt.strftime('%Y-%m-%d')
+company_merged_df['date'] = pd.to_datetime(company_merged_df['date'])
+
+# Group sentiment scores by date
+grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_index()
+
+# Display grouped sentiment scores
+print(grouped_df)
+
+# Retrieve Apple stock data using Yahoo Finance API
+apple = yfinance.Ticker("AAPL")
+apple_data = apple.history(period='1mo')
+
+# Format date columns for merging
+apple_data['date'] = apple_data.index.to_series().dt.strftime('%Y-%m-%d')
+grouped_df['date'] = pd.to_datetime(grouped_df['date'])
+apple_data['date'] = pd.to_datetime(apple_data['date'])
+
+# Merge sentiment scores with Apple stock data
+full_merged_data = pd.merge(grouped_df, apple_data, how='inner', left_on='date', right_on='date')
+
+# Calculate correlation between 'Compound Score' and 'Close'
+correlation = full_merged_data['Compound Score'].corr(full_merged_data['Close'])
+print(f"Correlation between Compound Score and Closing Price: {correlation}")
+
+print(full_merged_data)
+# Plotting
+ 
+
+# Reverse the interpretation of sentiment scores
+full_merged_data['Reversed Compound Score'] = -full_merged_data['Compound Score']
+
+# Calculate correlation between 'Reversed Compound Score' and 'Close'
+reversed_correlation = full_merged_data['Reversed Compound Score'].corr(full_merged_data['Close'])
+print(f"Correlation between Compound Score and Closing Price: {reversed_correlation}")
+
+# Create subplots with two y-axes
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+fig.update_layout(
+    title='Global Factors Sentiment Scores vs. Apple Closing Price',
+    xaxis_title='Date',
+    plot_bgcolor='white',  # Set plot background color
+    paper_bgcolor='white',  # Set paper background color
+)
+
+# Identify increases and decreases in Closing Price
+positive_changes = full_merged_data['Close'].diff().gt(0)
+negative_changes = full_merged_data['Close'].diff().lt(0)
+
+# Add traces for the Reversed Compound Score, Closing Price, and changes
+fig.add_trace(go.Scatter(x=full_merged_data['date'], y=full_merged_data['Reversed Compound Score'],
+                         mode='lines+markers', name='Compound Score'), secondary_y=False)
+fig.add_trace(go.Scatter(x=full_merged_data['date'], y=full_merged_data['Close'],
+                         mode='lines+markers', name='Closing Price', line=dict(color='darkgoldenrod')), secondary_y=True)
+fig.add_trace(go.Scatter(x=full_merged_data['date'][positive_changes], y=full_merged_data['Close'][positive_changes],
+                         mode='markers', name='Positive Change', marker=dict(color='green', size=8)),
+              secondary_y=True)
+fig.add_trace(go.Scatter(x=full_merged_data['date'][negative_changes], y=full_merged_data['Close'][negative_changes],
+                         mode='markers', name='Negative Change', marker=dict(color='red', size=8)),
+              secondary_y=True)
+
+# Update y-axis labels and styles
+fig.update_yaxes(title_text='Compound Score', secondary_y=False, color='blue', showline=True, linecolor='blue', linewidth=2)
+fig.update_yaxes(title_text='Closing Price', secondary_y=True, color='darkgoldenrod', showline=True, linecolor='darkgoldenrod', linewidth=2)
+fig.update_xaxes(showgrid=True, zeroline=True, gridcolor='lightgrey', gridwidth=0.5, showline=True, linecolor='#2a3f5f', linewidth=2)  # Show minimal gridlines
+
+# Display the plot
+fig.show() 
+```
+
+## Discussion
