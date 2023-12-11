@@ -7,6 +7,7 @@ format:
     code-overflow: wrap
     code-line-numbers: true
     embed-resources: true
+    code-fold: true
 editor: visual
 code-annotations: hover
 categories: 
@@ -81,7 +82,7 @@ import matplotlib.pyplot as plt
 
 ```{python stockdata_extraction,echo=FALSE,results='hide'}
 # Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
-apple=yfinance.Ticker("AAPL")
+apple=yf.Ticker("AAPL")
 # Retrieve historical stock data for the last month for the specified ticker
 apple_data=apple.history(period='1mo')
 #Restting date from index to column and converting it to '%Y-%m-%d' format
