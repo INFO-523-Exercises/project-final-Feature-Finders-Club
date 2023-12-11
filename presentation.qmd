@@ -23,30 +23,25 @@ jupyter: python3
 
 ## Objective
 
--   Conduct sentiment analysis on Apple Inc. stock.
+-   Analyze sentiment in news headlines about Apple Inc. stock to assess public perception.
 
--   Analyze diverse inputs, including media coverage, industry reports, social media, and investor opinions from news headlines.
-
--   Leverage sentiment analysis techniques to uncover patterns in sentiment.
-
--   Gain insights into the correlation between public perception and Apple's stock performance, offering benefits for investors and analysts.
+-   Explore correlation between sentiment analysis results and Apple's stock performance for investor insights.
 
 ## Question
 
-How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple's stock performance in the broader market context?
+How does sentiment analysis of news headlines provide insights into Apple Inc.'s stock price movements, revealing the influence of external factors on its market performance?\
+\
+What valuable insights can be derived from correlating sentiment analysis of news headlines with Apple's stock behavior, elucidating the impact of external factors on the broader market context?
 
 ## Motivation
 
--   Relationship between headlines and Apple's stock price
+-   Uncover potential correlations between public perception, external factors on Apple Inc.'s stock performance
 
--   Sentiment analysis
+-   Understanding how sentiment influences market movements
 
--   Provide valuable information for understanding stock price movements
-
-## Dataset Description
+## Sample Data
 
 ### Apple Inc. Stock Price Data
-\
 
 ```{python setup, message=FALSE,echo=FALSE,results='hide'}
 #| label: install-pkgs
@@ -57,7 +52,6 @@ How can sentiment analysis of news headlines contribute to understanding the sto
 !pip install vaderSentiment
 !pip install pandas 
 !pip install matplotlib
-!pip install nltk
 !pip install plotly
 !pip install wordcloud
 '''
@@ -73,14 +67,13 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 import yfinance 
+import seaborn as sns
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-import seaborn as sns
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 ```
 
 ```{python stockdata_extraction,echo=FALSE,results='hide'}
@@ -94,7 +87,9 @@ apple_data.reset_index(inplace=True)
 apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
 apple_data.head(3)
 ```
+
 ## 
+
 ```{python headlines_extraction,echo=FALSE,results='hide'}
 #| label: headlines_extraction
 # Setting up necessary parameters for the API request
@@ -127,7 +122,9 @@ else:
 ```
 
 ### Apple Inc. News Headlines Data
+
 \
+
 ```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide'}
 #| label: headlines_transformation
 
@@ -161,19 +158,17 @@ df_unique_apple_related_headlines.head(3)
 
 ## Analysis
 
-
 ## Workflow
 
-1.  Loaded necessary packages for data manipulation, visualization, sentiment analysis, and financial data retrieval.
+1.  Package Integration
 
-2.  Extracted data (yfinance library and News API) for the last 30 days.
+2.  Data Acquisition
 
-3.  Transformed data (sorting, filtering, removing duplicates).
+3.  Data Refinement
 
-4.  Sentiment analysis using the VADER sentiment analysis tool.
+4.  Sentiment Analysis
 
 5.  Plotted results and Interpretation.
-
 
 ```{python wordcloud,echo=FALSE,results='hide'}
 #| label: wordcloud
@@ -569,29 +564,21 @@ fig.show()
 ## Conclusion
 
 ::: incremental
-[ - In this project, we delved into the dynamic intersection of finance and sentiment analysis, specifically focusing on Apple stock. Leveraging the `SentimentIntensityAnalyzer` function in the `vaderSentiment` library in Python, we embarked on a journey to explore the emotional tone surrounding Apple's stock based on textual data. ]{style="font-size:23px;"}
+-   Acquired data from yfinance and headlines from NewAPI.
 
-[ - The project initiated with data acquisition, utilizing the `yfinance` library to fetch comprehensive stock data through API calls. Subsequently, sentiment analysis was performed using `vaderSentiment`, a powerful tool for gauging sentiment intensity in text data. The sentiment scores obtained were then plotted against the `Apple` stock price, creating a visual representation of the relationship between sentiment and market dynamics. ]{style="font-size:23px;"}
+-   Explored intersection of finance and sentiment analysis focused on Apple stock using vaderSentiment in Python.
 
-[ - The comparison plot revealed intriguing insights into the potential correlation between sentiment shifts and stock price movements. Peaks and troughs in sentiment scores corresponded with noteworthy fluctuations in the stock chart, indicating a potential influence of public sentiment on market trends. ]{style="font-size:23px;"}
-:::
-
-## Conclusion
-
-::: incremental
-[ - However, it's essential to acknowledge the multifaceted nature of stock markets and the intricate interplay of various factors influencing stock prices. While sentiment analysis provides valuable insights, it should be viewed as one of many tools in the broader landscape of financial analysis. ]{style="font-size:23px;"}
-
-[ - In conclusion, this project exemplifies the fusion of sentiment analysis techniques with financial data to derive meaningful insights into the emotional undercurrents surrounding Apple stock. As we navigate the complex realm of stock markets, this approach adds a nuanced layer to our understanding, paving the way for further exploration and refinement of strategies in financial decision-making. ]{style="font-size:23px;"}
+-   Plotted sentiment scores against Apple's stock price, visually highlighting the potential correlations between sentiments shifts and market trends.
 :::
 
 ## Challenges faced
 
 ::: incremental
-[ ]{style="font-size:23px;"}[ - One of the limitation to this project was fetching data from a live data source. We used newsapi.org to fetch realtime news but this platform only lets us fetch data for the past 30 days which would stop us from training the model on a wider timescale. ]{style="font-size:23px;"}
+[- One of the limitation to this project was fetching data from a live data source. We used newsapi.org to fetch realtime news but this platform only lets us fetch data for the past 29 days which would stop us from training the model on a wider timescale.]{style="font-size:23px;"}
 
-[ - For the past few months, market sentiment has stayed overtly positive which doesn't help us in training the model well to fit in the Bear Market Scenario. ]{style="font-size:23px;"}
+[- For the past few months, market sentiment has stayed overtly positive which doesn't help us in training the model well to fit in the Bear Market Scenario.]{style="font-size:23px;"}
 
-[ - Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. DO NOT take the outcome of this project as financial advice. Please be careful before making any investments. ]{style="font-size:23px;"}
+[- Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. DO NOT take the outcome of this project as financial advice. Please be careful before making any investments.]{style="font-size:23px;"}
 
-[ - Thank you for joining me on this exploration of sentiments in the world of Apple stocks. ]{style="font-size:23px;"}
+[- Thank you for joining me on this exploration of sentiments in the world of Apple stocks.]{style="font-size:23px;"}
 :::
