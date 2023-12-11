@@ -67,7 +67,7 @@ from dateutil import parser
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
-import yfinance 
+import yfinance as yf
 import seaborn as sns
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime, timedelta
@@ -80,7 +80,7 @@ from wordcloud import WordCloud
 ```{python stockdata_extraction,echo=FALSE,results='hide'}
 #| label: stockdata_extraction
 # Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
-apple=yfinance.Ticker("AAPL")
+apple=yf.Ticker("AAPL")
 # Retrieve historical stock data for the last month for the specified ticker
 apple_data=apple.history(period='1mo')
 #Restting date from index to column and converting it to '%Y-%m-%d' format
@@ -502,7 +502,7 @@ grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_in
 print(grouped_df)
 
 # Retrieve Apple stock data using Yahoo Finance API
-apple = yfinance.Ticker("AAPL")
+apple = yf.Ticker("AAPL")
 apple_data = apple.history(period='1mo')
 
 # Format date columns for merging

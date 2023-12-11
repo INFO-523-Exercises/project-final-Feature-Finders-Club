@@ -68,7 +68,7 @@ from dateutil import parser
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
-import yfinance 
+import yfinance as yf
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
@@ -471,7 +471,7 @@ grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_in
 print(grouped_df)
 
 # Retrieve Apple stock data using Yahoo Finance API
-apple = yfinance.Ticker("AAPL")
+apple = yf.Ticker("AAPL")
 apple_data = apple.history(period='1mo')
 
 # Format date columns for merging
