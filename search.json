@@ -151,7 +151,21 @@
     "href": "presentation.html#workflow",
     "title": "Tech Or Treat: The Sentimental Stock Saga",
     "section": "Workflow",
-    "text": "Workflow\n\n\nPackage Integration\nData Acquisition\nData Refinement\nSentiment Analysis\nPlotted results and Interpretation\n\n\nApple News Headlines - Sentiment Analysis\n\n\n\n\n\n\n\nApple News Headlines - wordcloud"
+    "text": "Workflow\n\n\nPackage Integration\nData Acquisition\nData Refinement\nSentiment Analysis\nPlotted results and Interpretation"
+  },
+  {
+    "objectID": "presentation.html#apple-news-headlines---sentiment-analysis",
+    "href": "presentation.html#apple-news-headlines---sentiment-analysis",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Apple News Headlines - Sentiment Analysis",
+    "text": "Apple News Headlines - Sentiment Analysis"
+  },
+  {
+    "objectID": "presentation.html#apple-news-headlines---wordcloud",
+    "href": "presentation.html#apple-news-headlines---wordcloud",
+    "title": "Tech Or Treat: The Sentimental Stock Saga",
+    "section": "Apple News Headlines - WordCloud",
+    "text": "Apple News Headlines - WordCloud"
   },
   {
     "objectID": "presentation.html#competitors-vs-apple",
