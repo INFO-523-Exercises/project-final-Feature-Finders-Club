@@ -7,8 +7,8 @@ format:
     code-overflow: wrap
     code-line-numbers: true
     embed-resources: true
-    code-fold: true
 editor: visual
+code-fold: true
 code-annotations: hover
 categories: 
   - Data Mining and Discovery
@@ -120,7 +120,7 @@ else:
     print("Failed to retrieve news data.")
 ```
 
-```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide'}
+```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide', eval=FALSE}
 # Initialize an empty list to store Apple-related headlines with their respective dates
 apple_related_headlines=[]
 # Iterate through headlines and their associated publication dates
@@ -140,8 +140,8 @@ for headline, _ in headlines:
 apple_related_headlines.sort(key=lambda x: x[1])
 
 # Display the sorted Apple-related headlines along with their dates
-for data in apple_related_headlines:
-    print(f'Headline: {data[0]}\nDate: {data[1]}\n')
+#for data in apple_related_headlines:
+#    print(f'Headline: {data[0]}\nDate: {data[1]}\n')
     
 # Create a DataFrame from the list of Apple-related headlines with dates
 df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['Headlines', 'date'])
@@ -317,7 +317,7 @@ company_merged_df['date'] = pd.to_datetime(company_merged_df['date'])
 grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_index()
 
 # Display grouped sentiment scores
-print(grouped_df)
+#print(grouped_df)
 
 # Retrieve Apple stock data using Yahoo Finance API
 apple = yf.Ticker("AAPL")
@@ -333,14 +333,14 @@ full_merged_data = pd.merge(grouped_df, apple_data, how='inner', left_on='date',
 
 # Calculate correlation between 'Compound Score' and 'Close'
 correlation = full_merged_data['Compound Score'].corr(full_merged_data['Close'])
-print(f"Correlation between Compound Score and Closing Price: {correlation}")
+#print(f"Correlation between Compound Score and Closing Price: {correlation}")
 
-print(full_merged_data)
+#print(full_merged_data)
 
 # Plotting
 # Calculate correlation between 'Compound Score' and 'Close'
 reversed_correlation = full_merged_data['Compound Score'].corr(full_merged_data['Close'])
-print(f"Correlation between Compound Score and Closing Price: {reversed_correlation}")
+#print(f"Correlation between Compound Score and Closing Price: {reversed_correlation}")
 
 # Create subplots with two y-axes
 fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -376,7 +376,7 @@ fig.update_xaxes(showgrid=True, zeroline=True, gridcolor='lightgrey', gridwidth=
 fig.show()
 ```
 
-```{python Global factors vs Apple closing price correlation}
+```{python Global factors vs Apple closing price correlation, results='hide'}
 
 # Global factors vs Apple stock
 import seaborn as sns
@@ -428,8 +428,8 @@ for headline, _ in all_headlines:
 company_related_headlines.sort(key=lambda x: x[1])
 
 # Display company-related headlines
-for data in company_related_headlines:
-    print(f'Headline: {data[0]}\nDate: {data[1]}\nSymbol: {data[2]}\n')
+#for data in company_related_headlines:
+#    print(f'Headline: {data[0]}\nDate: {data[1]}\nSymbol: {data[2]}\n')
 
 # Sentiment analysis using NLTK's VADER
 analyzer = SentimentIntensityAnalyzer()
@@ -469,7 +469,7 @@ company_merged_df['date'] = pd.to_datetime(company_merged_df['date'])
 grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_index()
 
 # Display grouped sentiment scores
-print(grouped_df)
+#print(grouped_df)
 
 # Retrieve Apple stock data using Yahoo Finance API
 apple = yf.Ticker("AAPL")
