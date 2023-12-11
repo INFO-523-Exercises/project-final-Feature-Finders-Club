@@ -18,11 +18,27 @@ format:
 editor: visual
 execute:
   echo: false
+jupyter: python3
 ---
+
+```{python}
+#| include: false
+#| message: false
+
+
+!pip install yfinance
+!pip install vaderSentiment
+!pip install pandas 
+!pip install matplotlib
+!pip install nltk
+!pip install plotly
+!pip install langdetect
+```
 
 ```{python}
 #| label: load-packages
 #| include: false
+#| message: false
 
 # Loading necessary packages
 from langdetect import detect
@@ -38,7 +54,6 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 ```
 
 ## Objective
-
 ::: incremental
 -   Conduct sentiment analysis on Apple Inc. stock.
 
@@ -83,6 +98,52 @@ How can sentiment analysis of news headlines contribute to understanding the sto
 
 ## Analysis
 
+::: incremental
+
+:::
+
 ## Conclusion
 
+::: incremental
+<span style="font-size:23px;">
+- In this project, we delved into the dynamic intersection of finance and sentiment analysis, specifically focusing on Apple stock. Leveraging the `SentimentIntensityAnalyzer` function in the `vaderSentiment` library in Python, we embarked on a journey to explore the emotional tone surrounding Apple's stock based on textual data.
+</span>
+
+<span style="font-size:23px;">
+- The project initiated with data acquisition, utilizing the `yfinance` library to fetch comprehensive stock data through API calls. Subsequently, sentiment analysis was performed using `vaderSentiment`, a powerful tool for gauging sentiment intensity in text data. The sentiment scores obtained were then plotted against the `Apple` stock price, creating a visual representation of the relationship between sentiment and market dynamics.
+</span>
+
+<span style="font-size:23px;">
+- The comparison plot revealed intriguing insights into the potential correlation between sentiment shifts and stock price movements. Peaks and troughs in sentiment scores corresponded with noteworthy fluctuations in the stock chart, indicating a potential influence of public sentiment on market trends.
+</span>
+:::
+
+## Conclusion
+::: incremental
+<span style="font-size:23px;">
+- However, it's essential to acknowledge the multifaceted nature of stock markets and the intricate interplay of various factors influencing stock prices. While sentiment analysis provides valuable insights, it should be viewed as one of many tools in the broader landscape of financial analysis.
+</span>
+
+<span style="font-size:23px;">
+- In conclusion, this project exemplifies the fusion of sentiment analysis techniques with financial data to derive meaningful insights into the emotional undercurrents surrounding Apple stock. As we navigate the complex realm of stock markets, this approach adds a nuanced layer to our understanding, paving the way for further exploration and refinement of strategies in financial decision-making.
+</span>
+:::
+
 ## Challenges faced
+::: incremental
+<span style="font-size:23px;">
+- One of the limitation to this project was fetching data from a live data source. We used `newsapi.org` to fetch realtime news but this platform only lets us fetch data for the past 30 days which would stop us from training the model on a wider timescale.
+</span>
+
+<span style="font-size:23px;">
+- For the past few months, market sentiment has stayed overtly positive which doesn't help us in training the model well to fit in the `Bear Market` Scenario.
+</span>
+
+<span style="font-size:23px;">
+- Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. **DO NOT** take the outcome of this project as financial advice. Please be careful before making any investments.
+</span>
+
+<span style="font-size:23px;">
+- Thank you for joining me on this exploration of sentiments in the world of Apple stocks.
+</span>
+:::

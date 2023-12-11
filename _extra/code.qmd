@@ -1,4 +1,3 @@
-
 ---
 title: "Final-Project"
 author: "Feature-Finders-Club"
@@ -10,8 +9,10 @@ execute:
   error: false
   
 toc: true
+jupyter: python3
 ---
-```{r}
+
+```{r,echo=FALSE}
 #| label: load-pkgs
 #| message: false
 suppressWarnings(library(tidyverse))
@@ -20,20 +21,22 @@ library(lubridate)
 library(reticulate)
 ```
 
-
 ## Dataset Setup
-```{python setup, message=FALSE}
+
+```{python setup, message=FALSE,echo=FALSE,results='hide'}
 '''
-## Remove the hash before running to install libraries
+#Remove the library installing commands from comment 
 !pip install yfinance
 !pip install vaderSentiment
 !pip install pandas 
 !pip install matplotlib
 !pip install nltk
 !pip install plotly
+!pip install wordcloud
 '''
 ```
-```{python importing-lib, message=FALSE}
+
+```{python importing-lib, message=FALSE,echo=FALSE,results='hide'}
 # Imports essential libraries for data manipulation, visualization, sentiment analysis, and financial data retrieval using Yahoo Finance.
 import warnings
 warnings.filterwarnings("ignore")
@@ -48,34 +51,24 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 import seaborn as sns
-
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 ```
 
-
-```{python stockdata_extraction}
+```{python stockdata_extraction,echo=FALSE,results='hide'}
 # Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
 apple=yfinance.Ticker("AAPL")
 # Retrieve historical stock data for the last month for the specified ticker
 apple_data=apple.history(period='1mo')
+#Restting date from index to column and converting it to '%Y-%m-%d' format
+apple_data.reset_index(inplace=True)
+apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
 ```
 
-
-```{python headlines_extraction}
+```{python headlines_extraction,echo=FALSE,results='hide'}
 # Setting up necessary parameters for the API request
-api_key='<API KEY>'
+api_key='9dcab5d0d86940459623ec7dea5c8d36'
 stock_symbol ="AAPL"
-# Creating query parameters for the API request
-query_params = {
-    'q': f'{stock_symbol}',
-    'apiKey': api_key,
-    'language': 'en',  # English language
-    'country': 'us',   # USA sources
-}
-# Defining the base URL for the news API
-news_url = "https://newsapi.org/v2/everything"
-# Making an initial request to the API to retrieve news data
-response = requests.get(news_url, params=query_params)
-
 # Setting up date range for fetching news data (last 30 days)
 end_date = datetime.now()
 start_date = end_date - timedelta(days=29)
@@ -102,8 +95,7 @@ else:
     print("Failed to retrieve news data.")
 ```
 
-
-```{python headlines_transformation, message=FALSE}
+```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide'}
 # Initialize an empty list to store Apple-related headlines with their respective dates
 apple_related_headlines=[]
 # Iterate through headlines and their associated publication dates
@@ -133,7 +125,21 @@ df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['He
 df_unique_apple_related_headlines = df_apple_related_headlines.drop_duplicates(subset=['Headlines'])
 ```
 
-```{python sentimentAnalysis}
+```{python wordcloud,echo=FALSE,results='hide'}
+text = ' '.join(df_unique_apple_related_headlines['Headlines'])
+
+# Generate the word cloud
+wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+
+# Display the word cloud using matplotlib
+plt.figure(figsize=(10, 6))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.title('Word Cloud of Headlines')
+plt.show()
+```
+
+```{python sentimentAnalysis,echo=FALSE,results='hide'}
 # Initialize the SentimentIntensityAnalyzer
 analyzer = SentimentIntensityAnalyzer()
 # Initialize lists to store sentiment scores for each headline
@@ -155,7 +161,7 @@ for sentence in df_unique_apple_related_headlines['Headlines']:
     compound_scores.append(vs['compound'])
 ```
 
-```{python sentimentScore}
+```{python sentimentScore,echo=FALSE,results='hide'}
 # Create a DataFrame to store sentiment scores of the headlines
 sentiment_df = pd.DataFrame({
     'Headlines': sentiments,
@@ -166,15 +172,16 @@ sentiment_df = pd.DataFrame({
 })
 ```
 
-```{python transformations}
+```{python transformations,echo=FALSE,results='hide'}
 # Merge the unique Apple-related headlines DataFrame and the sentiment scores DataFrame
 merged_df= pd.merge(df_unique_apple_related_headlines, sentiment_df, how="inner", on=["Headlines"])
-# Convert the 'date' column to integer type
+# Convert the 'date' column to required format
+merged_df['date'] = merged_df['date'].dt.strftime('%Y-%m-%d')
 ```
 
-```{python plot}
+```{python plot,echo=FALSE,results='hide'}
 # Creating traces for the subplots
-trace1 = go.Scatter(x=apple_data.index, y=apple_data['Close'], mode='lines', name='AAPL Close Price')
+trace1 = go.Scatter(x=apple_data['Date'], y=apple_data['Close'], mode='lines', name='AAPL Close Price')
 trace2 = go.Scatter(x=merged_df['date'], y=merged_df['Compound Score'], mode='lines', name='Sentiment Score', line=dict(color='orange'))
 
 # Creating subplot figure
@@ -196,12 +203,10 @@ fig.update_yaxes(title_text="Sentiment Score", row=2, col=1)
 fig.show()
 ```
 
-
-```{python correlation calculation}
-
+```{python correlation calculation,echo=FALSE,results='hide'}
 # Stock symbols to analyze (add more symbols as needed)
 stock_symbols = ["LNVGY", "DELL", "HPE", "MSFT", "GOOG"]
-api_key = '<API key>'
+api_key = '9dcab5d0d86940459623ec7dea5c8d36'
 all_headlines = []
 
 # Set the date range for news retrieval
@@ -331,6 +336,9 @@ plt.title('Sentiment Scores vs. Apple Stock Price Over Time')
 plt.show()
 
 # The negative sign indicates a weak negative correlation, suggesting that as the compound scores (sentiment) increase, the closing prices of Apple stock tend to decrease slightly.
+```
 
+```{python }
 
+#fetch sentimental analysis of news for commodities/logistics such as gas prices, 
 ```
