@@ -319,6 +319,25 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script type="text/javascript">
+  window.PlotlyConfig = {MathJaxConfig: 'local'};
+  if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+  if (typeof require !== 'undefined') {
+  require.undef("plotly");
+  requirejs.config({
+      paths: {
+          'plotly': ['https://cdn.plot.ly/plotly-2.12.1.min']
+      }
+  });
+  require(['plotly'], function(Plotly) {
+      window._Plotly = Plotly;
+  });
+  }
+  </script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -337,113 +356,483 @@ Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar
 </div>
 
 </section>
-<section class="slide level2">
-
-<div class="cell" data-execution_count="1">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: yfinance in /Users/apple/anaconda3/lib/python3.11/site-packages (0.2.32)
-Requirement already satisfied: pandas&gt;=1.3.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (1.5.3)
-Requirement already satisfied: numpy&gt;=1.16.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (1.25.2)
-Requirement already satisfied: requests&gt;=2.31 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (2.31.0)
-Requirement already satisfied: multitasking&gt;=0.0.7 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (0.0.11)
-Requirement already satisfied: lxml&gt;=4.9.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (4.9.2)
-Requirement already satisfied: appdirs&gt;=1.4.4 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (1.4.4)
-Requirement already satisfied: pytz&gt;=2022.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (2022.7)
-Requirement already satisfied: frozendict&gt;=2.3.4 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (2.3.10)
-Requirement already satisfied: peewee&gt;=3.16.2 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (3.17.0)
-Requirement already satisfied: beautifulsoup4&gt;=4.11.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (4.12.2)
-Requirement already satisfied: html5lib&gt;=1.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from yfinance) (1.1)
-Requirement already satisfied: soupsieve&gt;1.2 in /Users/apple/anaconda3/lib/python3.11/site-packages (from beautifulsoup4&gt;=4.11.1-&gt;yfinance) (2.4)
-Requirement already satisfied: six&gt;=1.9 in /Users/apple/anaconda3/lib/python3.11/site-packages (from html5lib&gt;=1.1-&gt;yfinance) (1.16.0)
-Requirement already satisfied: webencodings in /Users/apple/anaconda3/lib/python3.11/site-packages (from html5lib&gt;=1.1-&gt;yfinance) (0.5.1)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from pandas&gt;=1.3.0-&gt;yfinance) (2.8.2)
-Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;yfinance) (2.0.4)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;yfinance) (3.4)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;yfinance) (1.26.16)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests&gt;=2.31-&gt;yfinance) (2023.7.22)
-Requirement already satisfied: vaderSentiment in /Users/apple/anaconda3/lib/python3.11/site-packages (3.3.2)
-Requirement already satisfied: requests in /Users/apple/anaconda3/lib/python3.11/site-packages (from vaderSentiment) (2.31.0)
-Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests-&gt;vaderSentiment) (2.0.4)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests-&gt;vaderSentiment) (3.4)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests-&gt;vaderSentiment) (1.26.16)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/apple/anaconda3/lib/python3.11/site-packages (from requests-&gt;vaderSentiment) (2023.7.22)
-Requirement already satisfied: pandas in /Users/apple/anaconda3/lib/python3.11/site-packages (1.5.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from pandas) (2.8.2)
-Requirement already satisfied: pytz&gt;=2020.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from pandas) (2022.7)
-Requirement already satisfied: numpy&gt;=1.21.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from pandas) (1.25.2)
-Requirement already satisfied: six&gt;=1.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
-Requirement already satisfied: matplotlib in /Users/apple/anaconda3/lib/python3.11/site-packages (3.7.2)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (1.0.5)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (4.25.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (1.4.4)
-Requirement already satisfied: numpy&gt;=1.20 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (1.25.2)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (23.0)
-Requirement already satisfied: pillow&gt;=6.2.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (9.4.0)
-Requirement already satisfied: pyparsing&lt;3.1,&gt;=2.3.1 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (3.0.9)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/apple/anaconda3/lib/python3.11/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: six&gt;=1.5 in /Users/apple/anaconda3/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
-Requirement already satisfied: nltk in /Users/apple/anaconda3/lib/python3.11/site-packages (3.8.1)
-Requirement already satisfied: click in /Users/apple/anaconda3/lib/python3.11/site-packages (from nltk) (8.0.4)
-Requirement already satisfied: joblib in /Users/apple/anaconda3/lib/python3.11/site-packages (from nltk) (1.2.0)
-Requirement already satisfied: regex&gt;=2021.8.3 in /Users/apple/anaconda3/lib/python3.11/site-packages (from nltk) (2022.7.9)
-Requirement already satisfied: tqdm in /Users/apple/anaconda3/lib/python3.11/site-packages (from nltk) (4.65.0)
-Requirement already satisfied: plotly in /Users/apple/anaconda3/lib/python3.11/site-packages (5.9.0)
-Requirement already satisfied: tenacity&gt;=6.2.0 in /Users/apple/anaconda3/lib/python3.11/site-packages (from plotly) (8.2.2)
-Requirement already satisfied: langdetect in /Users/apple/anaconda3/lib/python3.11/site-packages (1.0.9)
-Requirement already satisfied: six in /Users/apple/anaconda3/lib/python3.11/site-packages (from langdetect) (1.16.0)</code></pre>
-</div>
-</div>
-</section>
 <section id="objective" class="slide level2">
 <h2>Objective</h2>
-<div>
-<ul>
-<li class="fragment"><p>Conduct sentiment analysis on Apple Inc.&nbsp;stock.</p></li>
-<li class="fragment"><p>Analyze diverse inputs, including media coverage, industry reports, social media, and investor opinions from news headlines.</p></li>
-<li class="fragment"><p>Leverage sentiment analysis techniques to uncover patterns in sentiment.</p></li>
-<li class="fragment"><p>Gain insights into the correlation between public perception and Apple’s stock performance, offering benefits for investors and analysts.</p></li>
-</ul>
-</div>
-</section>
-<section id="dataset-description" class="slide level2">
-<h2>Dataset Description</h2>
-<div>
-<ul>
-<li class="fragment"><p>The Stock Price Dataset is sourced in Real-Time from Yahoo Finance, a financial data provider known for its accuracy and reliability.</p></li>
-<li class="fragment"><p>Real-time news headlines related to Apple Inc.&nbsp;are fetched using the News API, providing insights into events and sentiments surrounding the company.</p></li>
-<li class="fragment"><p>The Dataset focuses on the daily stock performance and news headlines related to Apple Inc.&nbsp;for the most recent 30-day period.</p></li>
-<li class="fragment"><p>Our data:</p>
-<ul>
-<li class="fragment"><p>Stock Price Dataset</p></li>
-<li class="fragment"><p>Headlines Dataset</p></li>
-</ul></li>
-</ul>
-</div>
+<p><span style="font-size:23px;">- Conduct sentiment analysis on Apple Inc.&nbsp;stock.</span></p>
+<p><span style="font-size:23px;">- Analyze diverse inputs, including media coverage, industry reports, social media, and investor opinions from news headlines.</span></p>
+<p><span style="font-size:23px;">- Leverage sentiment analysis techniques to uncover patterns in sentiment.</span></p>
+<p><span style="font-size:23px;">- Gain insights into the correlation between public perception and Apple’s stock performance, offering benefits for investors and analysts.</span></p>
 </section>
 <section id="question" class="slide level2">
 <h2>Question</h2>
-<p>How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple’s stock performance in the broader market context?</p>
+<p><span style="font-size:23px;">How can sentiment analysis of news headlines contribute to understanding the stock price movements of Apple Inc., and what insights can be gained regarding the association of external factors and their impact on Apple’s stock performance in the broader market context?</span></p>
 </section>
-<section id="approach" class="slide level2">
-<h2>Approach</h2>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<p><span style="font-size:23px;">- Relationship between headlines and Apple’s stock price</span></p>
+<p><span style="font-size:23px;">- Sentiment analysis</span></p>
+<p><span style="font-size:23px;">- Provide valuable information for understanding stock price movements</span></p>
+</section>
+<section id="dataset-description" class="slide level2">
+<h2>Dataset Description</h2>
+<h3 id="apple-inc.-stock-price-data">Apple Inc.&nbsp;Stock Price Data</h3>
+<p><br>
+</p>
+<div class="cell" data-execution_count="3">
+<div id="stockdata_extraction" class="cell-output cell-output-display" data-execution_count="14">
 <div>
-<ul>
-<li class="fragment"><p>Gather diverse Apple-related data, including news, industry reports, social media, and historical stock prices for a specified Timeframe.</p></li>
-<li class="fragment"><p>Clean and preprocess stock price and headlines data, ensuring alignment with the chosen Timeframe and merging into a single Dataframe.</p></li>
-<li class="fragment"><p>Utilize VaderSentiment for sentiment analysis on news headlines, categorizing sentiments into positive, negative, or neutral.</p></li>
-<li class="fragment"><p>Explore correlations between news sentiment trends and Apple’s stock prices, using visualizations. Conduct statistical tests for significance and discuss key findings and implications.</p></li>
-</ul>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Open</th>
+<th data-quarto-table-cell-role="th">High</th>
+<th data-quarto-table-cell-role="th">Low</th>
+<th data-quarto-table-cell-role="th">Close</th>
+<th data-quarto-table-cell-role="th">Volume</th>
+<th data-quarto-table-cell-role="th">Dividends</th>
+<th data-quarto-table-cell-role="th">Stock Splits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2023-11-09</td>
+<td>182.719278</td>
+<td>183.877740</td>
+<td>181.570782</td>
+<td>182.169998</td>
+<td>53763500</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2023-11-10</td>
+<td>183.970001</td>
+<td>186.570007</td>
+<td>183.529999</td>
+<td>186.399994</td>
+<td>66133400</td>
+<td>0.24</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2023-11-13</td>
+<td>185.820007</td>
+<td>186.029999</td>
+<td>184.210007</td>
+<td>184.800003</td>
+<td>43627500</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<h3 id="apple-inc.-news-headlines-data">Apple Inc.&nbsp;News Headlines Data</h3>
+<p><br>
+</p>
+<div class="cell" data-execution_count="5">
+<div id="headlines_transformation" class="cell-output cell-output-display" data-execution_count="16">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Headlines</th>
+<th data-quarto-table-cell-role="th">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Apple Stock: The Good and Bad News for AAPL In...</td>
+<td>2023-11-13 11:56:14+00:00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Apple、Apple ConfiguratorからiPhoneやiPadにアプリがインスト...</td>
+<td>2023-11-13 22:17:15+00:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Major Apple assembler Foxconn reports surprise...</td>
+<td>2023-11-14 13:57:26+00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/wordcloud.png" width="900"></p>
+</figure>
+</div>
+</div>
+<p>:::</p>
+</section>
+<section id="workflow" class="slide level2">
+<h2>Workflow</h2>
+<p><span style="font-size:23px;">1. Loaded necessary packages for data manipulation, visualization, sentiment analysis, and financial data retrieval.</span></p>
+<p><span style="font-size:23px;">2. Extracted data (yfinance library and News API) for the last 30 days.</span></p>
+<p><span style="font-size:23px;">3. Transformed data (sorting, filtering, removing duplicates).</span></p>
+<p><span style="font-size:23px;">4. Sentiment analysis using the VADER sentiment analysis tool.</span></p>
+<p><span style="font-size:23px;">5. Plotted results and Interpretation.</span></p>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<p><img data-src="presentation_files/figure-revealjs/wordcloud-output-1.png" id="wordcloud" width="763" height="411"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div id="aapl-stock-price-and-sentiment-analysis" class="cell-output cell-output-display">
+
+<div>                            <div id="fb7c27ed-ab3a-4413-a311-58c6b67da094" class="plotly-graph-div" style="height:600px; width:800px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("fb7c27ed-ab3a-4413-a311-58c6b67da094")) {                    Plotly.newPlot(                        "fb7c27ed-ab3a-4413-a311-58c6b67da094",                        [{"mode":"lines","name":"AAPL Close Price","x":["2023-11-09","2023-11-10","2023-11-13","2023-11-14","2023-11-15","2023-11-16","2023-11-17","2023-11-20","2023-11-21","2023-11-22","2023-11-24","2023-11-27","2023-11-28","2023-11-29","2023-11-30","2023-12-01","2023-12-04","2023-12-05","2023-12-06","2023-12-07","2023-12-08"],"y":[182.1699981689453,186.39999389648438,184.8000030517578,187.44000244140625,188.00999450683594,189.7100067138672,189.69000244140625,191.4499969482422,190.63999938964844,191.30999755859375,189.97000122070312,189.7899932861328,190.39999389648438,189.3699951171875,189.9499969482422,191.24000549316406,189.42999267578125,193.4199981689453,192.32000732421875,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"orange"},"mode":"lines","name":"Sentiment Score","x":["2023-11-13","2023-11-13","2023-11-14","2023-11-16","2023-11-19","2023-11-20","2023-11-23","2023-11-23","2023-11-24","2023-11-27","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-12-05","2023-12-05","2023-12-06","2023-12-06","2023-12-06","2023-12-06","2023-12-07","2023-12-08","2023-12-08","2023-12-08","2023-12-09"],"y":[-0.1531,0.0,0.6124,0.0,0.5267,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.2023,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.4404,-0.6369,0.5106,0.0,0.0],"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0]},"yaxis":{"anchor":"x","domain":[0.625,1.0],"title":{"text":"Price"}},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"title":{"text":"Date"}},"yaxis2":{"anchor":"x2","domain":[0.0,0.375],"title":{"text":"Sentiment Score"}},"annotations":[{"font":{"size":16},"showarrow":false,"text":"AAPL Stock Price","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Sentiment Analysis of News Headlines","x":0.5,"xanchor":"center","xref":"paper","y":0.375,"yanchor":"bottom","yref":"paper"}],"title":{"text":"AAPL Stock Price and Sentiment Analysis"},"height":600,"width":800},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('fb7c27ed-ab3a-4413-a311-58c6b67da094');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="cell-output cell-output-stdout">
+<pre><code>Headline: IronYun and HPE Introduce First AI-Powered Video Analytics Solution Validated on HPE ProLiant Gen 11
+Date: 2023-11-22 11:12:00+00:00
+Symbol: HPE
+
+Headline: Hewlett Packard Enterprise (NYSE:HPE) Shares Purchased by Heritage Trust Co
+Date: 2023-11-24 17:28:47+00:00
+Symbol: HPE
+
+Headline: Stocks to Watch Tuesday: Carlyle, PDD, Zscaler, HPE
+Date: 2023-11-28 15:24:05+00:00
+Symbol: HPE
+
+Headline: State Board of Administration of Florida Retirement System Reduces Holdings in Hewlett Packard Enterprise (NYSE:HPE)
+Date: 2023-11-28 15:38:45+00:00
+Symbol: HPE
+
+Headline: HPE sees promising future and double-digit growth in AI
+Date: 2023-11-28 21:50:08+00:00
+Symbol: HPE
+
+Headline: HPE’s earnings edge past Wall Street’s estimates, driven by upsurge in AI
+Date: 2023-11-29 00:11:54+00:00
+Symbol: HPE
+
+Headline: HPE: EPS down 9% in Q4
+Date: 2023-11-29 09:12:04+00:00
+Symbol: HPE
+
+Headline: HPE Announces Q4 FY2023 and Full Year Results
+Date: 2023-11-29 12:00:00+00:00
+Symbol: HPE
+
+Headline: Korea Telecom Selects HPE Aruba Networking SD-WAN to Help Deliver Faster Global Connectivity for Enterprises via AWS Cloud WAN
+Date: 2023-11-29 13:01:01+00:00
+Symbol: HPE
+
+Headline: 123,254 Shares in Hewlett Packard Enterprise (NYSE:HPE) Purchased by Trexquant Investment LP
+Date: 2023-11-29 13:46:45+00:00
+Symbol: HPE
+
+Headline: Trexquant Investment LP Invests $2.07 Million in Hewlett Packard Enterprise (NYSE:HPE)
+Date: 2023-11-29 14:18:51+00:00
+Symbol: HPE
+
+Headline: Server sales down 31% at HPE as enterprises hack spending
+Date: 2023-11-29 15:02:08+00:00
+Symbol: HPE
+
+Headline: Sustainability, security and AI take center stage at HPE Discover: theCUBE breaks down the day 1 keynote
+Date: 2023-11-29 16:57:38+00:00
+Symbol: HPE
+
+Headline: The evolution of Microsoft and HPE’s alliance in shaping the hybrid cloud landscape
+Date: 2023-11-29 21:18:43+00:00
+Symbol: HPE
+
+Headline: Following MSFT &amp; GOOG Lead, AWS Embraces Nvidia And Upgrades Own Chips
+Date: 2023-11-30 00:06:27+00:00
+Symbol: MSFT
+
+Headline: Ofinno Slashes Cloud Costs Up to 90% with HPE GreenLake
+Date: 2023-11-30 03:30:00+00:00
+Symbol: HPE
+
+Headline: Ofinno Slashes Cloud Costs Up to 90% with HPE GreenLake
+Date: 2023-11-30 08:31:01+00:00
+Symbol: HPE
+
+Headline: HPE, Nvidia partner on AI-optimized platforms and services
+Date: 2023-11-30 08:45:14+00:00
+Symbol: HPE
+
+Headline: HPE targets enterprises with Nvidia-powered platform for tuning AI
+Date: 2023-11-30 11:45:05+00:00
+Symbol: HPE
+
+Headline: HPE targets enterprises with Nvidia-powered platform for tuning AI
+Date: 2023-11-30 11:48:08+00:00
+Symbol: HPE
+
+Headline: Panagora Asset Management Inc. Sells 1,699,552 Shares of Hewlett Packard Enterprise (NYSE:HPE)
+Date: 2023-11-30 14:48:47+00:00
+Symbol: HPE
+
+Headline: Transforming IT operations: Exploring HPE’s AI-driven observability solutions
+Date: 2023-11-30 17:00:36+00:00
+Symbol: HPE
+
+Headline: Providing a supercomputing solution for generative AI: Inside HPE and Nvidia’s collaboration
+Date: 2023-11-30 18:00:37+00:00
+Symbol: HPE
+
+Headline: Hewlett Packard Enterprise (NYSE:HPE) Announces Earnings Results, Beats Expectations By $0.02 EPS
+Date: 2023-11-30 18:56:45+00:00
+Symbol: HPE
+
+Headline: Data reshaped: HPE’s AI-enhanced storage for the modern enterprise
+Date: 2023-11-30 20:40:36+00:00
+Symbol: HPE
+
+Headline: AMD and HPE forge new paths in sustainable computing
+Date: 2023-11-30 21:40:56+00:00
+Symbol: HPE
+
+Headline: How Atea and HPE are pioneering eco-friendly digital transformation
+Date: 2023-12-01 16:11:45+00:00
+Symbol: HPE
+
+Headline: HPE to start pumping AI capabilities into Greenlake under Project Ethan
+Date: 2023-12-01 17:04:07+00:00
+Symbol: HPE
+
+Headline: HPE to start pumping AI capabilities into Greenlake under Project Ethan
+Date: 2023-12-01 17:16:08+00:00
+Symbol: HPE
+
+Headline: Intel and HPE prioritize sustainability in processor design and manufacturing
+Date: 2023-12-01 20:25:53+00:00
+Symbol: HPE
+
+Headline: HPE ProLiant DL320 Gen11 Server Review
+Date: 2023-12-01 20:55:43+00:00
+Symbol: HPE
+
+Headline: HPE says impact of AI on enterprise not 'overstated.' It must be hoping so
+Date: 2023-12-01 21:03:12+00:00
+Symbol: HPE
+
+Headline: HPE says impact of AI on enterprise not 'overstated.' It must be hoping so
+Date: 2023-12-01 21:08:48+00:00
+Symbol: HPE
+
+Headline: HPE and the Ryder Cup: Partnering for innovation and sustainability in golf
+Date: 2023-12-01 21:40:29+00:00
+Symbol: HPE
+
+Headline: Bridging the gap: HPE’s hybrid cloud and AI integration strategy
+Date: 2023-12-04 22:30:59+00:00
+Symbol: HPE
+
+Headline: Microsoft and HPE unite to integrate AI into cloud solutions
+Date: 2023-12-04 23:30:16+00:00
+Symbol: HPE
+
+Headline: Three insights you might have missed from the ‘HPE Discover Barcelona’ event
+Date: 2023-12-05 20:25:30+00:00
+Symbol: HPE
+
+Headline: MSFT Stock, PANW, CRWD, ZS Lead Screen Of 22 Stocks To Watch As AI Boom Continues
+Date: 2023-12-05 20:38:25+00:00
+Symbol: MSFT
+
+Headline: KIOXIA RM7 Series Value SAS SSDs Now Available for HPE ProLiant Gen11 Servers
+Date: 2023-12-05 21:44:58+00:00
+Symbol: HPE
+
+Headline: Here’s Why You Should Keep an Eye on Your Microsoft (MSFT) Investment
+Date: 2023-12-07 08:59:07+00:00
+Symbol: MSFT
+
+Headline: (PR) New Kioxia RM7 Series Value SAS SSDs Debut on HPE Servers
+Date: 2023-12-07 11:47:13+00:00
+Symbol: HPE
+
+Headline: Microsoft (NASDAQ: MSFT) Vs. Meta (NASDAQ: META) — Analyzing $1,000 Investments From May 18, 2012
+Date: 2023-12-07 17:24:41+00:00
+Symbol: MSFT
+
+Headline: Microsoft (NASDAQ: MSFT) Vs. Meta (NASDAQ: META)
+Date: 2023-12-07 20:56:07+00:00
+Symbol: MSFT
+
+Headline: HPE GreenLake aims to bridge the gap in the hybrid cloud world
+Date: 2023-12-08 16:39:22+00:00
+Symbol: HPE
+
+Headline: Is Microsoft (MSFT) Still a Great Investment Choice?
+Date: 2023-12-10 05:17:09+00:00
+Symbol: MSFT
+
+Headline: Is Microsoft (MSFT) Still a Great Investment Choice?
+Date: 2023-12-10 05:17:09+00:00
+Symbol: MSFT
+
+         date  Compound Score
+0  2023-11-22        0.493900
+1  2023-11-24        0.670500
+2  2023-11-28        0.216200
+3  2023-11-29        0.115322
+4  2023-11-30        0.016175
+5  2023-12-01        0.172317
+6  2023-12-04        0.088950
+7  2023-12-05        0.014667
+8  2023-12-07        0.085000
+9  2023-12-08        0.000000
+10 2023-12-10        0.624900
+Correlation between Compound Score and Closing Price: -0.3620196879470234
+        date  Compound Score        Open        High         Low       Close  \
+0 2023-11-22        0.493900  191.490005  192.929993  190.830002  191.309998   
+1 2023-11-24        0.670500  190.869995  190.899994  189.250000  189.970001   
+2 2023-11-28        0.216200  189.779999  191.080002  189.399994  190.399994   
+3 2023-11-29        0.115322  190.899994  192.089996  188.970001  189.369995   
+4 2023-11-30        0.016175  189.839996  190.320007  188.190002  189.949997   
+5 2023-12-01        0.172317  190.330002  191.559998  189.229996  191.240005   
+6 2023-12-04        0.088950  189.979996  190.050003  187.449997  189.429993   
+7 2023-12-05        0.014667  190.210007  194.399994  190.179993  193.419998   
+8 2023-12-07        0.085000  193.630005  195.000000  193.589996  194.270004   
+9 2023-12-08        0.000000  194.199997  195.990005  193.669998  195.710007   
+
+     Volume  Dividends  Stock Splits  
+0  39617700        0.0           0.0  
+1  24048300        0.0           0.0  
+2  38415400        0.0           0.0  
+3  43014200        0.0           0.0  
+4  48794400        0.0           0.0  
+5  45679300        0.0           0.0  
+6  43389500        0.0           0.0  
+7  66628400        0.0           0.0  
+8  47477700        0.0           0.0  
+9  53377300        0.0           0.0  
+Correlation between Compound Score and Closing Price: -0.3620196879470234</code></pre>
+</div>
+<div id="correlation" class="cell-output cell-output-display">
+
+<div>                            <div id="760e7fd1-4d7b-4199-8212-576d42de8f4b" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("760e7fd1-4d7b-4199-8212-576d42de8f4b")) {                    Plotly.newPlot(                        "760e7fd1-4d7b-4199-8212-576d42de8f4b",                        [{"mode":"lines+markers","name":"Compound Score","x":["2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[0.4939,0.6705,0.21619999999999998,0.11532222222222223,0.016174999999999995,0.17231666666666667,0.08895,0.01466666666666668,0.085,0.0],"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"darkgoldenrod"},"mode":"lines+markers","name":"Closing Price","x":["2023-11-22T00:00:00","2023-11-24T00:00:00","2023-11-28T00:00:00","2023-11-29T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-04T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[191.30999755859375,189.97000122070312,190.39999389648438,189.3699951171875,189.9499969482422,191.24000549316406,189.42999267578125,193.4199981689453,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"green","size":8},"mode":"markers","name":"Positive Change","x":["2023-11-28T00:00:00","2023-11-30T00:00:00","2023-12-01T00:00:00","2023-12-05T00:00:00","2023-12-07T00:00:00","2023-12-08T00:00:00"],"y":[190.39999389648438,189.9499969482422,191.24000549316406,193.4199981689453,194.27000427246094,195.7100067138672],"type":"scatter","xaxis":"x","yaxis":"y2"},{"marker":{"color":"red","size":8},"mode":"markers","name":"Negative Change","x":["2023-11-24T00:00:00","2023-11-29T00:00:00","2023-12-04T00:00:00"],"y":[189.97000122070312,189.3699951171875,189.42999267578125],"type":"scatter","xaxis":"x","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.94],"title":{"text":"Date"},"showgrid":true,"zeroline":true,"gridcolor":"lightgrey","gridwidth":0.5,"showline":true,"linecolor":"#2a3f5f","linewidth":2},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Compound Score"},"color":"blue","showline":true,"linecolor":"blue","linewidth":2},"yaxis2":{"anchor":"x","overlaying":"y","side":"right","title":{"text":"Closing Price"},"color":"darkgoldenrod","showline":true,"linecolor":"darkgoldenrod","linewidth":2},"title":{"text":"Competitors Sentiment Scores vs. Apple Closing Price"},"plot_bgcolor":"white","paper_bgcolor":"white"},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('760e7fd1-4d7b-4199-8212-576d42de8f4b');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
+<div>
+<p><span style="font-size:23px;">- In this project, we delved into the dynamic intersection of finance and sentiment analysis, specifically focusing on Apple stock. Leveraging the <code>SentimentIntensityAnalyzer</code> function in the <code>vaderSentiment</code> library in Python, we embarked on a journey to explore the emotional tone surrounding Apple’s stock based on textual data.</span></p>
+<p><span style="font-size:23px;">- The project initiated with data acquisition, utilizing the <code>yfinance</code> library to fetch comprehensive stock data through API calls. Subsequently, sentiment analysis was performed using <code>vaderSentiment</code>, a powerful tool for gauging sentiment intensity in text data. The sentiment scores obtained were then plotted against the <code>Apple</code> stock price, creating a visual representation of the relationship between sentiment and market dynamics.</span></p>
+<p><span style="font-size:23px;">- The comparison plot revealed intriguing insights into the potential correlation between sentiment shifts and stock price movements. Peaks and troughs in sentiment scores corresponded with noteworthy fluctuations in the stock chart, indicating a potential influence of public sentiment on market trends.</span></p>
+</div>
+</section>
+<section id="conclusion-1" class="slide level2">
+<h2>Conclusion</h2>
+<div>
+<p><span style="font-size:23px;">- However, it’s essential to acknowledge the multifaceted nature of stock markets and the intricate interplay of various factors influencing stock prices. While sentiment analysis provides valuable insights, it should be viewed as one of many tools in the broader landscape of financial analysis.</span></p>
+<p><span style="font-size:23px;">- In conclusion, this project exemplifies the fusion of sentiment analysis techniques with financial data to derive meaningful insights into the emotional undercurrents surrounding Apple stock. As we navigate the complex realm of stock markets, this approach adds a nuanced layer to our understanding, paving the way for further exploration and refinement of strategies in financial decision-making.</span></p>
+</div>
 </section>
 <section id="challenges-faced" class="slide level2">
 <h2>Challenges faced</h2>
+<div>
+<p><span style="font-size:23px;">- One of the limitation to this project was fetching data from a live data source. We used newsapi.org to fetch realtime news but this platform only lets us fetch data for the past 30 days which would stop us from training the model on a wider timescale.</span></p>
+<p><span style="font-size:23px;">- For the past few months, market sentiment has stayed overtly positive which doesn’t help us in training the model well to fit in the Bear Market Scenario.</span></p>
+<p><span style="font-size:23px;">- Stock Market Analysis is a wide spectrum and all Investments should be done with caution. This is just a educational project to show the correlation between market sentiment and the stock price. Other factors such as Dollar Index, Overall Investor sentiments, external factors such as trading restrictions on products around the globe and the undergoing wars between different nations. DO NOT take the outcome of this project as financial advice. Please be careful before making any investments.</span></p>
+<p><span style="font-size:23px;">- Thank you for joining me on this exploration of sentiments in the world of Apple stocks.</span></p>
+</div>
 
 <div class="footer footer-default">
 
