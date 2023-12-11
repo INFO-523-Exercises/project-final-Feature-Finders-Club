@@ -18,6 +18,16 @@ This project conducts sentiment analysis on Apple stock using the `SentimentInte
 - Python v3+
 - Necessary Python libraries: vaderSentiment, yfinance, matplotlib
 
+### Usage
+#### To Clone this repository -
+bash
+Copy code
+git clone https://github.com/INFO-523-Exercises/project-final-Feature-Finders-Club
+Install required dependencies:
+bash
+Copy code
+pip install -r requirements.txt
+Run the main script.
 
 ### Configuration
 - Ensure that you have valid API keys for any external services used in fetching stock data.
