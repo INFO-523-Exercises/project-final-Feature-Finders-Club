@@ -295,7 +295,7 @@ grouped_df = company_merged_df.groupby('date')['Compound Score'].mean().reset_in
 print(grouped_df)
 
 # Retrieve Apple stock data using Yahoo Finance API
-apple = yf.Ticker("AAPL")
+apple = yfinance.Ticker("AAPL")
 apple_data = apple.history(period='1mo')
 
 # Format date columns for merging
