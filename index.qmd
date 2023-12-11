@@ -46,14 +46,6 @@ toc: true
 jupyter: python3
 ---
 
-```{r,echo=FALSE}
-#| label: load-pkgs
-#| message: false
-suppressWarnings(library(tidyverse))
-library(knitr)
-library(lubridate)
-library(reticulate)
-```
 
 ```{python setup, message=FALSE,echo=FALSE,results='hide'}
 '''
@@ -540,3 +532,11 @@ fig.show()
 ```
 
 ## Discussion
+
+[In this project, we delved into the dynamic intersection of finance and sentiment analysis, with a specific focus on Apple stock. Employing the `SentimentIntensityAnalyzer` function from the `vaderSentiment` library in Python, our exploration revolved around gauging the emotional tone surrounding Apple's stock through the analysis of textual data. The initial phase involved data acquisition, leveraging the `yfinance` library to retrieve comprehensive stock data via API calls.]{style="font-size:23px;"}
+
+[Following this, sentiment analysis was conducted using the robust `vaderSentiment` tool, providing a nuanced understanding of sentiment intensity in the context of textual information. The obtained sentiment scores were then juxtaposed against Apple's stock prices, resulting in a visual representation that illuminated the intricate relationship between sentiment dynamics and market trends.]{style="font-size:23px;"}
+
+[The comparison plot unearthed compelling insights into the potential correlation between sentiment shifts and stock price movements. Peaks and troughs in sentiment scores aligned with notable fluctuations in the stock chart, suggesting a discernible influence of public sentiment on market dynamics. However, it is crucial to recognize the multifaceted nature of stock markets and the complex interplay of various factors impacting stock prices. While sentiment analysis offers valuable insights, it should be considered as one element within the broader landscape of financial analysis.]{style="font-size:23px;"}
+
+[In conclusion, this project exemplifies the integration of sentiment analysis techniques with financial data to derive meaningful insights into the emotional undercurrents surrounding Apple stock. As we navigate the complexities of stock markets, this approach introduces a nuanced layer to our comprehension, laying the groundwork for continued exploration and refinement of strategies in financial decision-making.]{style="font-size:23px;"}

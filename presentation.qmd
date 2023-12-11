@@ -45,29 +45,8 @@ How can sentiment analysis of news headlines contribute to understanding the sto
 
 ## Dataset Description
 
-## Analysis
-
-```{r,echo=FALSE}
-#| label: load-pkgs
-#| message: false
-#| include: false
-suppressWarnings(library(tidyverse))
-library(knitr)
-library(lubridate)
-library(reticulate)
-```
-
-## Workflow
-
-1.  Loaded necessary packages for data manipulation, visualization, sentiment analysis, and financial data retrieval.
-
-2.  Extracted data (yfinance library and News API) for the last 30 days.
-
-3.  Transformed data (sorting, filtering, removing duplicates).
-
-4.  Sentiment analysis using the VADER sentiment analysis tool.
-
-5.  Plotted results and Interpretation.
+### Apple Inc. Stock Price Data
+\
 
 ```{python setup, message=FALSE,echo=FALSE,results='hide'}
 #| label: install-pkgs
@@ -86,7 +65,6 @@ library(reticulate)
 
 ```{python importing-lib, message=FALSE,echo=FALSE,results='hide'}
 #| label: load-pkgs
-#| include: false
 # Imports essential libraries for data manipulation, visualization, sentiment analysis, and financial data retrieval using Yahoo Finance.
 import warnings
 warnings.filterwarnings("ignore")
@@ -107,7 +85,6 @@ import matplotlib.pyplot as plt
 
 ```{python stockdata_extraction,echo=FALSE,results='hide'}
 #| label: stockdata_extraction
-#| include: false
 # Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
 apple=yfinance.Ticker("AAPL")
 # Retrieve historical stock data for the last month for the specified ticker
@@ -115,11 +92,11 @@ apple_data=apple.history(period='1mo')
 #Restting date from index to column and converting it to '%Y-%m-%d' format
 apple_data.reset_index(inplace=True)
 apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
+apple_data.head(3)
 ```
-
+## 
 ```{python headlines_extraction,echo=FALSE,results='hide'}
 #| label: headlines_extraction
-#| include: false
 # Setting up necessary parameters for the API request
 api_key='9dcab5d0d86940459623ec7dea5c8d36'
 stock_symbol ="AAPL"
@@ -149,9 +126,11 @@ else:
     print("Failed to retrieve news data.")
 ```
 
+### Apple Inc. News Headlines Data
+\
 ```{python headlines_transformation, message=FALSE,echo=FALSE,results='hide'}
 #| label: headlines_transformation
-#| include: false
+
 # Initialize an empty list to store Apple-related headlines with their respective dates
 apple_related_headlines=[]
 # Iterate through headlines and their associated publication dates
@@ -170,16 +149,31 @@ for headline, _ in headlines:
 # Sort the list of Apple-related headlines by date
 apple_related_headlines.sort(key=lambda x: x[1])
 
-# Display the sorted Apple-related headlines along with their dates
-for data in apple_related_headlines:
-    print(f'Headline: {data[0]}\nDate: {data[1]}\n')
     
 # Create a DataFrame from the list of Apple-related headlines with dates
 df_apple_related_headlines = pd.DataFrame(apple_related_headlines, columns= ['Headlines', 'date'])
 
 # Remove duplicate headlines to retain unique entries
 df_unique_apple_related_headlines = df_apple_related_headlines.drop_duplicates(subset=['Headlines'])
+
+df_unique_apple_related_headlines.head(3)
 ```
+
+## Analysis
+
+
+## Workflow
+
+1.  Loaded necessary packages for data manipulation, visualization, sentiment analysis, and financial data retrieval.
+
+2.  Extracted data (yfinance library and News API) for the last 30 days.
+
+3.  Transformed data (sorting, filtering, removing duplicates).
+
+4.  Sentiment analysis using the VADER sentiment analysis tool.
+
+5.  Plotted results and Interpretation.
+
 
 ```{python wordcloud,echo=FALSE,results='hide'}
 #| label: wordcloud
