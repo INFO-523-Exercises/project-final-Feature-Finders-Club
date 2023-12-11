@@ -4,6 +4,9 @@
 ### Overview
 This project conducts sentiment analysis on Apple stock using the `SentimentIntensityAnalyzer` from the `VaderSentiment` library in Python. The sentiment scores are compared with Apple stock prices, providing insights into the potential correlation between public sentiment and market dynamics.
 
+#### Authors: Team Feature Finders Club - Eshaan Mathakari, Sanjay Bhargav Siddi, Likith Kumar Dundigalla,Aravind shrenivas Murali, Vamsi Vadala
+#### Affiliation: School of Information, University of Arizona  
+
 ### Features
 - Sentiment Analysis: Utilizes vaderSentiment's `SentimentIntensityAnalyzer` for sentiment analysis on textual data related to Apple stock.
 
