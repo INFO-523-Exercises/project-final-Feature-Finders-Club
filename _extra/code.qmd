@@ -55,6 +55,10 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 ```
 
+``` {python api-key}
+API_KEY = ""
+```
+
 ```{python stockdata_extraction,echo=FALSE,results='hide'}
 # Create a Ticker object for the stock with symbol 'AAPL' (Apple Inc.)
 apple=yfinance.Ticker("AAPL")
@@ -67,7 +71,7 @@ apple_data['Date'] = apple_data['Date'].dt.strftime('%Y-%m-%d')
 
 ```{python headlines_extraction,echo=FALSE,results='hide'}
 # Setting up necessary parameters for the API request
-api_key='9dcab5d0d86940459623ec7dea5c8d36'
+api_key=API_KEY
 stock_symbol ="AAPL"
 # Setting up date range for fetching news data (last 30 days)
 end_date = datetime.now()
@@ -206,7 +210,7 @@ fig.show()
 ```{python Competitiors Correlation calculation,echo=FALSE,results='hide'}
 # Stock symbols to analyze (add more symbols as needed)
 company_stock_symbols = ["LNVGY", "DELL", "HPE", "MSFT", "SSNLF"]
-api_key = '9dcab5d0d86940459623ec7dea5c8d36'
+api_key = API_KEY
 all_headlines = []
 
 # Set the date range for news retrieval
@@ -358,7 +362,7 @@ import seaborn as sns
 
 # Stock symbols to analyze (add more symbols as needed)
 globalfactors_symbols = ["pandemic", "tornado", "hurricane", "Pandemic", "economic crisis","earthquake","Global recession", "currency"]
-api_key = 'ef5a0ad43b08420bb13b761a3a1239fa'
+api_key = API_KEY
 all_headlines = []
 
 # Set the date range for news retrieval
