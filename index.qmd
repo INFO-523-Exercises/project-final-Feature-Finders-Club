@@ -47,7 +47,6 @@ toc: true
 jupyter: python3
 ---
 
-
 ```{python setup, message=FALSE,echo=FALSE,results='hide'}
 '''
 #Remove the library installing commands from comment 
